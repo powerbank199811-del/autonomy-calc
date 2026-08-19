@@ -23,3 +23,7 @@ class InvalidAutonomyTargetError(DomainError):
 
 class InvalidSolutionSpecError(DomainError):
     """Описание решения нарушает физические инварианты."""
+
+
+class InvalidOwnershipInputError(DomainError):
+    """Вход для расчёта экономики владения нарушает инварианты."""

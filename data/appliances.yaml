@@ -1,0 +1,322 @@
+# Справочник приборов для калькулятора автономности.
+# code — стабильный ключ, не менять после релиза (на него ссылаются сохранённые расчёты).
+# bus: ac_230 (через розетку/інвертор) | dc_usb (заряджання від павербанка напряму)
+# requires_pure_sine: True только там, где реальный риск — компресори з електронними
+# платами і медтехніка. Для простих насосів з універсальним двигуном не ставимо —
+# вони, як правило, толерантні до модифікованого синуса (втрата ККД, не поломка).
+
+# --- Холодильне обладнання ---
+- code: fridge_small
+  name_uk: "Холодильник малий (до 200л)"
+  category: "Холодильне обладнання"
+  power_w: 100
+  duty_cycle: 0.35
+  startup_factor: 5
+  power_factor: 0.7
+  requires_pure_sine: true
+
+- code: fridge_medium
+  name_uk: "Холодильник середній (200-350л)"
+  category: "Холодильне обладнання"
+  power_w: 150
+  duty_cycle: 0.35
+  startup_factor: 5
+  power_factor: 0.7
+  requires_pure_sine: true
+
+- code: fridge_large_no_frost
+  name_uk: "Холодильник великий No Frost (350л+)"
+  category: "Холодильне обладнання"
+  power_w: 200
+  duty_cycle: 0.4
+  startup_factor: 5
+  power_factor: 0.7
+  requires_pure_sine: true
+
+- code: freezer_chest
+  name_uk: "Морозильна скриня"
+  category: "Холодильне обладнання"
+  power_w: 120
+  duty_cycle: 0.4
+  startup_factor: 5
+  power_factor: 0.7
+  requires_pure_sine: true
+
+# --- Освітлення ---
+- code: led_bulb_5w
+  name_uk: "LED-лампа 5 Вт"
+  category: "Освітлення"
+  power_w: 5
+
+- code: led_bulb_9w
+  name_uk: "LED-лампа 9 Вт"
+  category: "Освітлення"
+  power_w: 9
+
+- code: led_bulb_12w
+  name_uk: "LED-лампа 12 Вт"
+  category: "Освітлення"
+  power_w: 12
+
+- code: led_strip_5m
+  name_uk: "LED-стрічка 5м"
+  category: "Освітлення"
+  power_w: 24
+
+- code: incandescent_bulb_60w
+  name_uk: "Лампа розжарювання 60 Вт"
+  category: "Освітлення"
+  power_w: 60
+
+# --- Опалення та вода ---
+- code: gas_boiler
+  name_uk: "Газовий котел (автоматика + насос)"
+  category: "Опалення та вода"
+  power_w: 120
+  duty_cycle: 0.5
+  startup_factor: 3
+  power_factor: 0.6
+  requires_pure_sine: true
+  max_switchover_ms: 10
+
+- code: electric_boiler_80l_maintain
+  name_uk: "Бойлер 80л (підтримка температури)"
+  category: "Опалення та вода"
+  power_w: 2000
+  duty_cycle: 0.035
+  # ~1.2-1.75 кВт/добу на компенсацію тепловтрат. Реалістичний сценарій для блекауту:
+  # бойлер не нагріває з холодної, лише підтримує вже нагріту воду.
+
+- code: electric_boiler_80l_full_heat
+  name_uk: "Бойлер 80л (повний нагрів з холодної)"
+  category: "Опалення та вода"
+  power_w: 2000
+  duty_cycle: 1.0
+  # Цикл нагріву ~2.5-3 год, 4.0-5.2 кВт·год за цикл. Це навантаження для генератора,
+  # не для типової станції — 2 кВт безперервно кілька годин поспіль.
+
+- code: warm_floor_mat
+  name_uk: "Мат теплої підлоги (невеликий)"
+  category: "Опалення та вода"
+  power_w: 150
+
+- code: well_pump_shallow
+  name_uk: "Насос поверхневий (неглибока свердловина)"
+  category: "Опалення та вода"
+  power_w: 550
+  duty_cycle: 0.2
+  startup_factor: 6
+  power_factor: 0.65
+
+- code: well_pump_deep
+  name_uk: "Насос глибинний"
+  category: "Опалення та вода"
+  power_w: 750
+  duty_cycle: 0.2
+  startup_factor: 7
+  power_factor: 0.65
+
+- code: circulation_pump_heating
+  name_uk: "Циркуляційний насос опалення"
+  category: "Опалення та вода"
+  power_w: 60
+  duty_cycle: 1.0
+  startup_factor: 3
+  power_factor: 0.6
+
+# --- Зв'язок та охорона ---
+- code: wifi_router_5v
+  name_uk: "Wi-Fi роутер (5V, бюджетний)"
+  category: "Зв'язок та охорона"
+  power_w: 5
+
+- code: wifi_router_9v
+  name_uk: "Wi-Fi роутер (9V, стандартний)"
+  category: "Зв'язок та охорона"
+  power_w: 9
+
+- code: wifi_router_12v
+  name_uk: "Wi-Fi роутер (12V, потужний)"
+  category: "Зв'язок та охорона"
+  power_w: 12
+
+- code: gpon_ont
+  name_uk: "Оптичний термінал (GPON/ONT)"
+  category: "Зв'язок та охорона"
+  power_w: 5
+
+- code: wifi_repeater
+  name_uk: "Wi-Fi репітер"
+  category: "Зв'язок та охорона"
+  power_w: 3
+
+- code: starlink_standard
+  name_uk: "Starlink Standard / Gen2 / Gen3"
+  category: "Зв'язок та охорона"
+  power_w: 75
+  # Середнє робоче споживання 50-100 Вт (простій 20-50 Вт). Джерело: ринкові дані 2026.
+
+- code: starlink_mini
+  name_uk: "Starlink Mini (живлення від павербанка PD)"
+  category: "Зв'язок та охорона"
+  power_w: 30
+  bus: dc_usb
+  # Середнє 20-40 Вт (простій ~15 Вт). Офіційно живиться від потужних PD-павербанків
+  # напряму, без інвертора — важливо для підбору рішення.
+
+- code: starlink_snow_melting
+  name_uk: "Starlink (з підігрівом снігу, зима)"
+  category: "Зв'язок та охорона"
+  power_w: 150
+  # До 150 Вт в холодну погоду при активному розтопленні снігу на антені.
+
+- code: ip_camera
+  name_uk: "IP-камера"
+  category: "Зв'язок та охорона"
+  power_w: 5
+
+- code: cctv_nvr_4ch
+  name_uk: "Відеореєстратор, 4 канали"
+  category: "Зв'язок та охорона"
+  power_w: 15
+
+- code: cctv_nvr_8ch
+  name_uk: "Відеореєстратор, 8 каналів"
+  category: "Зв'язок та охорона"
+  power_w: 25
+
+- code: alarm_panel
+  name_uk: "Панель сигналізації"
+  category: "Зв'язок та охорона"
+  power_w: 5
+
+- code: gate_motor
+  name_uk: "Привід воріт / шлагбаума"
+  category: "Зв'язок та охорона"
+  power_w: 300
+  duty_cycle: 0.05
+  startup_factor: 5
+  power_factor: 0.6
+  requires_pure_sine: true
+
+# --- Комп'ютерна техніка ---
+- code: desktop_pc_office
+  name_uk: "Комп'ютер офісний"
+  category: "Комп'ютерна техніка"
+  power_w: 150
+  duty_cycle: 0.6
+  startup_factor: 1.2
+  power_factor: 0.7
+
+- code: monitor_24
+  name_uk: "Монітор 24\""
+  category: "Комп'ютерна техніка"
+  power_w: 30
+
+- code: laptop_charger_65w_ac
+  name_uk: "Ноутбук (блок живлення 65Вт, через розетку)"
+  category: "Комп'ютерна техніка"
+  power_w: 65
+  duty_cycle: 0.4
+
+- code: laptop_usb_c_pd_65w
+  name_uk: "Ноутбук (USB-C PD 65Вт, від павербанка)"
+  category: "Комп'ютерна техніка"
+  power_w: 65
+  duty_cycle: 0.4
+  bus: dc_usb
+
+- code: smartphone_charge
+  name_uk: "Смартфон (заряджання)"
+  category: "Комп'ютерна техніка"
+  power_w: 10
+  bus: dc_usb
+
+- code: tablet_charge
+  name_uk: "Планшет (заряджання)"
+  category: "Комп'ютерна техніка"
+  power_w: 20
+  bus: dc_usb
+
+# --- Кухонна техніка ---
+- code: electric_kettle_1800w
+  name_uk: "Електрочайник 1.8 кВт"
+  category: "Кухонна техніка"
+  power_w: 1800
+  duty_cycle: 0.15
+
+- code: microwave_800w
+  name_uk: "Мікрохвильова піч 800Вт"
+  category: "Кухонна техніка"
+  power_w: 800
+  duty_cycle: 0.2
+  startup_factor: 1.3
+  power_factor: 0.95
+
+- code: induction_cooktop_1burner
+  name_uk: "Індукційна плита, 1 конфорка"
+  category: "Кухонна техніка"
+  power_w: 1500
+  duty_cycle: 0.3
+  power_factor: 0.95
+
+- code: multicooker_700w
+  name_uk: "Мультиварка 700Вт"
+  category: "Кухонна техніка"
+  power_w: 700
+  duty_cycle: 0.4
+
+# --- Побутова техніка ---
+- code: washing_machine
+  name_uk: "Пральна машина"
+  category: "Побутова техніка"
+  power_w: 2000
+  duty_cycle: 0.25
+  startup_factor: 3
+  power_factor: 0.7
+  requires_pure_sine: true
+
+- code: ventilation_fan_bathroom
+  name_uk: "Витяжний вентилятор (санвузол)"
+  category: "Побутова техніка"
+  power_w: 15
+  power_factor: 0.8
+
+# --- Розваги ---
+- code: tv_led_43
+  name_uk: "Телевізор LED 43\""
+  category: "Розваги"
+  power_w: 60
+  power_factor: 0.9
+
+- code: tv_led_55
+  name_uk: "Телевізор LED 55\""
+  category: "Розваги"
+  power_w: 90
+  power_factor: 0.9
+
+- code: set_top_box
+  name_uk: "ТВ-тюнер / приставка"
+  category: "Розваги"
+  power_w: 10
+
+# --- Медичне обладнання ---
+- code: cpap_machine
+  name_uk: "Апарат CPAP (респіраторна підтримка)"
+  category: "Медичне обладнання"
+  power_w: 60
+  power_factor: 0.9
+  requires_pure_sine: true
+
+- code: oxygen_concentrator
+  name_uk: "Кисневий концентратор"
+  category: "Медичне обладнання"
+  power_w: 300
+  startup_factor: 2
+  power_factor: 0.85
+  requires_pure_sine: true
+
+- code: baby_monitor
+  name_uk: "Радіоняня"
+  category: "Медичне обладнання"
+  power_w: 3

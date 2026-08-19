@@ -31,3 +31,17 @@ def test_core_imports_only_stdlib() -> None:
         if external:
             violations[path.name] = external
     assert not violations, f"Ядро тянет внешние зависимости: {violations}"
+
+
+REFERENCE_DIR = Path(__file__).resolve().parent.parent / "reference"
+REFERENCE_ALLOWED = set(sys.stdlib_module_names) | {"core", "reference", "yaml"}
+
+
+def test_reference_imports_only_core_and_declared_libs() -> None:
+    """reference/ зависит от core и yaml — не от FastAPI, БД, HTTP."""
+    violations: dict[str, set[str]] = {}
+    for path in REFERENCE_DIR.rglob("*.py"):
+        external = _imported_roots(path) - REFERENCE_ALLOWED
+        if external:
+            violations[path.name] = external
+    assert not violations, f"reference/ тянет лишние зависимости: {violations}"

@@ -26,6 +26,8 @@ class CalculationPolicy:
         }
     )
     declared_capacity_derating: float = 0.85
+    #: Реальный ресурс циклов = паспортный * этот коэффициент (см. ADR-011).
+    cycle_life_derating: float = 0.5
 
     def __post_init__(self) -> None:
         if not 0.0 < self.diversity_factor <= 1.0:
@@ -34,6 +36,10 @@ class CalculationPolicy:
             raise ValueError("max_window_hours должен быть положительным")
         if not 0.0 < self.declared_capacity_derating <= 1.0:
             raise ValueError("declared_capacity_derating вне (0, 1]")
+        if not 0.0 < self.cycle_life_derating <= 1.0:
+            raise ValueError("cycle_life_derating вне (0, 1]")
+        if not 0.0 < self.cycle_life_derating <= 1.0:
+            raise ValueError("cycle_life_derating вне (0, 1]")
         for chemistry, dod in self.depth_of_discharge.items():
             if not 0.0 < dod <= 1.0:
                 raise ValueError(f"глубина разряда {chemistry.value} вне (0, 1]")
