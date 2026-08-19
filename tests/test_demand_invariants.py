@@ -61,7 +61,7 @@ def test_ac_and_dc_are_separated(router: ApplianceSpec, phone: ApplianceSpec) ->
         AutonomyTarget(window_hours=Hours(5)),
     )
     assert req.energy_ac_wh > 0 and req.energy_dc_wh > 0
-    assert req.continuous_power_dc_w == 10
+    assert req.continuous_power_dc_w == 10.0
 
 
 def test_dc_only_flag(phone: ApplianceSpec) -> None:
@@ -95,7 +95,7 @@ def test_energy_monotonic_by_hours(router: ApplianceSpec, hours: int) -> None:
     req = calculate_requirement(
         _profile(LoadItem(appliance=router)), AutonomyTarget(window_hours=Hours(hours))
     )
-    assert req.energy_ac_wh == 12 * hours
+    assert req.energy_ac_wh == float(12 * hours)
 
 
 def test_energy_monotonic_by_quantity(led_lamp: ApplianceSpec) -> None:
@@ -103,7 +103,7 @@ def test_energy_monotonic_by_quantity(led_lamp: ApplianceSpec) -> None:
     target = AutonomyTarget(window_hours=Hours(8))
     one = calculate_requirement(_profile(LoadItem(appliance=led_lamp)), target)
     three = calculate_requirement(_profile(LoadItem(appliance=led_lamp, quantity=3)), target)
-    assert three.energy_ac_wh == 3 * one.energy_ac_wh
+    assert three.energy_ac_wh == pytest.approx(3 * one.energy_ac_wh)
 
 
 def test_override_changes_power(router: ApplianceSpec) -> None:
@@ -115,5 +115,5 @@ def test_override_changes_power(router: ApplianceSpec) -> None:
         _profile(LoadItem(appliance=router, override=ApplianceOverride(power_w=Watt(30)))),
         AutonomyTarget(window_hours=Hours(4)),
     )
-    assert req.continuous_power_ac_w == 30
+    assert req.continuous_power_ac_w == 30.0
     assert AssumptionCode.USER_OVERRIDE_APPLIED in req.assumptions

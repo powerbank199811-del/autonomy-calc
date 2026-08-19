@@ -19,3 +19,7 @@ class InvalidLoadItemError(DomainError):
 
 class InvalidAutonomyTargetError(DomainError):
     """Цель автономности вне допустимых границ."""
+
+
+class InvalidSolutionSpecError(DomainError):
+    """Описание решения нарушает физические инварианты."""
