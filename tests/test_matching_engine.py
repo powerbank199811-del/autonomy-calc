@@ -1,0 +1,140 @@
+"""Движок подбора: жёсткие фильтры и ранжирование."""
+
+import pytest
+
+from core.appliances import ApplianceSpec
+from core.demand import calculate_requirement
+from core.load import AutonomyTarget, LoadItem, LoadProfile
+from core.requirement import EnergyRequirement
+from core.solution import SolutionKind, SolutionSpec, StorageChemistry, Waveform
+from core.units import Hours, Watt, WattHour
+from matching.candidate import Candidate, InvalidCandidateError
+from matching.engine import select_recommendations
+
+
+def _req(fridge: ApplianceSpec, hours: int = 4) -> EnergyRequirement:
+    return calculate_requirement(
+        LoadProfile(items=(LoadItem(appliance=fridge),)),
+        AutonomyTarget(window_hours=Hours(hours)),
+    )
+
+
+def _station(
+    offer_id: str, price: float, commission: float, capacity_wh: float = 1000,
+    continuous_w: float = 1000, peak_w: float = 2000, in_stock: bool = True,
+) -> Candidate:
+    return Candidate(
+        offer_id=offer_id, price_uah=price, commission_rate=commission, in_stock=in_stock,
+        solution=SolutionSpec(
+            kind=SolutionKind.STATION, chemistry=StorageChemistry.LIFEPO4,
+            capacity_wh=WattHour(capacity_wh), continuous_power_w=Watt(continuous_w),
+            peak_power_w=Watt(peak_w), waveform=Waveform.PURE_SINE, cycle_life=3000,
+        ),
+    )
+
+
+def test_weak_inverter_excluded_entirely(fridge: ApplianceSpec) -> None:
+    weak = _station("weak", price=10000, commission=0.15, continuous_w=300, peak_w=600)
+    strong = _station("strong", price=25000, commission=0.05, continuous_w=1000, peak_w=2000)
+    result = select_recommendations(_req(fridge), [weak, strong])
+    offer_ids = [r.offer_id for r in result]
+    assert "weak" not in offer_ids
+    assert "strong" in offer_ids
+
+
+def test_out_of_stock_excluded(fridge: ApplianceSpec) -> None:
+    out = _station("out", price=5000, commission=0.2, in_stock=False)
+    available = _station("available", price=25000, commission=0.05)
+    result = select_recommendations(_req(fridge), [out, available])
+    assert [r.offer_id for r in result] == ["available"]
+
+
+def test_full_coverage_beats_partial_even_if_pricier(fridge: ApplianceSpec) -> None:
+    partial = _station("partial", price=8000, commission=0.15, capacity_wh=300)
+    full = _station("full", price=25000, commission=0.05, capacity_wh=2000)
+    result = select_recommendations(_req(fridge, hours=8), [partial, full])
+    assert result[0].offer_id == "full"
+    assert result[0].fit.can_cover_window is True
+    assert result[1].offer_id == "partial"
+    assert result[1].fit.can_run is True
+    assert result[1].fit.can_cover_window is False
+
+
+def test_commission_never_overrides_primary_ranking(fridge: ApplianceSpec) -> None:
+    cheap_low_commission = _station("cheap", price=15000, commission=0.03)
+    expensive_high_commission = _station("expensive", price=30000, commission=0.25)
+    result = select_recommendations(
+        _req(fridge), [cheap_low_commission, expensive_high_commission],
+        grid_tariff_uah_per_kwh=5.0,
+    )
+    assert result[0].offer_id == "cheap"
+
+
+def test_commission_breaks_ties_only(fridge: ApplianceSpec) -> None:
+    low_commission = _station("low_comm", price=20000, commission=0.02, capacity_wh=1000)
+    high_commission = _station("high_comm", price=20000, commission=0.20, capacity_wh=1000)
+    result = select_recommendations(_req(fridge), [low_commission, high_commission])
+    assert result[0].offer_id == "high_comm"
+
+
+def test_ownership_skipped_without_tariff(fridge: ApplianceSpec) -> None:
+    candidate = _station("solo", price=20000, commission=0.1)
+    result = select_recommendations(_req(fridge), [candidate])
+    assert result[0].ownership is None
+
+
+def test_ownership_present_with_tariff(fridge: ApplianceSpec) -> None:
+    candidate = _station("solo", price=20000, commission=0.1)
+    result = select_recommendations(_req(fridge), [candidate], grid_tariff_uah_per_kwh=5.0)
+    assert result[0].ownership is not None
+    assert result[0].ownership.cost_per_kwh_uah > 0
+
+
+def test_recommendation_never_exposes_commission(fridge: ApplianceSpec) -> None:
+    candidate = _station("solo", price=20000, commission=0.1)
+    result = select_recommendations(_req(fridge), [candidate])
+    assert not hasattr(result[0], "commission_rate")
+
+
+def test_limit_truncates(fridge: ApplianceSpec) -> None:
+    candidates = [_station(f"c{i}", price=10000 + i * 100, commission=0.1) for i in range(10)]
+    result = select_recommendations(_req(fridge), candidates, limit=3)
+    assert len(result) == 3
+
+
+def test_empty_when_nothing_fits(fridge: ApplianceSpec) -> None:
+    weak = _station("weak", price=5000, commission=0.1, continuous_w=100, peak_w=150)
+    result = select_recommendations(_req(fridge), [weak])
+    assert result == ()
+
+
+def test_rank_position_is_sequential_from_one(fridge: ApplianceSpec) -> None:
+    candidates = [_station(f"c{i}", price=10000 + i * 1000, commission=0.1) for i in range(4)]
+    result = select_recommendations(_req(fridge), candidates)
+    assert [r.rank_position for r in result] == [1, 2, 3, 4]
+
+
+def test_generator_needs_expected_lifetime_for_ownership(fridge: ApplianceSpec) -> None:
+    generator = Candidate(
+        offer_id="gen", price_uah=20000, commission_rate=0.1,
+        solution=SolutionSpec(
+            kind=SolutionKind.GENERATOR, continuous_power_w=Watt(2000), peak_power_w=Watt(2500),
+            fuel_rate_l_per_kwh=0.4, tank_l=4.0, waveform=Waveform.PURE_SINE,
+        ),
+    )
+    result = select_recommendations(
+        _req(fridge), [generator], grid_tariff_uah_per_kwh=5.0, fuel_price_uah_per_l=55.0,
+    )
+    assert result[0].ownership is None
+    assert result[0].fit.can_run is True
+
+
+def test_invalid_candidate_rejected() -> None:
+    with pytest.raises(InvalidCandidateError):
+        Candidate(
+            offer_id="bad", price_uah=-100, commission_rate=0.1,
+            solution=SolutionSpec(
+                kind=SolutionKind.STATION, chemistry=StorageChemistry.LIFEPO4,
+                capacity_wh=WattHour(1000), continuous_power_w=Watt(1000),
+            ),
+        )
