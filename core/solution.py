@@ -61,6 +61,9 @@ class SolutionSpec:
     fuel_rate_l_per_kwh: float | None = None
     tank_l: float | None = None
     cycle_life: int | None = None
+    #: Переопределяет policy.dod_for(chemistry), когда есть даташит на
+    #: конкретный товар (см. ADR-025). None — используется дефолт по химии.
+    depth_of_discharge_override: float | None = None
 
     def __post_init__(self) -> None:
         if not 0.0 < self.inverter_efficiency <= 1.0:
@@ -77,3 +80,6 @@ class SolutionSpec:
         for value in (self.capacity_wh, self.measured_wh):
             if value is not None and value <= 0:
                 raise InvalidSolutionSpecError("ёмкость должна быть > 0")
+        if self.depth_of_discharge_override is not None:
+            if not 0.0 < self.depth_of_discharge_override <= 1.0:
+                raise InvalidSolutionSpecError("depth_of_discharge_override вне (0, 1]")

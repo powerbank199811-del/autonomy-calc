@@ -22,6 +22,7 @@ class FitBlocker(Enum):
 class FitFlag(Enum):
     USED_MEASURED_CAPACITY = "used_measured_capacity"
     USED_DECLARED_DERATING = "used_declared_derating"
+    USED_PRODUCT_DOD_OVERRIDE = "used_product_dod_override"
     FUEL_LIMITED = "fuel_limited"
     IDLE_DRAW_SIGNIFICANT = "idle_draw_significant"
 
@@ -170,5 +171,11 @@ def _usable_energy(
         gross = float(solution.capacity_wh) * policy.declared_capacity_derating
         flags.add(FitFlag.USED_DECLARED_DERATING)
 
-    dod = policy.dod_for(solution.chemistry)
+    dod = (
+        solution.depth_of_discharge_override
+        if solution.depth_of_discharge_override is not None
+        else policy.dod_for(solution.chemistry)
+    )
+    if solution.depth_of_discharge_override is not None:
+        flags.add(FitFlag.USED_PRODUCT_DOD_OVERRIDE)
     return gross * dod, gross * (1.0 - dod), flags
