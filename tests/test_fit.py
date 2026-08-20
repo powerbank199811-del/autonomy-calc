@@ -185,3 +185,25 @@ def test_usable_never_exceeds_capacity(station_1000: SolutionSpec, router: Appli
 def test_determinism(station_1000: SolutionSpec, fridge: ApplianceSpec) -> None:
     req = _req((LoadItem(appliance=fridge),), 5)
     assert evaluate_fit(req, station_1000) == evaluate_fit(req, station_1000)
+
+
+def test_dod_override_beats_chemistry_default(router: ApplianceSpec) -> None:
+    """Товар с даташитом на 80% DoD не должен считаться по общим 90% для LiFePO4."""
+    battery_80 = SolutionSpec(
+        kind=SolutionKind.INVERTER_BATTERY,
+        chemistry=StorageChemistry.LIFEPO4,
+        capacity_wh=WattHour(1000),
+        continuous_power_w=Watt(500),
+        peak_power_w=Watt(1000),
+        waveform=Waveform.PURE_SINE,
+        depth_of_discharge_override=0.80,
+    )
+    req = evaluate_fit(
+        calculate_requirement(
+            LoadProfile(items=(LoadItem(appliance=router),)), AutonomyTarget(window_hours=Hours(8))
+        ),
+        battery_80,
+    )
+    # 1000 * 0.85 (дисконт заявленной) * 0.80 (override, а не 0.90 по умолчанию)
+    assert req.usable_energy_wh == 680.0
+    assert FitFlag.USED_PRODUCT_DOD_OVERRIDE in req.flags

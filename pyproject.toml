@@ -7,11 +7,14 @@ dependencies = ["pyyaml>=6.0"]
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "mypy>=1.10", "ruff>=0.5", "types-PyYAML>=6.0"]
 
+[tool.setuptools]
+packages = ["core", "reference", "matching", "catalog"]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["core", "reference", "tests"]
+files = ["core", "reference", "matching", "catalog", "tests"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["tests"]
+testpaths = ["tests"] 
