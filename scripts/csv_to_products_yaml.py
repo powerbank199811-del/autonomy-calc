@@ -32,12 +32,13 @@ PRODUCT_FIELDS = (
     "capacity_wh", "continuous_power_w", "peak_power_w", "apparent_power_va",
     "dc_output_power_w", "inverter_efficiency", "dc_output_efficiency",
     "idle_draw_w", "waveform", "switchover_ms", "fuel_rate_l_per_kwh",
-    "tank_l", "cycle_life", "image",
+    "tank_l", "cycle_life", "image", "depth_of_discharge_override", "fuel_rate_source",
 )
 NUMERIC_FIELDS = {
     "capacity_wh", "continuous_power_w", "peak_power_w", "apparent_power_va",
     "dc_output_power_w", "inverter_efficiency", "dc_output_efficiency",
     "idle_draw_w", "switchover_ms", "fuel_rate_l_per_kwh", "tank_l", "cycle_life",
+    "depth_of_discharge_override",
 }
 
 

@@ -113,6 +113,11 @@ def _parse_battery(item: dict[str, Any], index: int, path: Path) -> CatalogBatte
             capacity_wh=WattHour(float(item["capacity_wh"])),
             cycle_life=item.get("cycle_life"),
             dc_output_efficiency=float(item.get("dc_output_efficiency", 0.95)),
+            depth_of_discharge_override=(
+                float(item["depth_of_discharge_override"])
+                if item.get("depth_of_discharge_override") is not None
+                else None
+            ),
         )
         return CatalogBattery(
             component_id=str(item["component_id"]),

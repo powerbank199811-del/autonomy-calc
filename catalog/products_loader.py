@@ -12,7 +12,7 @@ from typing import Any
 import yaml
 
 from catalog.offers import CatalogOffer
-from catalog.products import CatalogProduct
+from catalog.products import CatalogProduct, FuelRateSource
 from core.errors import InvalidSolutionSpecError
 from core.solution import SolutionKind, SolutionSpec, StorageChemistry, Waveform
 from core.units import VoltAmpere, Watt, WattHour
@@ -69,6 +69,12 @@ def _parse_product(item: dict[str, Any], *, index: int, path: Path) -> CatalogPr
             fuel_rate_l_per_kwh=item.get("fuel_rate_l_per_kwh"),
             tank_l=item.get("tank_l"),
             cycle_life=item.get("cycle_life"),
+            depth_of_discharge_override=_optional_float(item.get("depth_of_discharge_override")),
+        )
+        fuel_rate_source = (
+            FuelRateSource(item["fuel_rate_source"])
+            if item.get("fuel_rate_source")
+            else None
         )
         return CatalogProduct(
             product_id=product_id,
@@ -78,6 +84,7 @@ def _parse_product(item: dict[str, Any], *, index: int, path: Path) -> CatalogPr
             category=str(item["category"]),
             spec=spec,
             image=item.get("image"),
+            fuel_rate_source=fuel_rate_source,
         )
     except KeyError as exc:
         raise ProductsCatalogError(
@@ -135,6 +142,10 @@ def _parse_offer(item: dict[str, Any], *, index: int, path: Path) -> CatalogOffe
 
 def _optional_wh(value: Any) -> WattHour | None:
     return None if value is None else WattHour(float(value))
+
+
+def _optional_float(value: Any) -> float | None:
+    return None if value is None else float(value)
 
 
 def _optional_va(value: Any) -> VoltAmpere | None:

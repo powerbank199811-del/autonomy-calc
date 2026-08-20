@@ -56,4 +56,5 @@ def assemble_solution(inverter: InverterSpec, battery: BatterySpec) -> SolutionS
         waveform=inverter.waveform,
         switchover_ms=inverter.switchover_ms,
         cycle_life=battery.cycle_life,
+        depth_of_discharge_override=battery.depth_of_discharge_override,
     )

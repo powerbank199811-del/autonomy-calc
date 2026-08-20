@@ -1,0 +1,260 @@
+# Реальные инверторы и АКБ для сборки китов "на лету" (catalog.kits).
+#
+# Значения power/voltage восстановлены из исходной таблицы с исправлением
+# обнаруженного сдвига колонок для позиций kind=inverter (см. ADR-026):
+# то, что было в peak_power_w, на самом деле continuous_power_w; то, что
+# было в dc_output_power_w, на самом деле peak_power_w.
+#
+# peak_power_w = continuous_power_w у трёх позиций (Deye SUN-5K, Solarverse,
+# LuxPower) — ЗАГЛУШКА, реального запаса на пуск нет данных. Занижает
+# возможности инвертора (безопасно), не завышает. Уточнить при следующей
+# сверке.
+
+inverters:
+  - component_id: inv_deye_sun5k
+    name: "Deye SUN-5K-SG04LP1-EU"
+    brand: "Deye"
+    model: "SUN-5K-SG04LP1-EU"
+    system_voltage_v: 48
+    continuous_power_w: 5000
+    peak_power_w: 5000  # ЗАГЛУШКА — нет данных о пусковом запасе
+    waveform: pure_sine
+
+  - component_id: inv_deye_sun6k
+    name: "Deye SUN-6K-SG05LP1-EU"
+    brand: "Deye"
+    model: "SUN-6K-SG05LP1-EU"
+    system_voltage_v: 48
+    continuous_power_w: 6000
+    peak_power_w: 12000  # реальные данные (2х запас, типично для серии)
+    waveform: pure_sine
+
+  - component_id: inv_deye_sun12k
+    name: "Deye SUN-12K-SG04LP3-EU"
+    brand: "Deye"
+    model: "SUN-12K-SG04LP3-EU"
+    system_voltage_v: 48
+    continuous_power_w: 12000
+    peak_power_w: 24000  # реальные данные (2х запас)
+    waveform: pure_sine
+
+  - component_id: inv_solarverse_sv6048
+    name: "Solarverse Ampere UPS 6kW"
+    brand: "Solarverse"
+    model: "SV6048UPSW"
+    system_voltage_v: 48
+    continuous_power_w: 6000
+    peak_power_w: 6000  # ЗАГЛУШКА
+    waveform: pure_sine
+
+  - component_id: inv_luxpower_sna12000
+    name: "LuxPower SNA-EU 12000 48V"
+    brand: "LuxPower"
+    model: "SNA-EU 12000"
+    system_voltage_v: 48
+    continuous_power_w: 12000
+    peak_power_w: 12000  # ЗАГЛУШКА
+    waveform: pure_sine
+
+  - component_id: inv_choetech_cj2600q
+    name: "Choetech CJ2600Q-V2"
+    brand: "Choetech"
+    model: "CJ2600Q-V2"
+    system_voltage_v: 12
+    continuous_power_w: 1300
+    peak_power_w: 2600
+    waveform: pure_sine
+
+  - component_id: inv_luxeon_ips1200s
+    name: "Luxeon IPS-1200S"
+    brand: "Luxeon"
+    model: "IPS-1200S"
+    system_voltage_v: 12
+    continuous_power_w: 600
+    peak_power_w: 1200
+    waveform: pure_sine
+
+  - component_id: inv_volt_sinus600_12v
+    name: "Volt Polska Sinus 600 (12V, SKU 3SIP060012)"
+    brand: "Volt Polska"
+    model: "Sinus 600 12V"
+    system_voltage_v: 12
+    continuous_power_w: 300
+    peak_power_w: 600
+    waveform: pure_sine
+
+  - component_id: inv_volt_sinus600_24v
+    name: "Volt Polska Sinus 600 (24V, SKU 3SIP060024)"
+    brand: "Volt Polska"
+    model: "Sinus 600 24V"
+    system_voltage_v: 24
+    continuous_power_w: 300
+    peak_power_w: 600
+    waveform: pure_sine
+
+inverter_offers:
+  - offer_id: inv_deye_sun5k_shop
+    component_id: inv_deye_sun5k
+    price_uah: 75015
+    commission_rate: 0
+    source: "vencon.ua"
+    in_stock: false
+
+  - offer_id: inv_deye_sun6k_shop
+    component_id: inv_deye_sun6k
+    price_uah: 38499
+    commission_rate: 0
+    source: "ek.ua"
+    in_stock: true
+
+  - offer_id: inv_deye_sun12k_shop
+    component_id: inv_deye_sun12k
+    price_uah: 121800
+    commission_rate: 0
+    source: "opticstore.com.ua"
+    in_stock: true
+
+  - offer_id: inv_solarverse_sv6048_shop
+    component_id: inv_solarverse_sv6048
+    price_uah: 29999
+    commission_rate: 0
+    source: "solarverse.ua"
+    in_stock: true
+
+  - offer_id: inv_luxpower_sna12000_shop
+    component_id: inv_luxpower_sna12000
+    price_uah: 58999
+    commission_rate: 0
+    source: "touch.com.ua"
+    in_stock: true
+
+  - offer_id: inv_choetech_cj2600q_shop
+    component_id: inv_choetech_cj2600q
+    price_uah: 3068
+    commission_rate: 0
+    source: "rozetka.com.ua"
+    in_stock: true
+
+  - offer_id: inv_luxeon_ips1200s_shop
+    component_id: inv_luxeon_ips1200s
+    price_uah: 2376
+    commission_rate: 0
+    source: "rozetka.com.ua"
+    in_stock: false
+
+  # Одна цена в исходных данных на обе SKU Sinus 600 — уточнить раздельно
+  - offer_id: inv_volt_sinus600_12v_shop
+    component_id: inv_volt_sinus600_12v
+    price_uah: 2634
+    commission_rate: 0
+    source: "motoblok.biz"
+    in_stock: true
+
+  - offer_id: inv_volt_sinus600_24v_shop
+    component_id: inv_volt_sinus600_24v
+    price_uah: 2634
+    commission_rate: 0
+    source: "motoblok.biz"
+    in_stock: true
+
+batteries:
+  - component_id: bat_deye_sef5proc
+    name: "Deye SE-F5 Pro-C"
+    brand: "Deye"
+    model: "SE-F5 Pro-C"
+    system_voltage_v: 51.2
+    chemistry: lifepo4
+    capacity_wh: 5120
+    cycle_life: 6000
+    depth_of_discharge_override: 0.90
+
+  - component_id: bat_logicpower_lp24662
+    name: "LogicPower LP LiFePO4 12.8V 100Ah Smart BT"
+    brand: "LogicPower"
+    model: "LP24662"
+    system_voltage_v: 12.8
+    chemistry: lifepo4
+    capacity_wh: 1280
+    cycle_life: 7000
+
+  - component_id: bat_volt_6akli10012
+    name: "Volt Polska LiFePO4 12.8V 100Ah"
+    brand: "Volt Polska"
+    model: "6AKLI10012"
+    system_voltage_v: 12.8
+    chemistry: lifepo4
+    capacity_wh: 1280
+    cycle_life: 6000
+
+  - component_id: bat_dyness_dl50c
+    name: "Dyness DL5.0C"
+    brand: "Dyness"
+    model: "DL5.0C"
+    system_voltage_v: 51.2
+    chemistry: lifepo4
+    capacity_wh: 5120
+    cycle_life: 6000
+    depth_of_discharge_override: 0.90
+
+  - component_id: bat_must_lp15_12100
+    name: "Must LP15-12100 BT"
+    brand: "Must"
+    model: "LP15-12100"
+    system_voltage_v: 12.8
+    chemistry: lifepo4
+    capacity_wh: 1280
+    cycle_life: 6000
+    depth_of_discharge_override: 0.80
+
+  - component_id: bat_2e_lfp48100
+    name: "2E LFP48100"
+    brand: "2E"
+    model: "2E-LFP48100-LCD"
+    system_voltage_v: 51.2
+    chemistry: lifepo4
+    capacity_wh: 4800
+    cycle_life: 6000
+    depth_of_discharge_override: 0.80
+
+battery_offers:
+  - offer_id: bat_deye_sef5proc_shop
+    component_id: bat_deye_sef5proc
+    price_uah: 45999
+    commission_rate: 0
+    source: "climagroup.ua"
+    in_stock: true
+
+  - offer_id: bat_logicpower_lp24662_shop
+    component_id: bat_logicpower_lp24662
+    price_uah: 15390
+    commission_rate: 0
+    source: "bezpeka-shop.com"
+    in_stock: true
+
+  - offer_id: bat_volt_6akli10012_shop
+    component_id: bat_volt_6akli10012
+    price_uah: 12480
+    commission_rate: 0
+    source: "gurkit.ua"
+    in_stock: true
+
+  - offer_id: bat_dyness_dl50c_shop
+    component_id: bat_dyness_dl50c
+    price_uah: 45000
+    commission_rate: 0
+    source: "opticstore.com.ua"
+    in_stock: true
+
+  - offer_id: bat_must_lp15_12100_shop
+    component_id: bat_must_lp15_12100
+    price_uah: 15524
+    commission_rate: 0
+    source: "storeinua.com"
+    in_stock: true
+
+  - offer_id: bat_2e_lfp48100_shop
+    component_id: bat_2e_lfp48100
+    price_uah: 37999
+    commission_rate: 0
+    source: "moyo.ua"
+    in_stock: true

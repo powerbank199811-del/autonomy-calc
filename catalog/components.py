@@ -51,6 +51,9 @@ class BatterySpec:
     capacity_wh: WattHour
     cycle_life: int | None = None
     dc_output_efficiency: float = 0.95
+    #: Переопределяет policy.dod_for(chemistry), когда есть даташит на
+    #: конкретный товар (см. ADR-025).
+    depth_of_discharge_override: float | None = None
 
     def __post_init__(self) -> None:
         if self.system_voltage_v <= 0:
@@ -59,6 +62,9 @@ class BatterySpec:
             raise InvalidComponentSpecError("capacity_wh должен быть > 0")
         if not 0.0 < self.dc_output_efficiency <= 1.0:
             raise InvalidComponentSpecError("dc_output_efficiency вне (0, 1]")
+        if self.depth_of_discharge_override is not None:
+            if not 0.0 < self.depth_of_discharge_override <= 1.0:
+                raise InvalidComponentSpecError("depth_of_discharge_override вне (0, 1]")
 
 
 @dataclass(frozen=True, slots=True)
