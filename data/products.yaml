@@ -1,188 +1,189 @@
-# ШАБЛОН каталога. Ці 8 позицій — приклади формату, НЕ реальні товари.
-# Замінити на реальний асортимент (~50 позицій) перед запуском /rozrakhunok-avtonomii.
-#
-# products: фізична специфікація (бренд+модель), без ціни.
-# offers: ціна + продавець для product_id. Один продукт може мати кілька офферів
-# (коли з'являться інші джерела — Rozetka, AliExpress).
-#
-# kind: powerbank | station | inverter_battery | generator
-# chemistry: lifepo4 | li_ion | agm | none
-# waveform: pure_sine | modified | none
-
 products:
-  # --- Повербанки ---
-  - product_id: pb_example_20k
-    name: "[ПРИКЛАД] Повербанк 20000 mAh PD 65W"
-    brand: "ПРИКЛАД"
-    model: "PB-20K"
-    category: "Повербанки"
-    kind: powerbank
-    chemistry: li_ion
-    capacity_wh: 74        # заявлена ємність (20000mAh * 3.7V / 1000)
-    dc_output_power_w: 65
-    cycle_life: 500
-
-  - product_id: pb_example_40k
-    name: "[ПРИКЛАД] Повербанк 40000 mAh PD 100W"
-    brand: "ПРИКЛАД"
-    model: "PB-40K"
-    category: "Повербанки"
-    kind: powerbank
-    chemistry: li_ion
-    capacity_wh: 148
-    dc_output_power_w: 100
-    cycle_life: 500
-
-  # --- Портативні станції ---
-  - product_id: station_example_1000
-    name: "[ПРИКЛАД] Станція 1000Wh / 1000W"
-    brand: "ПРИКЛАД"
-    model: "ST-1000"
-    category: "Портативні станції"
-    kind: station
-    chemistry: lifepo4
-    capacity_wh: 1024
-    continuous_power_w: 1000
-    peak_power_w: 2000
-    dc_output_power_w: 100
-    inverter_efficiency: 0.90
-    idle_draw_w: 10
-    waveform: pure_sine
-    switchover_ms: 20
-    cycle_life: 3500
-
-  - product_id: station_example_2000
-    name: "[ПРИКЛАД] Станція 2000Wh / 2200W"
-    brand: "ПРИКЛАД"
-    model: "ST-2000"
-    category: "Портативні станції"
-    kind: station
-    chemistry: lifepo4
-    capacity_wh: 2048
-    continuous_power_w: 2200
-    peak_power_w: 4400
-    dc_output_power_w: 100
-    inverter_efficiency: 0.92
-    idle_draw_w: 15
-    waveform: pure_sine
-    switchover_ms: 20
-    cycle_life: 3500
-
-  # --- Інвертор + АКБ (роздільне рішення) ---
-  - product_id: inverter_battery_example_1200
-    name: "[ПРИКЛАД] Інвертор 1000W + AGM АКБ 1200Wh"
-    brand: "ПРИКЛАД"
-    model: "INV-1200"
-    category: "Інвертор + АКБ"
-    kind: inverter_battery
-    chemistry: agm
-    capacity_wh: 1200
-    continuous_power_w: 1000
-    peak_power_w: 2000
-    apparent_power_va: 1000
-    inverter_efficiency: 0.88
-    idle_draw_w: 20
-    waveform: pure_sine
-    switchover_ms: 15
-    cycle_life: 600
-
-  - product_id: inverter_battery_example_2400
-    name: "[ПРИКЛАД] Інвертор 2000W + LiFePO4 АКБ 2400Wh"
-    brand: "ПРИКЛАД"
-    model: "INV-2400"
-    category: "Інвертор + АКБ"
-    kind: inverter_battery
-    chemistry: lifepo4
-    capacity_wh: 2400
-    continuous_power_w: 2000
-    peak_power_w: 4000
-    apparent_power_va: 2000
-    inverter_efficiency: 0.90
-    idle_draw_w: 18
-    waveform: pure_sine
-    switchover_ms: 15
-    cycle_life: 3000
-
-  # --- Генератори ---
-  - product_id: generator_example_2kw
-    name: "[ПРИКЛАД] Бензогенератор інверторний 2кВт"
-    brand: "ПРИКЛАД"
-    model: "GEN-2000i"
-    category: "Генератори"
-    kind: generator
-    continuous_power_w: 2000
-    peak_power_w: 2200
-    fuel_rate_l_per_kwh: 0.4
-    tank_l: 4.0
-    waveform: pure_sine
-
-  - product_id: generator_example_5kw
-    name: "[ПРИКЛАД] Дизельгенератор 5кВт"
-    brand: "ПРИКЛАД"
-    model: "GEN-5000D"
-    category: "Генератори"
-    kind: generator
-    continuous_power_w: 5000
-    peak_power_w: 5500
-    fuel_rate_l_per_kwh: 0.35
-    tank_l: 12.0
-    waveform: pure_sine
-
+- product_id: powerbank_ugreen_pb720_25188
+  name: Ugreen PB720
+  brand: Ugreen
+  model: PB720 / 25188
+  category: Повербанки
+  kind: powerbank
+  chemistry: li_ion
+  capacity_wh: 72.0
+  dc_output_power_w: 100.0
+- product_id: powerbank_baseus_ppbld2_65
+  name: Baseus Blade 2 Ultra Slim
+  brand: Baseus
+  model: PPBLD2-65
+  category: Повербанки
+  kind: powerbank
+  chemistry: li_ion
+  capacity_wh: 46.0
+  dc_output_power_w: 65.0
+- product_id: powerbank_anker_a1294
+  name: Anker 548
+  brand: Anker
+  model: A1294
+  category: Повербанки
+  kind: powerbank
+  chemistry: lifepo4
+  capacity_wh: 192.0
+  dc_output_power_w: 60.0
+  cycle_life: 3000.0
+- product_id: station_ecoflow_zmr620_b_eu
+  name: EcoFlow RIVER 2 Pro
+  brand: EcoFlow
+  model: ZMR620-B-EU
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 768.0
+  continuous_power_w: 800.0
+  peak_power_w: 1600.0
+  waveform: pure_sine
+  cycle_life: 3000.0
+- product_id: station_bluetti_ac180
+  name: Bluetti AC180
+  brand: Bluetti
+  model: AC180
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 1152.0
+  continuous_power_w: 1800.0
+  peak_power_w: 2700.0
+  waveform: pure_sine
+  cycle_life: 3500.0
+- product_id: station_anker_a1761311
+  name: Anker SOLIX C1000X
+  brand: Anker
+  model: A1761311
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 1056.0
+  continuous_power_w: 1800.0
+  peak_power_w: 2400.0
+  waveform: pure_sine
+  cycle_life: 3000.0
+- product_id: generator_hyundai_hhy_1050si
+  name: Hyundai HHY 1050Si
+  brand: Hyundai
+  model: HHY 1050Si
+  category: Генератори
+  kind: generator
+  continuous_power_w: 1000.0
+  peak_power_w: 1200.0
+  waveform: pure_sine
+  fuel_rate_l_per_kwh: 0.4
+  tank_l: 2.5
+- product_id: generator_maxpeedingrods_mxr3500
+  name: MaXpeedingRods MXR3500
+  brand: MaXpeedingRods
+  model: MXR3500
+  category: Генератори
+  kind: generator
+  continuous_power_w: 3000.0
+  peak_power_w: 3500.0
+  waveform: pure_sine
+  fuel_rate_l_per_kwh: 0.35
+  tank_l: 4.0
+- product_id: station_2e_diya_300w
+  name: 2E Diya 300W
+  brand: 2E
+  model: Diya-300W
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 320.0
+  continuous_power_w: 300.0
+  waveform: pure_sine
+  cycle_life: 3000.0
+- product_id: station_bluetti_ac180p
+  name: Bluetti AC180P
+  brand: Bluetti
+  model: AC180P
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 1440.0
+  continuous_power_w: 1800.0
+  peak_power_w: 2700.0
+  waveform: pure_sine
+  cycle_life: 3500.0
+- product_id: station_ecoflow_efdelta2max_eu
+  name: EcoFlow DELTA 2 Max
+  brand: EcoFlow
+  model: EFDELTA2Max-EU
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 2048.0
+  continuous_power_w: 2400.0
+  peak_power_w: 3100.0
+  waveform: pure_sine
+  cycle_life: 3000.0
 offers:
-  - offer_id: pb_example_20k_shop
-    product_id: pb_example_20k
-    price_uah: 2499
-    commission_rate: 1.0
-    source: "приклад"
-    in_stock: true
-
-  - offer_id: pb_example_40k_shop
-    product_id: pb_example_40k
-    price_uah: 4299
-    commission_rate: 1.0
-    source: "приклад"
-    in_stock: true
-
-  - offer_id: station_example_1000_shop
-    product_id: station_example_1000
-    price_uah: 24999
-    commission_rate: 1.0
-    source: "приклад"
-    in_stock: true
-
-  - offer_id: station_example_2000_shop
-    product_id: station_example_2000
-    price_uah: 44999
-    commission_rate: 1.0
-    source: "приклад"
-    in_stock: true
-
-  - offer_id: inverter_battery_example_1200_shop
-    product_id: inverter_battery_example_1200
-    price_uah: 18999
-    commission_rate: 1.0
-    source: "приклад"
-    in_stock: true
-
-  - offer_id: inverter_battery_example_2400_shop
-    product_id: inverter_battery_example_2400
-    price_uah: 39999
-    commission_rate: 1.0
-    source: "приклад"
-    in_stock: true
-
-  - offer_id: generator_example_2kw_shop
-    product_id: generator_example_2kw
-    price_uah: 22999
-    commission_rate: 1.0
-    source: "приклад"
-    in_stock: true
-    expected_lifetime_wh: 5000000
-
-  - offer_id: generator_example_5kw_shop
-    product_id: generator_example_5kw
-    price_uah: 54999
-    commission_rate: 1.0
-    source: "приклад"
-    in_stock: true
-    expected_lifetime_wh: 15000000
+- offer_id: powerbank_ugreen_pb720_25188_shop
+  product_id: powerbank_ugreen_pb720_25188
+  price_uah: 3549.0
+  commission_rate: 0.0
+  source: rozetka.com.ua
+  in_stock: false
+- offer_id: powerbank_baseus_ppbld2_65_shop
+  product_id: powerbank_baseus_ppbld2_65
+  price_uah: 3299.0
+  commission_rate: 0.0
+  source: rozetka.com.ua
+  in_stock: false
+- offer_id: powerbank_anker_a1294_shop
+  product_id: powerbank_anker_a1294
+  price_uah: 7990.0
+  commission_rate: 0.0
+  source: novarich.in.ua
+  in_stock: true
+- offer_id: station_ecoflow_zmr620_b_eu_shop
+  product_id: station_ecoflow_zmr620_b_eu
+  price_uah: 31999.0
+  commission_rate: 0.0
+  source: rozetka.com.ua
+  in_stock: false
+- offer_id: station_bluetti_ac180_shop
+  product_id: station_bluetti_ac180
+  price_uah: 33599.0
+  commission_rate: 0.0
+  source: ti.ua
+  in_stock: true
+- offer_id: station_anker_a1761311_shop
+  product_id: station_anker_a1761311
+  price_uah: 34999.0
+  commission_rate: 0.0
+  source: rozetka.com.ua
+  in_stock: false
+- offer_id: generator_hyundai_hhy_1050si_shop
+  product_id: generator_hyundai_hhy_1050si
+  price_uah: 15330.0
+  commission_rate: 0.0
+  source: jasic.com.ua
+  in_stock: false
+- offer_id: generator_maxpeedingrods_mxr3500_shop
+  product_id: generator_maxpeedingrods_mxr3500
+  price_uah: 32999.0
+  commission_rate: 0.0
+  source: motoblok.biz
+  in_stock: true
+- offer_id: station_2e_diya_300w_shop
+  product_id: station_2e_diya_300w
+  price_uah: 7998.0
+  commission_rate: 0.0
+  source: citrus.ua
+  in_stock: false
+- offer_id: station_bluetti_ac180p_shop
+  product_id: station_bluetti_ac180p
+  price_uah: 40990.0
+  commission_rate: 0.0
+  source: bluettipower.com.ua
+  in_stock: true
+- offer_id: station_ecoflow_efdelta2max_eu_shop
+  product_id: station_ecoflow_efdelta2max_eu
+  price_uah: 64999.0
+  commission_rate: 0.0
+  source: allo.ua
+  in_stock: false
