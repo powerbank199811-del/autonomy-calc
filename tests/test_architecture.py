@@ -77,3 +77,43 @@ def test_catalog_imports_only_core_matching_and_declared_libs() -> None:
         if external:
             violations[path.name] = external
     assert not violations, f"catalog/ тянет лишние зависимости: {violations}"
+
+API_DIR = Path(__file__).resolve().parent.parent / "api"
+API_ALLOWED = set(sys.stdlib_module_names) | {
+    "api",
+    "catalog",
+    "core",
+    "fastapi",
+    "matching",
+    "pydantic",
+    "reference",
+}
+
+
+def test_api_is_the_outermost_layer() -> None:
+    """api/ знает про все внутренние слои — и ни один из них не знает про api/.
+
+    Это внешний слой: сюда можно тянуть fastapi и pydantic, но проверка
+    односторонняя, поэтому её дополняет test_inner_layers_never_import_api.
+    """
+    violations: dict[str, set[str]] = {}
+    for path in API_DIR.rglob("*.py"):
+        external = _imported_roots(path) - API_ALLOWED
+        if external:
+            violations[path.name] = external
+    assert not violations, f"api/ тянет лишние зависимости: {violations}"
+
+
+def test_inner_layers_never_import_api() -> None:
+    """Ни core, ни reference, ни matching, ни catalog не знают, что API существует.
+
+    Удаление api/ целиком не должно ломать ни один внутренний слой: HTTP —
+    деталь доставки, а не часть домена.
+    """
+    root = Path(__file__).resolve().parent.parent
+    violations: dict[str, set[str]] = {}
+    for layer in ("core", "reference", "matching", "catalog"):
+        for path in (root / layer).rglob("*.py"):
+            if "api" in _imported_roots(path):
+                violations[f"{layer}/{path.name}"] = {"api"}
+    assert not violations, f"внутренний слой импортирует api/: {violations}"
