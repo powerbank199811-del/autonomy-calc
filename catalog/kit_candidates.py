@@ -47,6 +47,7 @@ def build_kit_candidates(
                     price_uah=total_price,
                     commission_rate=combined_commission,
                     in_stock=inv_offer.in_stock and bat_offer.in_stock,
+                    component_offer_ids=(inv_offer.offer_id, bat_offer.offer_id),
                 )
             )
     return tuple(candidates)

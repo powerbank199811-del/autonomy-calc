@@ -224,3 +224,47 @@ def test_non_positive_fuel_price_rejected(fridge: ApplianceSpec) -> None:
         select_recommendations(
             _req(fridge), [station], grid_tariff_uah_per_kwh=4.32, fuel_price_uah_per_l=0.0
         )
+
+def test_candidate_rejects_single_component_offer_id() -> None:
+    """component_offer_ids должен либо быть None, либо содержать >= 2 частей."""
+    with pytest.raises(InvalidCandidateError):
+        Candidate(
+            offer_id="s",
+            solution=_station("s2", 1000, 0.0).solution,
+            price_uah=1000,
+            commission_rate=0.0,
+            component_offer_ids=("only_one",),
+        )
+
+
+def test_candidate_rejects_empty_part_in_component_offer_ids() -> None:
+    with pytest.raises(InvalidCandidateError):
+        Candidate(
+            offer_id="s",
+            solution=_station("s2", 1000, 0.0).solution,
+            price_uah=1000,
+            commission_rate=0.0,
+            component_offer_ids=("inv_x", ""),
+        )
+
+
+def test_simple_candidate_component_offer_ids_is_none(fridge: ApplianceSpec) -> None:
+    station = _station("simple", price=30000, commission=0.05)
+    assert station.component_offer_ids is None
+
+    result = select_recommendations(_req(fridge), [station])
+    assert result[0].component_offer_ids is None
+
+
+def test_kit_candidate_component_offer_ids_propagates_to_recommendation(
+    fridge: ApplianceSpec,
+) -> None:
+    kit = Candidate(
+        offer_id="kit__inv_a__bat_b",
+        solution=_station("x", 1000, 0.0).solution,
+        price_uah=40000,
+        commission_rate=0.03,
+        component_offer_ids=("inv_a", "bat_b"),
+    )
+    result = select_recommendations(_req(fridge), [kit])
+    assert result[0].component_offer_ids == ("inv_a", "bat_b")

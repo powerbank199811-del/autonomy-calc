@@ -80,6 +80,7 @@ def select_recommendations(
             ownership=ownership,
             price_uah=candidate.price_uah,
             rank_position=position,
+            component_offer_ids=candidate.component_offer_ids,
         )
         for position, (_, candidate, fit, ownership) in enumerate(scored[:limit], start=1)
     )

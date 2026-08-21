@@ -140,3 +140,34 @@ def test_appliances_endpoint_lists_reference() -> None:
     appliances = response.json()["appliances"]
     assert len(appliances) == 47
     assert {"code", "name", "category"} == set(appliances[0])
+
+
+def test_kit_recommendation_exposes_two_go_targets() -> None:
+    """У кита component_offer_ids — две рабочие цели /go, не одна (ADR-035, ADR-037)."""
+    response = client.post(
+        URL,
+        json={
+            "appliances": [{"code": "electric_boiler_80l_full_heat"}],
+            "autonomy_hours": 6,
+        },
+    )
+    body = response.json()
+    kits = [r for r in body["recommendations"] if r["offer_id"].startswith("kit__")]
+    assert kits, "ожидался хотя бы один кит для мощной нагрузки"
+    kit = kits[0]
+    assert kit["component_offer_ids"] is not None
+    assert len(kit["component_offer_ids"]) == 2
+    assert all(part in kit["offer_id"] for part in kit["component_offer_ids"])
+
+
+def test_simple_product_has_no_component_offer_ids() -> None:
+    """Для лёгкой нагрузки киты часто дешевле и занимают верх выдачи — берём
+    полный список (limit=20), а не полагаемся на позицию в топ-5."""
+    response = client.post(
+        URL,
+        json={"appliances": [{"code": "wifi_router_9v"}], "autonomy_hours": 4, "limit": 20},
+    )
+    body = response.json()
+    simple = [r for r in body["recommendations"] if not r["offer_id"].startswith("kit__")]
+    assert simple, "в каталоге есть готовые станции — хотя бы одна должна попасть в выдачу"
+    assert simple[0]["component_offer_ids"] is None

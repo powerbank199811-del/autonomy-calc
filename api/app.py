@@ -87,6 +87,11 @@ def _recommendation_out(recommendation: Recommendation) -> RecommendationOut:
         offer_id=recommendation.offer_id,
         rank_position=recommendation.rank_position,
         price_uah=recommendation.price_uah,
+        component_offer_ids=(
+            None
+            if recommendation.component_offer_ids is None
+            else list(recommendation.component_offer_ids)
+        ),
         fit=FitOut(
             can_cover_window=fit.can_cover_window,
             autonomy_hours=fit.autonomy_hours,

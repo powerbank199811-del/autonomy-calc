@@ -15,3 +15,4 @@ class Recommendation:
     ownership: OwnershipCost | None
     price_uah: float
     rank_position: int
+    component_offer_ids: tuple[str, ...] | None = None

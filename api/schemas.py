@@ -66,13 +66,19 @@ class OwnershipOut(BaseModel):
 
 
 class RecommendationOut(BaseModel):
-    """Карточка рекомендации."""
+    """Карточка рекомендации.
+
+    component_offer_ids: None — один переход, ведёт по offer_id. Не None —
+    составной продукт (кит): список offer_id, по каждому свой /go/{id},
+    своя страница продавца, своя покупка (ADR-035, ADR-037).
+    """
 
     offer_id: str
     rank_position: int
     price_uah: float
     fit: FitOut
     ownership: OwnershipOut | None
+    component_offer_ids: list[str] | None = None
 
 
 class RejectionOut(BaseModel):
