@@ -11,7 +11,20 @@ from core.solution import SolutionKind
 from matching.candidate import Candidate
 from matching.recommendation import Recommendation
 
-_SortKey = tuple[int, float, float]
+#: (покрытие, размерность метрики, значение метрики, -комиссия). См. ADR-029.
+_SortKey = tuple[int, int, float, float]
+
+
+def _cost_key(candidate: Candidate, ownership: OwnershipCost | None) -> tuple[int, float]:
+    """Метрика стоимости вместе с её размерностью.
+
+    Первый элемент — размерность: 0 для грн/кВт·ч, 1 для грн. Он идёт в
+    сортировочный кортеж ПЕРЕД самим значением, поэтому числа в разных
+    размерностях никогда не попадают в одно сравнение (ADR-029).
+    """
+    if ownership is not None:
+        return (0, ownership.cost_per_kwh_uah)
+    return (1, candidate.price_uah)
 
 
 def select_recommendations(
@@ -26,6 +39,10 @@ def select_recommendations(
     """Фильтрует и ранжирует кандидатов под конкретную потребность."""
     if limit < 1:
         raise ValueError("limit должен быть >= 1")
+    if grid_tariff_uah_per_kwh is not None and grid_tariff_uah_per_kwh <= 0:
+        raise ValueError("grid_tariff_uah_per_kwh должен быть > 0 или None")
+    if fuel_price_uah_per_l is not None and fuel_price_uah_per_l <= 0:
+        raise ValueError("fuel_price_uah_per_l должен быть > 0 или None")
 
     scored: list[tuple[_SortKey, Candidate, SolutionFit, OwnershipCost | None]] = []
 
@@ -45,12 +62,11 @@ def select_recommendations(
             if ownership_input is not None:
                 ownership = calculate_ownership_cost(ownership_input, policy)
 
-        cost_metric = (
-            ownership.cost_per_kwh_uah if ownership is not None else candidate.price_uah
-        )
+        cost_dimension, cost_value = _cost_key(candidate, ownership)
         key: _SortKey = (
             0 if fit.can_cover_window else 1,
-            cost_metric,
+            cost_dimension,
+            cost_value,
             -candidate.commission_rate,
         )
         scored.append((key, candidate, fit, ownership))

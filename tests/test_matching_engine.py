@@ -138,3 +138,89 @@ def test_invalid_candidate_rejected() -> None:
                 capacity_wh=WattHour(1000), continuous_power_w=Watt(1000),
             ),
         )
+
+
+def _station_without_cycle_life(offer_id: str, price: float, capacity_wh: float) -> Candidate:
+    """Станция без cycle_life: экономику для неё посчитать нечем."""
+    return Candidate(
+        offer_id=offer_id, price_uah=price, commission_rate=0.0,
+        solution=SolutionSpec(
+            kind=SolutionKind.STATION, chemistry=StorageChemistry.LIFEPO4,
+            capacity_wh=WattHour(capacity_wh), continuous_power_w=Watt(1000),
+            peak_power_w=Watt(2000), waveform=Waveform.PURE_SINE,
+        ),
+    )
+
+
+def test_cost_metric_never_compares_across_dimensions(fridge: ApplianceSpec) -> None:
+    """Кандидат с LCOE не может проиграть кандидату с ценой по величине числа.
+
+    Числа подобраны намеренно вырожденными: у станции with_lcoe ресурс циклов
+    занижен так, что её LCOE (грн/кВт·ч) численно ПРЕВЫШАЕТ цену (грн) второй
+    станции. Пока метрика стоимости лежала в кортеже без указания размерности,
+    такое сравнение решало порядок выдачи. Теперь размерность идёт в ключе
+    раньше значения, и сравнение между разными размерностями невозможно.
+    """
+    with_lcoe = Candidate(
+        offer_id="with_lcoe", price_uah=40000, commission_rate=0.0,
+        solution=SolutionSpec(
+            kind=SolutionKind.STATION, chemistry=StorageChemistry.LIFEPO4,
+            capacity_wh=WattHour(2000), continuous_power_w=Watt(1000),
+            peak_power_w=Watt(2000), waveform=Waveform.PURE_SINE, cycle_life=5,
+        ),
+    )
+    without_lcoe = _station_without_cycle_life("without_lcoe", price=8000, capacity_wh=2000)
+
+    result = select_recommendations(
+        _req(fridge), [without_lcoe, with_lcoe], grid_tariff_uah_per_kwh=4.32
+    )
+
+    assert result[0].ownership is not None
+    assert result[0].ownership.cost_per_kwh_uah > without_lcoe.price_uah
+    assert [r.offer_id for r in result] == ["with_lcoe", "without_lcoe"]
+
+
+def test_candidate_without_economics_ranks_below_one_with_it(fridge: ApplianceSpec) -> None:
+    """При равном покрытии посчитанная экономика важнее непосчитанной.
+
+    Отсутствие данных не даёт преимущества: дешёвая позиция без cycle_life
+    не обгоняет дорогую с полными данными. Клиент видит это в ownership=None
+    и может объяснить пользователю, почему экономика не показана.
+    """
+    cheap_no_data = _station_without_cycle_life("cheap_no_data", price=9000, capacity_wh=2000)
+    pricey_with_data = _station("pricey_with_data", price=30000, commission=0.0, capacity_wh=2000)
+
+    result = select_recommendations(
+        _req(fridge), [cheap_no_data, pricey_with_data], grid_tariff_uah_per_kwh=4.32
+    )
+
+    assert [r.offer_id for r in result] == ["pricey_with_data", "cheap_no_data"]
+    assert result[0].ownership is not None
+    assert result[1].ownership is None
+
+
+def test_without_tariff_all_candidates_share_one_dimension(fridge: ApplianceSpec) -> None:
+    """Без тарифа экономики нет ни у кого — сравнение снова однородное, по цене."""
+    cheap = _station_without_cycle_life("cheap", price=9000, capacity_wh=2000)
+    pricey = _station("pricey", price=30000, commission=0.0, capacity_wh=2000)
+
+    result = select_recommendations(_req(fridge), [cheap, pricey])
+
+    assert [r.offer_id for r in result] == ["cheap", "pricey"]
+    assert all(r.ownership is None for r in result)
+
+
+def test_non_positive_tariff_rejected(fridge: ApplianceSpec) -> None:
+    """Нулевой тариф — ошибка ввода, а не повод молча не считать экономику."""
+    station = _station("s", price=30000, commission=0.0)
+    with pytest.raises(ValueError):
+        select_recommendations(_req(fridge), [station], grid_tariff_uah_per_kwh=0.0)
+
+
+def test_non_positive_fuel_price_rejected(fridge: ApplianceSpec) -> None:
+    """То же для цены топлива: нулевая цена сделала бы генератор бесплатным."""
+    station = _station("s", price=30000, commission=0.0)
+    with pytest.raises(ValueError):
+        select_recommendations(
+            _req(fridge), [station], grid_tariff_uah_per_kwh=4.32, fuel_price_uah_per_l=0.0
+        )
