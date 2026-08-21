@@ -66,7 +66,9 @@ def build_router(click_log: ClickLog) -> APIRouter:
         click_log.record(click)
 
         return RedirectResponse(
-            url=attach_sub_id(target.url, build_sub_id(click)), status_code=302
+            url=attach_sub_id(target.url, build_sub_id(click)),
+            status_code=302,
+            headers={"X-Robots-Tag": "noindex, nofollow"},
         )
 
     return local

@@ -9,6 +9,7 @@
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import PlainTextResponse
 
 from api.catalog_provider import (
     load_all_candidates,
@@ -149,6 +150,17 @@ def post_recommendations(request: RecommendationRequest) -> RecommendationRespon
         recommendations=[_recommendation_out(item) for item in recommendations],
         rejected=rejected,
     )
+
+
+@app.get("/robots.txt", response_class=PlainTextResponse)
+def robots() -> str:
+    """Запрещает индексацию партнёрских редиректов.
+
+    /go/* и так помечен X-Robots-Tag в самом ответе (двойная защита: поисковик
+    может проиндексировать ссылку раньше, чем перейдёт по ней и увидит
+    заголовок). robots.txt — первый рубеж, заголовок — второй.
+    """
+    return "User-agent: *\nDisallow: /go/\n"
 
 
 @app.get("/api/v1/appliances")

@@ -139,3 +139,18 @@ def test_sqlite_log_rejects_duplicate_click_id(tmp_path: Path) -> None:
     log.record(click)
     with pytest.raises(Exception):
         log.record(click)
+
+
+def test_redirect_response_carries_noindex_header(client: TestClient) -> None:
+    response = client.get("/go/station_test_shop", follow_redirects=False)
+    assert response.headers["x-robots-tag"] == "noindex, nofollow"
+
+
+def test_robots_txt_disallows_go() -> None:
+    from fastapi.testclient import TestClient as RootClient
+
+    from api.app import app as root_app
+
+    response = RootClient(root_app).get("/robots.txt")
+    assert response.status_code == 200
+    assert "Disallow: /go/" in response.text
