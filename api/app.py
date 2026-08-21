@@ -6,6 +6,8 @@
 сделаем иначе» — это признак, что условие место в matching, а не тут.
 """
 
+from pathlib import Path
+
 from fastapi import FastAPI, HTTPException
 
 from api.catalog_provider import (
@@ -22,6 +24,7 @@ from api.schemas import (
     RejectionOut,
     RequirementOut,
 )
+from api.redirect import build_router
 from core.demand import calculate_requirement
 from core.errors import DomainError
 from core.load import AutonomyTarget, LoadItem, LoadProfile
@@ -30,8 +33,15 @@ from core.units import Hours
 from matching.engine import select_recommendations
 from matching.recommendation import Recommendation
 from matching.rejection import RejectionReason, explain_rejections
+from tracking.sqlite_log import SqliteClickLog
 
 app = FastAPI(title="autonomy-calc", version="0.1.0")
+
+#: Журнал кликов приложения. Единственное место, где выбрана конкретная
+#: реализация порта ClickLog — композиционный корень (ADR-034).
+CLICKS_DB = Path(__file__).resolve().parent.parent / "var" / "clicks.db"
+click_log = SqliteClickLog(CLICKS_DB)
+app.include_router(build_router(click_log))
 
 
 def _build_profile(request: RecommendationRequest) -> LoadProfile:

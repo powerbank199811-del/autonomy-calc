@@ -98,4 +98,5 @@ class ComponentOffer:
     price_uah: float
     commission_rate: float
     source: str
+    url: str | None = None
     in_stock: bool = True

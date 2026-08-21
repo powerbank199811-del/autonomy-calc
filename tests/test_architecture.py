@@ -87,6 +87,7 @@ API_ALLOWED = set(sys.stdlib_module_names) | {
     "matching",
     "pydantic",
     "reference",
+    "tracking",
 }
 
 
@@ -112,8 +113,29 @@ def test_inner_layers_never_import_api() -> None:
     """
     root = Path(__file__).resolve().parent.parent
     violations: dict[str, set[str]] = {}
-    for layer in ("core", "reference", "matching", "catalog"):
+    for layer in ("core", "reference", "matching", "catalog", "tracking"):
         for path in (root / layer).rglob("*.py"):
             if "api" in _imported_roots(path):
                 violations[f"{layer}/{path.name}"] = {"api"}
     assert not violations, f"внутренний слой импортирует api/: {violations}"
+
+
+
+TRACKING_DIR = Path(__file__).resolve().parent.parent / "tracking"
+TRACKING_ALLOWED = set(sys.stdlib_module_names) | {"tracking"}
+
+
+def test_tracking_is_a_leaf_layer() -> None:
+    """tracking/ не знает ни про расчёт, ни про каталог, ни про HTTP.
+
+    Клик — это offer_id, источник и время. Ватт-часы, цены и пригодность
+    решения к нему отношения не имеют, и связь между слоями — одна строка
+    offer_id. Если сюда попадёт импорт catalog или matching, значит журналу
+    начали приписывать знание о товаре, которое место в каталоге.
+    """
+    violations: dict[str, set[str]] = {}
+    for path in TRACKING_DIR.rglob("*.py"):
+        external = _imported_roots(path) - TRACKING_ALLOWED
+        if external:
+            violations[path.name] = external
+    assert not violations, f"tracking/ тянет лишние зависимости: {violations}"

@@ -147,6 +147,7 @@ def _load_offers(
                 price_uah=float(item["price_uah"]),
                 commission_rate=float(item["commission_rate"]),
                 source=str(item["source"]),
+                url=None if item.get("url") is None else str(item["url"]),
                 in_stock=bool(item.get("in_stock", True)),
             )
         except KeyError as exc:
