@@ -69,6 +69,7 @@ products:
   model: HHY 1050Si
   category: Генератори
   kind: generator
+  chemistry: none
   continuous_power_w: 1000.0
   peak_power_w: 1200.0
   waveform: pure_sine
@@ -80,6 +81,7 @@ products:
   model: MXR3500
   category: Генератори
   kind: generator
+  chemistry: none
   continuous_power_w: 3000.0
   peak_power_w: 3500.0
   waveform: pure_sine
@@ -126,100 +128,254 @@ products:
   model: KS 4000iE S ATS
   category: Генератори
   kind: generator
+  chemistry: none
   continuous_power_w: 3600.0
   peak_power_w: 4000.0
   waveform: pure_sine
   fuel_rate_l_per_kwh: 0.42
   tank_l: 12.0
   fuel_rate_source: rated_specific
-- product_id: generator_lifan_lf2800i_2
-  name: Lifan LF2800I-2
-  brand: Lifan
-  model: LF2800I-2
+- product_id: generator_dnipro_m_gx_20i
+  name: Dnipro-M GX-20I
+  brand: Dnipro-M
+  model: GX-20I
   category: Генератори
   kind: generator
-  continuous_power_w: 2200.0
-  peak_power_w: 2400.0
+  chemistry: none
+  continuous_power_w: 2000.0
+  peak_power_w: 2200.0
   waveform: pure_sine
-  fuel_rate_l_per_kwh: 0.48
-  tank_l: 4.0
+  fuel_rate_l_per_kwh: 0.7
+  tank_l: 4.1
+  fuel_rate_source: rated_specific
+- product_id: generator_kraftdele_kd698
+  name: Kraft&Dele KD698
+  brand: Kraft&Dele
+  model: KD698
+  category: Генератори
+  kind: generator
+  chemistry: none
+  continuous_power_w: 4000.0
+  peak_power_w: 4300.0
+  waveform: pure_sine
+  fuel_rate_l_per_kwh: 0.61
+  tank_l: 11.0
   fuel_rate_source: derived_from_tank
+- product_id: station_anker_solix_f3000
+  name: Anker SOLIX F3000
+  brand: Anker
+  model: F3000
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 3072.0
+  continuous_power_w: 3600.0
+  waveform: pure_sine
+- product_id: station_jackery_explorer_1000_pro
+  name: Jackery Explorer 1000 Pro
+  brand: Jackery
+  model: Explorer 1000 Pro
+  category: Портативні станції
+  kind: station
+  capacity_wh: 1002.0
+  continuous_power_w: 1000.0
+  peak_power_w: 2000.0
+  waveform: pure_sine
+- product_id: powerbank_ugreen_pb722
+  name: UGREEN Nexode PB722
+  brand: Ugreen
+  model: PB722 / 35525B
+  category: Повербанки
+  kind: powerbank
+  chemistry: li_ion
+  capacity_wh: 90.0
+  dc_output_power_w: 200.0
+  cycle_life: 1000.0
+- product_id: powerbank_baseus_h1_lite
+  name: Baseus Blade H1 Lite
+  brand: Baseus
+  model: H1 Lite / P10021604123-00
+  category: Повербанки
+  kind: powerbank
+  chemistry: li_ion
+  capacity_wh: 74.0
+  dc_output_power_w: 100.0
+- product_id: station_ecoflow_trail_200_dc
+  name: EcoFlow Trail 200 DC
+  brand: EcoFlow
+  model: EF-TX-192
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 192.0
+  continuous_power_w: 220.0
+- product_id: station_bluetti_elite_100_v2
+  name: Bluetti Elite 100 V2
+  brand: Bluetti
+  model: Elite 100 V2 / EL100V2-EU-GY-20
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 1024.0
+  continuous_power_w: 1800.0
+  waveform: pure_sine
+- product_id: station_allpowers_r600
+  name: AllPowers R600
+  brand: AllPowers
+  model: R600
+  category: Портативні станції
+  kind: station
+  chemistry: lifepo4
+  capacity_wh: 299.0
+  continuous_power_w: 600.0
 offers:
 - offer_id: powerbank_ugreen_pb720_25188_shop
   product_id: powerbank_ugreen_pb720_25188
-  price_uah: 3549.0
+  price_uah: 2675.0
   commission_rate: 0.0
   source: rozetka.com.ua
-  in_stock: false
+  url: https://rozetka.com.ua/ua/ugreen-6941876221868/p531910569/
+  in_stock: true
 - offer_id: powerbank_baseus_ppbld2_65_shop
   product_id: powerbank_baseus_ppbld2_65
   price_uah: 3299.0
   commission_rate: 0.0
   source: rozetka.com.ua
+  url: https://rozetka.com.ua/ua/baseus-p10063800732-00/p442050461/
   in_stock: false
 - offer_id: powerbank_anker_a1294_shop
   product_id: powerbank_anker_a1294
-  price_uah: 7990.0
+  price_uah: 9990.0
   commission_rate: 0.0
-  source: novarich.in.ua
+  source: rozetka.com.ua
+  url: https://rozetka.com.ua/ua/460058444/p460058444/
   in_stock: true
 - offer_id: station_ecoflow_zmr620_b_eu_shop
   product_id: station_ecoflow_zmr620_b_eu
-  price_uah: 31999.0
+  price_uah: 40998.0
   commission_rate: 0.0
   source: rozetka.com.ua
+  url: https://rozetka.com.ua/439053887/p439053887/
   in_stock: false
 - offer_id: station_bluetti_ac180_shop
   product_id: station_bluetti_ac180
   price_uah: 33599.0
   commission_rate: 0.0
   source: ti.ua
-  in_stock: true
+  url: https://ti.ua/ua/zaryadnaya-stantsiya-bluetti-ac180-1152-vt-ch.html
+  in_stock: false
 - offer_id: station_anker_a1761311_shop
   product_id: station_anker_a1761311
   price_uah: 34999.0
   commission_rate: 0.0
   source: rozetka.com.ua
+  url: https://rozetka.com.ua/ua/anker-a1761311/p438997529/
   in_stock: false
 - offer_id: generator_hyundai_hhy_1050si_shop
   product_id: generator_hyundai_hhy_1050si
   price_uah: 15330.0
   commission_rate: 0.0
   source: jasic.com.ua
+  url: https://jasic.com.ua/ru/invertornyij-generator-hyundai-hhy-1050si  # не смог проверить живьём (extension отказал), только по поиску — 7 независимых совпадений цены
   in_stock: false
+  expected_lifetime_wh: 650000.0  # 1000Вт x 650ч (средняя точка 500-800ч, компилированная аналитика форумов/сервисов, не паспорт производителя)
 - offer_id: generator_maxpeedingrods_mxr3500_shop
   product_id: generator_maxpeedingrods_mxr3500
-  price_uah: 32999.0
+  price_uah: 29899.0
   commission_rate: 0.0
   source: motoblok.biz
+  url: https://www.motoblok.biz/ru/catalog/14710/benzinovye-generatory-maxpeedingrods/61271/generator-invertornyi-maxpeedingrods-mxr3500.html
   in_stock: true
+  expected_lifetime_wh: 1650000.0  # 3000Вт x 550ч (средняя точка 400-700ч, компилированная аналитика форумов/сервисов, не паспорт производителя)
 - offer_id: station_2e_diya_300w_shop
   product_id: station_2e_diya_300w
   price_uah: 7998.0
   commission_rate: 0.0
   source: citrus.ua
+  url: https://citrus.ua/portativnye-zaryadnye-stancii/portativna-elektrostantsiya-2e-diya-300-vt-320-vtgod-shvidka-zaryadka-777630.html
   in_stock: false
 - offer_id: station_bluetti_ac180p_shop
   product_id: station_bluetti_ac180p
-  price_uah: 40990.0
+  price_uah: 43990.0
   commission_rate: 0.0
   source: bluettipower.com.ua
+  url: https://bluettipower.com.ua/zaryadni-stancii/bluetti-ac180p-1800-vt-1440-vt-god/
   in_stock: true
 - offer_id: station_ecoflow_efdelta2max_eu_shop
   product_id: station_ecoflow_efdelta2max_eu
-  price_uah: 64999.0
+  price_uah: 75895.0
   commission_rate: 0.0
   source: allo.ua
+  url: https://allo.ua/ru/zarjadnye-stancii/zarjadnaja-stancija-ecoflow-delta-2-max-efdelta2max-eu-2048wh-2400vt.html
   in_stock: false
 - offer_id: generator_konner_sohnen_ks_4000ie_s_ats_shop
   product_id: generator_konner_sohnen_ks_4000ie_s_ats
   price_uah: 55799.0
   commission_rate: 0.0
   source: budmir.com.ua
+  url: https://budmir.com.ua/kategorii-kataloga/invertornye-generatory/generator-invertornyj-koennersoehnen-ks-4000ie-s-ats
   in_stock: true
-- offer_id: generator_lifan_lf2800i_2_shop
-  product_id: generator_lifan_lf2800i_2
-  price_uah: 34800.0
+  expected_lifetime_wh: 4500000.0  # 3600Вт x 1250ч (средняя точка 1000-1500ч, компилированная аналитика форумов/сервисов, не паспорт производителя)
+- offer_id: generator_dnipro_m_gx_20i_shop
+  product_id: generator_dnipro_m_gx_20i
+  price_uah: 24195.0
   commission_rate: 0.0
-  source: vencon.ua
+  source: dnipro-m.ua
+  url: https://dnipro-m.ua/tovar/invertornij-benzinovij-generator-gx-20i/
+  in_stock: true
+- offer_id: generator_kraftdele_kd698_shop
+  product_id: generator_kraftdele_kd698
+  price_uah: 29142.0
+  commission_rate: 0.0
+  source: motoblok.biz
+  url: https://www.motoblok.biz/ua/catalog/14392/benzinovi-generatori-kraftdele/62575/generator-invertornii-kraftdele-kd698.html
+  in_stock: true
+- offer_id: station_anker_solix_f3000_shop
+  product_id: station_anker_solix_f3000
+  price_uah: 110599.0
+  commission_rate: 0.0
+  source: ti.ua
+  url: https://ti.ua/ua/zaryadnaya-stantsiya-anker-solix-f3000.html
+  in_stock: true
+- offer_id: station_jackery_explorer_1000_pro_shop
+  product_id: station_jackery_explorer_1000_pro
+  price_uah: 56599.0
+  commission_rate: 0.0
+  source: ti.ua
+  url: https://ti.ua/ua/zaryadnaya-stantsiya-jackery-explorer-1000-pro-powerstation.html
+  in_stock: true
+- offer_id: powerbank_ugreen_pb722_shop
+  product_id: powerbank_ugreen_pb722
+  price_uah: 5789.0
+  commission_rate: 0.0
+  source: rozetka.com.ua
+  url: https://rozetka.com.ua/ua/599904634/p599904634/
+  in_stock: true
+- offer_id: powerbank_baseus_h1_lite_shop
+  product_id: powerbank_baseus_h1_lite
+  price_uah: 1895.0
+  commission_rate: 0.0
+  source: rozetka.com.ua
+  url: https://rozetka.com.ua/copy-baseus-pplg000101/p552541305/
+  in_stock: true
+- offer_id: station_ecoflow_trail_200_dc_shop
+  product_id: station_ecoflow_trail_200_dc
+  price_uah: 7649.0
+  commission_rate: 0.0
+  source: touch.com.ua
+  url: https://touch.com.ua/item/zaryadnaya-stantsiya-ecoflow-trail-200-dc-ef-tx-192/
+  in_stock: true
+- offer_id: station_bluetti_elite_100_v2_shop
+  product_id: station_bluetti_elite_100_v2
+  price_uah: 36999.0
+  commission_rate: 0.0
+  source: rozetka.com.ua
+  url: https://rozetka.com.ua/ua/bluetti-el100v2-eu-gy-20/p613974107/
+  in_stock: true
+- offer_id: station_allpowers_r600_shop
+  product_id: station_allpowers_r600
+  price_uah: 15499.0
+  commission_rate: 0.0
+  source: rozetka.com.ua
+  url: https://rozetka.com.ua/ua/allpowers-r600/p568972105/
   in_stock: true

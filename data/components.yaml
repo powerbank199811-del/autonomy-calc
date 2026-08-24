@@ -12,9 +12,9 @@
 
 inverters:
   - component_id: inv_deye_sun5k
-    name: "Deye SUN-5K-SG04LP1-EU"
+    name: "Deye SUN-5K-SG03LP1-EU"
     brand: "Deye"
-    model: "SUN-5K-SG04LP1-EU"
+    model: "SUN-5K-SG03LP1-EU"  # было SG04LP1-EU — заменено на SG03 (наличие у эпицентра), 23.08.2026
     system_voltage_v: 48
     continuous_power_w: 5000
     peak_power_w: 5000  # ЗАГЛУШКА — нет данных о пусковом запасе
@@ -39,9 +39,9 @@ inverters:
     waveform: pure_sine
 
   - component_id: inv_solarverse_sv6048
-    name: "Solarverse Ampere UPS 6kW"
-    brand: "Solarverse"
-    model: "SV6048UPSW"
+    name: "Solis S6-EH1P6K-L-PLUS"
+    brand: "Solis"
+    model: "S6-EH1P6K-L-PLUS"  # было Solarverse SV6048UPSW — не нашли в наличии, заменено на Solis 23.08.2026
     system_voltage_v: 48
     continuous_power_w: 6000
     peak_power_w: 6000  # ЗАГЛУШКА
@@ -84,78 +84,104 @@ inverters:
     waveform: pure_sine
 
   - component_id: inv_volt_sinus600_24v
-    name: "Volt Polska Sinus 600 (24V, SKU 3SIP060024)"
+    name: "Volt Polska IPS 600 DUO (12-24V, артикул 3IPS912246)"
     brand: "Volt Polska"
-    model: "Sinus 600 24V"
+    model: "IPS 600 DUO"  # было Sinus 600 24V — SKU не найден как отдельный товар, заменено 23.08.2026. DUO работает и на 12В, и на 24В — задекларирован как 24В под эту позицию каталога
     system_voltage_v: 24
     continuous_power_w: 300
     peak_power_w: 600
     waveform: pure_sine
 
+  - component_id: inv_energenie_eg_pwc_ps1000_01
+    name: "EnerGenie EG-PWC-PS1000-01"
+    brand: "EnerGenie"
+    model: "EG-PWC-PS1000-01"
+    system_voltage_v: 12
+    continuous_power_w: 1000
+    peak_power_w: 2000
+    waveform: pure_sine
+
 inverter_offers:
   - offer_id: inv_deye_sun5k_shop
     component_id: inv_deye_sun5k
-    price_uah: 75015
+    price_uah: 59296.05
     commission_rate: 0
-    source: "vencon.ua"
-    in_stock: false
+    source: "epicentrk.ua"  # было vencon.ua, не в наличии — заменено 23.08.2026
+    url: "https://epicentrk.ua/shop/mplc-gibridnij-invertor-deye-sun-5k-5-kvt-sun-5k-sg03lp1-eu-1ef8f89b-eee9-6684-95ae-eb7c33a7555d.html"
+    in_stock: true
 
   - offer_id: inv_deye_sun6k_shop
     component_id: inv_deye_sun6k
-    price_uah: 38499
+    price_uah: 43296
     commission_rate: 0
-    source: "ek.ua"
+    source: "prosun.in.ua"  # было ek.ua — заменено по ссылке от 22.08.2026, старая цена 38499 была близка, живая 43296
     in_stock: true
+    url: "https://prosun.in.ua/invertori/hibrydnyj-invertor-deye-sun-6k-sg05lp1-eu-1-faza/"
 
   - offer_id: inv_deye_sun12k_shop
     component_id: inv_deye_sun12k
-    price_uah: 121800
+    price_uah: 126000
     commission_rate: 0
     source: "opticstore.com.ua"
     in_stock: true
+    url: "https://opticstore.com.ua/product/gibridnyj-invertor-deye-sun-12k-sg04lp3-eu"
 
   - offer_id: inv_solarverse_sv6048_shop
     component_id: inv_solarverse_sv6048
-    price_uah: 29999
+    price_uah: 37499
     commission_rate: 0
-    source: "solarverse.ua"
+    source: "touch.com.ua"  # было solarverse.ua — заменено 23.08.2026
+    url: "https://touch.com.ua/item/gibridnyy-solnechnyy-invertor-solis-s6-eh1p6k-l-plus-48v/"
     in_stock: true
 
   - offer_id: inv_luxpower_sna12000_shop
     component_id: inv_luxpower_sna12000
-    price_uah: 58999
+    price_uah: 56499
     commission_rate: 0
     source: "touch.com.ua"
     in_stock: true
+    url: "https://touch.com.ua/item/gibridnyy-solnechnyy-invertor-luxpower-sna-eu-12000-48v/"
 
   - offer_id: inv_choetech_cj2600q_shop
     component_id: inv_choetech_cj2600q
-    price_uah: 3068
+    price_uah: 4969
     commission_rate: 0
     source: "rozetka.com.ua"
     in_stock: true
+    url: "https://auto.rozetka.com.ua/ua/485343514/p485343514/"
 
   - offer_id: inv_luxeon_ips1200s_shop
     component_id: inv_luxeon_ips1200s
-    price_uah: 2376
+    price_uah: 5665
     commission_rate: 0
     source: "rozetka.com.ua"
+    url: "https://auto.rozetka.com.ua/ua/avtomobilnie-invertori-luxeon-149036582/p539132744/"
     in_stock: false
 
   # Одна цена в исходных данных на обе SKU Sinus 600 — уточнить раздельно
   - offer_id: inv_volt_sinus600_12v_shop
     component_id: inv_volt_sinus600_12v
-    price_uah: 2634
+    price_uah: 2756
     commission_rate: 0
     source: "motoblok.biz"
     in_stock: true
+    url: "https://www.motoblok.biz/ru/catalog/14082/preobrazovateli-toka/66989/preobrazovatel-napryazeniya-volt-polska-sinus-600-12230v-300600w.html"
 
   - offer_id: inv_volt_sinus600_24v_shop
     component_id: inv_volt_sinus600_24v
-    price_uah: 2634
+    price_uah: 1772
     commission_rate: 0
     source: "motoblok.biz"
+    url: "https://www.motoblok.biz/ru/catalog/14082/preobrazovateli-toka/62038/preobrazovatel-napryazeniya-volt-polska-ips-600-duo-12-24230v-300600w.html"
     in_stock: true
+
+  - offer_id: inv_energenie_eg_pwc_ps1000_01_shop
+    component_id: inv_energenie_eg_pwc_ps1000_01
+    price_uah: 5999
+    commission_rate: 0
+    source: "vencon.ua"
+    in_stock: true
+    url: "https://vencon.ua/products/energenie-eg-pwc-ps1000-01"
 
 batteries:
   - component_id: bat_deye_sef5proc
@@ -219,42 +245,48 @@ batteries:
 battery_offers:
   - offer_id: bat_deye_sef5proc_shop
     component_id: bat_deye_sef5proc
-    price_uah: 45999
+    price_uah: 41999
     commission_rate: 0
-    source: "climagroup.ua"
+    source: "rozetka.com.ua"  # было climagroup.ua — заменено по ссылке от 22.08.2026
     in_stock: true
+    url: "https://rozetka.com.ua/ua/612822011/p612822011/"
 
   - offer_id: bat_logicpower_lp24662_shop
     component_id: bat_logicpower_lp24662
     price_uah: 15390
     commission_rate: 0
     source: "bezpeka-shop.com"
-    in_stock: true
+    url: "https://www.bezpeka-shop.com/product/akkumulyator-lp-lifepo4-12-8v-100-ah-1280wh-bms-100a-50a-plastik-smart-bt/"
+    in_stock: false
 
   - offer_id: bat_volt_6akli10012_shop
     component_id: bat_volt_6akli10012
-    price_uah: 12480
+    price_uah: 13296
     commission_rate: 0
-    source: "gurkit.ua"
+    source: "smartmag.biz.ua"  # было gurkit.ua — не нашли там, заменено 23.08.2026
     in_stock: true
+    url: "https://smartmag.biz.ua/ru/akumuliator-dlia-dbzinvertora-volt-polska-lifepo4-128v-100ah-bms-6akli10012-176371"
 
   - offer_id: bat_dyness_dl50c_shop
     component_id: bat_dyness_dl50c
     price_uah: 45000
     commission_rate: 0
     source: "opticstore.com.ua"
-    in_stock: true
+    url: "https://opticstore.com.ua/product/akkumulyatornyj-blok-dyness-dl50c-512-kvtch-512-v"
+    in_stock: false
 
   - offer_id: bat_must_lp15_12100_shop
     component_id: bat_must_lp15_12100
-    price_uah: 15524
+    price_uah: 19060
     commission_rate: 0
-    source: "storeinua.com"
+    source: "rozetka.com.ua"  # было storeinua.com — заменено по ссылке от 22.08.2026
     in_stock: true
+    url: "https://rozetka.com.ua/ua/597631144/p597631144/"
 
   - offer_id: bat_2e_lfp48100_shop
     component_id: bat_2e_lfp48100
     price_uah: 37999
     commission_rate: 0
     source: "moyo.ua"
+    url: "https://www.moyo.ua/ua/akkumulyatornaya_batareya_2e_lfp48100_48v_100ah_19_lcd_16s_2e-lfp48100-lcd_/534630.html"
     in_stock: true
