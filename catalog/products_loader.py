@@ -12,7 +12,7 @@ from typing import Any
 import yaml
 
 from catalog.offers import CatalogOffer
-from catalog.products import CatalogProduct, FuelRateSource
+from catalog.products import CapacitySource, CatalogProduct, FuelRateSource
 from core.errors import InvalidSolutionSpecError
 from core.solution import SolutionKind, SolutionSpec, StorageChemistry, Waveform
 from core.units import VoltAmpere, Watt, WattHour
@@ -71,6 +71,11 @@ def _parse_product(item: dict[str, Any], *, index: int, path: Path) -> CatalogPr
             cycle_life=item.get("cycle_life"),
             depth_of_discharge_override=_optional_float(item.get("depth_of_discharge_override")),
         )
+        capacity_source = (
+            CapacitySource(item["capacity_source"])
+            if item.get("capacity_source")
+            else None
+        )
         fuel_rate_source = (
             FuelRateSource(item["fuel_rate_source"])
             if item.get("fuel_rate_source")
@@ -85,6 +90,7 @@ def _parse_product(item: dict[str, Any], *, index: int, path: Path) -> CatalogPr
             spec=spec,
             image=item.get("image"),
             fuel_rate_source=fuel_rate_source,
+            capacity_source=capacity_source,
         )
     except KeyError as exc:
         raise ProductsCatalogError(

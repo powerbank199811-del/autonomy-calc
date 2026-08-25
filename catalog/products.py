@@ -24,6 +24,18 @@ class FuelRateSource(Enum):
     DERIVED_FROM_TANK = "derived_from_tank"
     MEASURED = "measured"
 
+class CapacitySource(Enum):
+    """Насколько надёжна capacity_wh — то же понятие provenance, что
+    FuelRateSource, но для ёмкости (ADR-038).
+
+    RATED         — из паспорта товара.
+    THIRD_PARTY   — чужой замер со ссылкой на источник, не наш.
+    MEASURED      — собственный замер (FNB24P и далее).
+    """
+
+    RATED = "rated"
+    THIRD_PARTY = "third_party"
+    MEASURED = "measured"
 
 @dataclass(frozen=True, slots=True)
 class CatalogProduct:
@@ -39,3 +51,4 @@ class CatalogProduct:
     #: Статус доверия к fuel_rate_l_per_kwh внутри spec. None — не применимо
     #: (не генератор) или статус не указан.
     fuel_rate_source: FuelRateSource | None = None
+    capacity_source: CapacitySource | None = None

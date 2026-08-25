@@ -8,6 +8,7 @@ core.solution ничего про них не знает. InverterSpec/BatterySp
 
 from dataclasses import dataclass
 
+from catalog.products import CapacitySource
 from core.errors import DomainError
 from core.solution import StorageChemistry, Waveform
 from core.units import VoltAmpere, Volt, Watt, WattHour
@@ -30,6 +31,10 @@ class InverterSpec:
     waveform: Waveform = Waveform.PURE_SINE
     switchover_ms: int | None = None
     dc_output_power_w: Watt = Watt(0.0)
+    #: Гибридный инвертор принимает вход с солнечных панелей. Физический
+    #: факт о железе, не витринный текст (ADR-038). Панели НЕ обязательны
+    #: для работы кита — это поле только про совместимость, не требование.
+    accepts_solar_input: bool = False
 
     def __post_init__(self) -> None:
         if self.system_voltage_v <= 0:
@@ -76,6 +81,7 @@ class CatalogInverter:
     brand: str
     model: str
     spec: InverterSpec
+    image: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -87,6 +93,8 @@ class CatalogBattery:
     brand: str
     model: str
     spec: BatterySpec
+    image: str | None = None
+    capacity_source: CapacitySource | None = None
 
 
 @dataclass(frozen=True, slots=True)

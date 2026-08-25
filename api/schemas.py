@@ -10,8 +10,11 @@ commission_rate тут отсутствует не потому, что его �
 не из чего.
 """
 
+from enum import Enum
+
 from pydantic import BaseModel, Field
 
+from catalog.products import CapacitySource
 from core.fit import FitBlocker, FitFlag
 
 
@@ -65,6 +68,36 @@ class OwnershipOut(BaseModel):
     payback_energy_kwh: float | None
 
 
+class ComponentRole(str, Enum):
+    """Роль offer_id внутри purchases (ADR-038).
+
+    PRIMARY  — простой товар, единственная покупка.
+    INVERTER — кит, элемент 0 component_offer_ids.
+    BATTERY  — кит, элемент 1 component_offer_ids.
+    """
+
+    PRIMARY = "primary"
+    INVERTER = "inverter"
+    BATTERY = "battery"
+
+
+class PurchaseOut(BaseModel):
+    """Одна покупка внутри рекомендации: то, что реально уходит в карточку.
+
+    image_url = None допустим и не является ошибкой (ADR-038): шаблон
+    рисует плейсхолдер. seller_label, напротив, обязателен — отсутствие
+    домена в sources.yaml падает раньше, на загрузке.
+    """
+
+    offer_id: str
+    role: ComponentRole
+    name: str
+    brand: str
+    image_url: str | None
+    seller_label: str
+    price_uah: float
+
+
 class RecommendationOut(BaseModel):
     """Карточка рекомендации.
 
@@ -79,6 +112,13 @@ class RecommendationOut(BaseModel):
     fit: FitOut
     ownership: OwnershipOut | None
     component_offer_ids: list[str] | None = None
+    #: len==1 простой товар, len==2 кит — инвариант, не Optional (ADR-038).
+    purchases: tuple[PurchaseOut, ...] = ()
+    #: None — ёмкости нет (генератор).
+    capacity_source: CapacitySource | None = None
+    #: True только у кита с гибридным инвертором: панели можно подключить,
+    #: но они НЕ обязательны.
+    solar_optional: bool | None = None
 
 
 class RejectionOut(BaseModel):

@@ -15,16 +15,21 @@ from api.catalog_provider import (
     load_all_candidates,
     load_appliance_catalog,
     load_appliances,
+    load_display_index,
 )
+from api.display_index import DisplayIndex
 from api.schemas import (
+    ComponentRole,
     FitOut,
     OwnershipOut,
+    PurchaseOut,
     RecommendationOut,
     RecommendationRequest,
     RecommendationResponse,
     RejectionOut,
     RequirementOut,
 )
+from catalog.products import CapacitySource
 from api.redirect import build_router
 from core.demand import calculate_requirement
 from core.errors import DomainError
@@ -43,6 +48,9 @@ app = FastAPI(title="autonomy-calc", version="0.1.0")
 CLICKS_DB = Path(__file__).resolve().parent.parent / "var" / "clicks.db"
 click_log = SqliteClickLog(CLICKS_DB)
 app.include_router(build_router(click_log))
+
+
+
 
 
 def _build_profile(request: RecommendationRequest) -> LoadProfile:
@@ -79,10 +87,63 @@ def _requirement_out(requirement: EnergyRequirement) -> RequirementOut:
         window_hours=requirement.window_hours,
     )
 
+def _purchases(
+    recommendation: Recommendation, index: DisplayIndex
+) -> tuple[tuple[PurchaseOut, ...], CapacitySource | None, bool | None]:
+    """purchases + capacity_source + solar_optional одной сборкой.
 
-def _recommendation_out(recommendation: Recommendation) -> RecommendationOut:
+    Роль в ките — по ПОЗИЦИИ в component_offer_ids (ADR-038): порядок
+    (инвертор, АКБ) зафиксирован в kit_candidates. Парсить строку
+    offer_id запрещено.
+    """
+    ids = recommendation.component_offer_ids
+    if ids is None:
+        entry = index.get(recommendation.offer_id)
+        purchase = PurchaseOut(
+            offer_id=entry.offer_id,
+            role=ComponentRole.PRIMARY,
+            name=entry.name,
+            brand=entry.brand,
+            image_url=entry.image_url,
+            seller_label=entry.seller_label,
+            price_uah=entry.price_uah,
+        )
+        return (purchase,), entry.capacity_source, None
+
+    inverter = index.get(ids[0])
+    battery = index.get(ids[1])
+    purchases = (
+        PurchaseOut(
+            offer_id=inverter.offer_id,
+            role=ComponentRole.INVERTER,
+            name=inverter.name,
+            brand=inverter.brand,
+            image_url=inverter.image_url,
+            seller_label=inverter.seller_label,
+            price_uah=inverter.price_uah,
+        ),
+        PurchaseOut(
+            offer_id=battery.offer_id,
+            role=ComponentRole.BATTERY,
+            name=battery.name,
+            brand=battery.brand,
+            image_url=battery.image_url,
+            seller_label=battery.seller_label,
+            price_uah=battery.price_uah,
+        ),
+    )
+    # solar_optional имеет смысл только у кита: True = инвертор гибридный,
+    # панели подключить МОЖНО, но они не обязательны (ADR-038).
+    return purchases, battery.capacity_source, inverter.accepts_solar_input
+
+
+
+def _recommendation_out(
+    recommendation: Recommendation, index: DisplayIndex
+) -> RecommendationOut:
     fit = recommendation.fit
     ownership = recommendation.ownership
+    purchases, capacity_source, solar_optional = _purchases(recommendation, index)
     return RecommendationOut(
         offer_id=recommendation.offer_id,
         rank_position=recommendation.rank_position,
@@ -92,6 +153,9 @@ def _recommendation_out(recommendation: Recommendation) -> RecommendationOut:
             if recommendation.component_offer_ids is None
             else list(recommendation.component_offer_ids)
         ),
+        purchases=purchases,
+        capacity_source=capacity_source,
+        solar_optional=solar_optional,
         fit=FitOut(
             can_cover_window=fit.can_cover_window,
             autonomy_hours=fit.autonomy_hours,
@@ -150,9 +214,12 @@ def post_recommendations(request: RecommendationRequest) -> RecommendationRespon
             for reason in explain_rejections(requirement, candidates)
         ]
 
+    display_index = load_display_index()
     return RecommendationResponse(
         requirement=_requirement_out(requirement),
-        recommendations=[_recommendation_out(item) for item in recommendations],
+        recommendations=[
+            _recommendation_out(item, display_index) for item in recommendations
+        ],
         rejected=rejected,
     )
 

@@ -20,6 +20,9 @@ from core.appliances import ApplianceSpec
 from matching.candidate import Candidate
 from reference.appliances import CatalogAppliance
 from reference.appliances_loader import load_appliances_catalog
+from api.display_index import DisplayIndex, build_display_index
+from catalog.sources_loader import load_sources
+
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
@@ -44,4 +47,22 @@ def load_all_candidates() -> tuple[Candidate, ...]:
     )
     return build_candidates(products, offers) + build_kit_candidates(
         inverters, inverter_offers, batteries, battery_offers
+    )
+
+    
+@lru_cache(maxsize=1)
+def load_display_index() -> DisplayIndex:
+    """Display-индекс по обоим источникам каталога. Строится один раз."""
+    products, offers = load_catalog(DATA_DIR / "products.yaml")
+    inverters, inverter_offers, batteries, battery_offers = load_components(
+        DATA_DIR / "components.yaml"
+    )
+    return build_display_index(
+        products,
+        offers,
+        inverters,
+        inverter_offers,
+        batteries,
+        battery_offers,
+        load_sources(DATA_DIR / "sources.yaml"),
     )
