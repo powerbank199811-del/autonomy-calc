@@ -794,3 +794,101 @@ CPA-сетей (Rozetka размечает такие требования от�
 Закрывает открытую проблему из ADR-035: карточка кита теперь может
 отрисовать две кнопки перехода, по одной на `component_offer_ids[0]` и
 `component_offer_ids[1]`, каждая ведёт через свой `/go/{offer_id}`.
+
+## ADR-038. Display-контракт — отдельный индекс в api/, Recommendation не расширяется
+
+**Проблема.** `RecommendationOut` несёт данные для решения (offer_id, price_uah,
+fit, ownership, component_offer_ids), но не данные для карточки (имя, бренд,
+картинка, продавец). Эти данные есть в catalog/ (`CatalogProduct`,
+`CatalogInverter`, `CatalogBattery`, `CatalogOffer`, `ComponentOffer`), но
+`matching.Recommendation` их не несёт и не должен — движок ранжирования не
+принимает решений по бренду или картинке, и любая связь между matching/ и
+витриной означала бы, что правка каталога заставляет менять ранжирование
+(нарушение ADR-021: catalog зависит от matching, не наоборот).
+
+**Решение.** Склейка происходит в api/, в новом модуле `api/display_index.py`,
+а не в catalog/ и не расширением `Candidate`/`Recommendation`. Это чистая
+HTTP-склейка каталожных данных по offer_id — то, для чего api/ и существует
+(единственный слой, которому разрешено знать все остальные).
+
+```python
+class DisplayIndex:
+    def get(self, offer_id: str) -> DisplayEntry: ...  # KeyError на неизвестном offer_id
+
+def build_display_index(...) -> DisplayIndex: ...
+```
+
+Строится один раз через `lru_cache`, рядом с существующим единственным местом,
+знающим путь `data/` (`catalog_provider.py`), не пересобирается на каждый запрос.
+
+**Новые/изменённые поля каталога** (реализация — S3, не эта сессия):
+
+| Где | Поле | Обоснование |
+|---|---|---|
+| `catalog/components.py` | `CatalogInverter.image`, `CatalogBattery.image: str \| None = None` | Повтор уже существующего `CatalogProduct.image`, не новый паттерн |
+| `catalog/products.py` | `class CapacitySource(Enum): RATED / THIRD_PARTY / MEASURED` | Тот же паттерн, что `FuelRateSource` (ADR-013/027) — provenance числа, не физика |
+| `catalog/products.py` | `CatalogProduct.capacity_source`, аналогично `CatalogBattery.capacity_source: CapacitySource \| None` | Живёт рядом со spec, не внутри `SolutionSpec`/`BatterySpec` — честность замера не меняет физику расчёта |
+| `data/sources.yaml` | `{domain: seller_label}` | Единый источник отображаемого имени продавца (поле — `seller_label`). `CatalogOffer.source`/`ComponentOffer.source` остаются техническим доменом — не переименовываются, чтобы не смешаться с будущей сущностью CPA-сети (отдельный ADR до логики sub_id, см. ошибку №10 в списке известных) |
+| `core/solution.py` | `InverterSpec.accepts_solar_input: bool = False` | Единственное пересечение с core/ в этом ADR, оправдано разрешённым исключением слоя. Это физический факт о железе (инвертор гибридный), а не витринный текст — переиспользуется в F2-1 (модель притока энергии), не задел впустую |
+
+Отсутствие домена оффера в `sources.yaml` — ошибка загрузки, не молчаливый
+fallback на сырой домен (тот же принцип, что уже применён к пустым `url`,
+ошибка №4 в известных). Отсутствие картинки конкретного товара — НЕ ошибка
+загрузки, `image_url: None` допустим, шаблон S4 рисует плейсхолдер: у 21 из
+21 товара сейчас нет картинки, и это не должно блокировать релиз.
+
+**Новые типы `api/schemas.py`:**
+
+```python
+class ComponentRole(str, Enum):
+    PRIMARY = "primary"     # простой товар, единственная покупка
+    INVERTER = "inverter"   # кит, элемент 0 component_offer_ids
+    BATTERY = "battery"     # кит, элемент 1 component_offer_ids
+
+class PurchaseOut(BaseModel):
+    offer_id: str
+    role: ComponentRole
+    name: str
+    brand: str
+    image_url: str | None
+    seller_label: str
+    price_uah: float
+```
+
+`RecommendationOut` дополняется:
+
+```python
+purchases: tuple[PurchaseOut, ...]        # len==1 простой товар, len==2 кит — инвариант, не Optional
+capacity_source: CapacitySource | None    # None = генератор, ёмкости нет
+solar_optional: bool | None               # True только у кита с гибридным инвертором
+```
+
+`price_uah` на верхнем уровне `RecommendationOut` не удаляется — остаётся
+суммой (уже считается для китов в `kit_candidates.py`), нужен для сортировки
+и заголовка без обхода `purchases`.
+
+Роль в ките назначается по **позиции** в `component_offer_ids`
+(`purchases[0]` = INVERTER, `purchases[1]` = BATTERY) — фиксированный порядок
+уже задан в `kit_candidates.py:50`. Парсинг строки offer_id по-прежнему
+запрещён (правило из `matching/candidate.py`).
+
+**Что НЕ входит в контракт:**
+
+- рейтинги/отзывы — нет источника данных;
+- остаток на складе числом — только `in_stock: bool`;
+- CPA-сеть / sub_id — `seller_label` это витрина, не платящая сторона;
+- совместимость кабеля — `CatalogAccessory`, Фаза 2, не `Solution`;
+- выработка солнечных панелей — `accepts_solar_input` только факт о железе, модель притока энергии целиком в F2-1;
+- мультивалютность — только ₴.
+
+**Альтернативы, отклонённые явно:**
+
+- Расширить `Candidate`/`Recommendation` display-полями напрямую — отклонено:
+  заставило бы `matching/` знать о брендах и картинках, что нарушает
+  направление зависимостей и требование "движок работает на кандидатах,
+  собранных откуда угодно" (ADR-021).
+- Хранить `image_url` внешней ссылкой на сайт продавца (hotlink) — отклонено
+  как продуктовое решение, не как часть этого контракта: referrer-блокировка,
+  отсутствие контроля над исчезновением файла у продавца, нарушение принципа
+  "маркетплейсы — только через ночной ETL". Own-hosted изображения —
+  отдельная задача данных, S8, не блокирует этот ADR.
