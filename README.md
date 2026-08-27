@@ -829,7 +829,7 @@ def build_display_index(...) -> DisplayIndex: ...
 | `catalog/products.py` | `class CapacitySource(Enum): RATED / THIRD_PARTY / MEASURED` | Тот же паттерн, что `FuelRateSource` (ADR-013/027) — provenance числа, не физика |
 | `catalog/products.py` | `CatalogProduct.capacity_source`, аналогично `CatalogBattery.capacity_source: CapacitySource \| None` | Живёт рядом со spec, не внутри `SolutionSpec`/`BatterySpec` — честность замера не меняет физику расчёта |
 | `data/sources.yaml` | `{domain: seller_label}` | Единый источник отображаемого имени продавца (поле — `seller_label`). `CatalogOffer.source`/`ComponentOffer.source` остаются техническим доменом — не переименовываются, чтобы не смешаться с будущей сущностью CPA-сети (отдельный ADR до логики sub_id, см. ошибку №10 в списке известных) |
-| `core/solution.py` | `InverterSpec.accepts_solar_input: bool = False` | Единственное пересечение с core/ в этом ADR, оправдано разрешённым исключением слоя. Это физический факт о железе (инвертор гибридный), а не витринный текст — переиспользуется в F2-1 (модель притока энергии), не задел впустую |
+| `catalog/components.py` | `InverterSpec.accepts_solar_input: bool = False` | Слой `core/` этим ADR не затрагивается вообще: `InverterSpec` — каталожный тип, а не доменный (ADR-022). Это физический факт о железе (инвертор гибридный), а не витринный текст — переиспользуется в F2-1 (модель притока энергии), не задел впустую |
 
 Отсутствие домена оффера в `sources.yaml` — ошибка загрузки, не молчаливый
 fallback на сырой домен (тот же принцип, что уже применён к пустым `url`,

@@ -208,6 +208,7 @@ def _print_tests() -> None:
             capture_output=True,
             text=True,
             timeout=600,
+            check=False,
         )
     except FileNotFoundError:
         print("pytest не найден в текущем интерпретаторе")
@@ -234,7 +235,7 @@ def _git(*args: str) -> str:
     """Выполняет git-команду на чтение, возвращает stdout без хвостовых пробелов."""
     try:
         result = subprocess.run(
-            ["git", *args], cwd=ROOT, capture_output=True, text=True, timeout=30
+            ["git", *args], cwd=ROOT, capture_output=True, text=True, timeout=30, check=False
         )
     except (FileNotFoundError, subprocess.TimeoutExpired):
         return ""

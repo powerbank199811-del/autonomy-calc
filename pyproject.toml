@@ -13,7 +13,7 @@ packages = ["core", "reference", "matching", "catalog", "tracking", "api"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["core", "reference", "matching", "catalog", "tracking", "api", "tests"]
+files = ["core", "reference", "matching", "catalog", "tracking", "api", "tests", "scripts"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
