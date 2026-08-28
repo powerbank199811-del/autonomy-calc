@@ -1,0 +1,255 @@
+{# Карточка рекомендации. Вход — только RecommendationOut (ADR-032, ADR-038).
+
+   in_stock здесь не упоминается ни разу и не может: недоступный кандидат
+   отсеян в matching/engine.py до ранжирования (ADR-019), до шаблона он не
+   доезжает. Поэтому schema.org availability=InStock безусловен и не врёт.
+
+   Кит не размечается как один Product: у него нет одной страницы продавца
+   (ADR-035), а два товара разных брендов у разных продавцов под одной ценой
+   были бы ложной разметкой. Кит — ItemList из двух Product с собственными
+   Offer. Роль берётся из purchases[i].role, порядок задан позицией в
+   component_offer_ids (ADR-038), строка offer_id не парсится.
+
+   Порядок блоков на мобильном: ЧТО это -> СКОЛЬКО протянет -> СКОЛЬКО стоит
+   -> почему товаров два -> кнопки -> экономика -> оговорки. Человек без
+   света должен получить ответ раньше, чем обоснование.
+#}
+
+{% macro card_styles() %}
+<style>
+.ac-card {
+  --ac-fg: #14181d;
+  --ac-muted: #5b6672;
+  --ac-line: #e2e6ea;
+  --ac-accent: #0b5fff;
+  --ac-good: #0a7d3f;
+  --ac-bg: #ffffff;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 12px;
+  padding: 14px;
+  border: 1px solid var(--ac-line);
+  border-radius: 12px;
+  background: var(--ac-bg);
+  color: var(--ac-fg);
+  font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-wrap: anywhere;
+}
+.ac-card * { box-sizing: border-box; min-width: 0; }
+.ac-card__head { display: flex; gap: 12px; align-items: flex-start; }
+.ac-card__thumb {
+  flex: 0 0 56px; width: 56px; height: 56px;
+  border-radius: 10px; border: 1px solid var(--ac-line);
+  display: flex; align-items: center; justify-content: center;
+  background: #f4f6f8; color: var(--ac-muted);
+  font-size: 18px; font-weight: 600; letter-spacing: .5px;
+  overflow: hidden;
+}
+.ac-card__thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.ac-card__title { margin: 0; font-size: 19px; line-height: 1.25; font-weight: 700; }
+.ac-card__subtitle { margin: 2px 0 0; font-size: 14px; color: var(--ac-muted); }
+.ac-card__name { margin: 0; font-size: 16px; line-height: 1.3; font-weight: 600; }
+.ac-card__role {
+  display: inline-block; margin-top: 2px; padding: 1px 8px;
+  border-radius: 999px; background: #eef1f4;
+  font-size: 12px; font-weight: 600; color: var(--ac-muted);
+}
+.ac-card__lead { margin: 12px 0 0; padding: 12px; border-radius: 10px; background: #f4f6f8; }
+.ac-card__hours { display: block; font-size: 28px; font-weight: 700; line-height: 1.1; }
+.ac-card__hours-note { display: block; margin-top: 4px; font-size: 14px; color: var(--ac-muted); }
+.ac-card__short { color: #8a5a00; }
+.ac-card__total {
+  margin: 12px 0 0; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--ac-line);
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  font-size: 15px;
+}
+.ac-card__total b { font-size: 20px; }
+.ac-card__explain { margin: 12px 0 0; font-size: 14px; line-height: 1.5; color: var(--ac-muted); }
+.ac-card__item { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--ac-line); }
+.ac-card__buy { margin-top: 10px; }
+.ac-card__price { display: block; font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+.ac-card__seller { font-weight: 400; font-size: 14px; color: var(--ac-muted); }
+.ac-btn {
+  display: block; width: 100%; padding: 14px;
+  border-radius: 10px; background: var(--ac-accent); color: #fff;
+  font-size: 16px; font-weight: 600; text-align: center; text-decoration: none;
+}
+.ac-card__econ { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--ac-line); }
+.ac-card__econ-head { margin: 0; font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .04em; color: var(--ac-muted); }
+.ac-card__econ-main { margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: var(--ac-muted); }
+.ac-card__econ-main b { display: block; font-size: 20px; color: var(--ac-fg); }
+.ac-card__econ-note { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: var(--ac-muted); }
+.ac-card__cheap { color: var(--ac-good); }
+.ac-card__solar {
+  margin: 12px 0 0; padding: 10px 12px; border-radius: 10px;
+  background: #eef5ff; color: #123a7a; font-size: 14px; line-height: 1.45;
+}
+.ac-card__how { margin: 12px 0 0; font-size: 14px; color: var(--ac-muted); }
+.ac-card__how summary { cursor: pointer; font-weight: 600; }
+.ac-card__how ul { margin: 8px 0 0; padding-left: 18px; }
+.ac-card__how li { margin-bottom: 4px; line-height: 1.45; }
+@media (min-width: 640px) {
+  .ac-card { padding: 18px; }
+  .ac-card__thumb { flex-basis: 72px; width: 72px; height: 72px; }
+  .ac-btn { display: inline-block; width: auto; min-width: 280px; }
+}
+</style>
+{% endmacro %}
+
+
+{% macro _thumb(purchase) %}
+<div class="ac-card__thumb">
+  {% if purchase.image_url %}
+  <img src="{{ purchase.image_url }}" alt="{{ purchase.name }}" itemprop="image"
+       loading="lazy" width="56" height="56">
+  {% else %}
+  <span aria-hidden="true">{{ purchase.brand | initials }}</span>
+  {% endif %}
+</div>
+{% endmacro %}
+
+
+{% macro _buy(purchase, position) %}
+<div class="ac-card__buy" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+  <meta itemprop="priceCurrency" content="UAH">
+  <meta itemprop="price" content="{{ '%.0f' | format(purchase.price_uah) }}">
+  <link itemprop="availability" href="https://schema.org/InStock">
+  <link itemprop="url" href="/go/{{ purchase.offer_id }}">
+  <div itemprop="seller" itemscope itemtype="https://schema.org/Organization">
+    <meta itemprop="name" content="{{ purchase.seller_label }}">
+  </div>
+  <span class="ac-card__price">{{ purchase.price_uah | uah }}
+    <span class="ac-card__seller">у {{ purchase.seller_label }}</span></span>
+  <a class="ac-btn" rel="nofollow sponsored noopener"
+     href="/go/{{ purchase.offer_id }}?position={{ position }}">Купити{% if purchase.role | role_label %} {{ purchase.role | role_label | lower }}{% endif %}</a>
+</div>
+{% endmacro %}
+
+
+{# Сколько протянет. Список приборов сюда не передаётся намеренно: он один
+   на всю страницу и живёт над выдачей (S5), а не повторяется в каждой
+   карточке. Формулировка "ваша техніка" верна без него. #}
+{% macro _lead(rec) %}
+<div class="ac-card__lead">
+  <span class="ac-card__hours{% if not rec.fit.can_cover_window %} ac-card__short{% endif %}">{{ rec.fit.autonomy_hours | hours }}</span>
+  <span class="ac-card__hours-note">
+    {% if rec.fit.can_cover_window %}
+    стільки протримає ваша техніка без світла — з запасом до того, що ви просили
+    {% else %}
+    стільки протримає ваша техніка — менше, ніж ви просили, але вона працюватиме
+    {% endif %}
+  </span>
+</div>
+{% endmacro %}
+
+
+{% macro _economics(rec) %}
+{% if rec.ownership %}
+<div class="ac-card__econ">
+  <p class="ac-card__econ-head">Скільки коштуватиме електрика</p>
+  <p class="ac-card__econ-main">
+    <b>{{ rec.ownership.cost_per_kwh_uah | uah_per_kwh }}</b>
+    <span>стільки коштує кіловат-година з цього рішення: його ціна, поділена
+    на всю енергію, яку воно віддасть за свій ресурс</span>
+  </p>
+  {% if rec.ownership | pays_back %}
+  <p class="ac-card__econ-note ac-card__cheap">
+    Проти мережі окупиться, коли ви візьмете з нього
+    {{ rec.ownership.payback_energy_kwh | kwh }} — це в межах ресурсу
+    ({{ rec.ownership.lifetime_energy_kwh | kwh }}).
+  </p>
+  {% else %}
+  <p class="ac-card__econ-note">
+    Проти мережі не окупиться: за весь строк служби воно віддасть
+    {{ rec.ownership.lifetime_energy_kwh | kwh }}, а щоб відбити ціну,
+    треба більше. Резервне живлення купують не заради економії, а щоб
+    світло було тоді, коли його немає.
+  </p>
+  {% endif %}
+</div>
+{% endif %}
+{% endmacro %}
+
+
+{# Оговорки внизу и под спойлером: сначала ответ, потом обоснование.
+   Раньше флаг про паспортную ёмкость стоял вплотную к названию инвертора
+   и читался как свойство инвертора. #}
+{% macro _disclosures(rec) %}
+{% if rec.solar_optional %}
+<p class="ac-card__solar">Сонячні панелі не обов'язкові — комплект працює від мережі.</p>
+{% endif %}
+{% set capacity_note = rec.capacity_source | capacity_source_label %}
+{% if capacity_note or rec.fit.flags %}
+<details class="ac-card__how">
+  <summary>Як ми це порахували</summary>
+  <ul>
+    {% if capacity_note %}
+    <li>{{ capacity_note }}</li>
+    {% endif %}
+    {% for flag in rec.fit.flags %}
+    <li>{{ flag | flag_label }}</li>
+    {% endfor %}
+  </ul>
+</details>
+{% endif %}
+{% endmacro %}
+
+
+{% macro card(rec) %}
+{% if rec.purchases | length > 1 %}
+<article class="ac-card ac-card--kit" itemscope itemtype="https://schema.org/ItemList">
+  <meta itemprop="numberOfItems" content="{{ rec.purchases | length }}">
+  <h3 class="ac-card__title">Інвертор + акумулятор</h3>
+  <p class="ac-card__subtitle">Два окремі товари, які працюють тільки в парі</p>
+  {{ _lead(rec) }}
+  <p class="ac-card__total"><span>Разом за два товари</span><b>{{ rec.price_uah | uah }}</b></p>
+  <p class="ac-card__explain">
+    Акумулятор зберігає енергію, але сам не дає 220 В у розетку. Інвертор
+    перетворює його струм на звичайні 220 В, але сам енергію не зберігає.
+    Поодинці жоден із них не працює — тому й дві покупки, у різних магазинах.
+  </p>
+  {% for purchase in rec.purchases %}
+  <div class="ac-card__item" itemprop="itemListElement" itemscope
+       itemtype="https://schema.org/ListItem">
+    <meta itemprop="position" content="{{ loop.index }}">
+    <div itemprop="item" itemscope itemtype="https://schema.org/Product">
+      <div class="ac-card__head">
+        {{ _thumb(purchase) }}
+        <div>
+          <h4 class="ac-card__name" itemprop="name">{{ purchase.name }}</h4>
+          <span class="ac-card__role">{{ purchase.role | role_label }}</span>
+          <div itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+            <meta itemprop="name" content="{{ purchase.brand }}">
+          </div>
+        </div>
+      </div>
+      {{ _buy(purchase, rec.rank_position) }}
+    </div>
+  </div>
+  {% endfor %}
+  {{ _economics(rec) }}
+  {{ _disclosures(rec) }}
+</article>
+{% else %}
+{% set purchase = rec.purchases[0] %}
+<article class="ac-card" itemscope itemtype="https://schema.org/Product">
+  <div itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+    <meta itemprop="name" content="{{ purchase.brand }}">
+  </div>
+  <div class="ac-card__head">
+    {{ _thumb(purchase) }}
+    <div>
+      <h3 class="ac-card__title" itemprop="name">{{ purchase.name }}</h3>
+      <p class="ac-card__subtitle">{{ purchase.brand }}</p>
+    </div>
+  </div>
+  {{ _lead(rec) }}
+  {{ _buy(purchase, rec.rank_position) }}
+  {{ _economics(rec) }}
+  {{ _disclosures(rec) }}
+</article>
+{% endif %}
+{% endmacro %}

@@ -84,6 +84,7 @@ API_ALLOWED = set(sys.stdlib_module_names) | {
     "catalog",
     "core",
     "fastapi",
+    "jinja2",
     "matching",
     "pydantic",
     "reference",
