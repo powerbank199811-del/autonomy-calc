@@ -6,6 +6,21 @@
 # вони, як правило, толерантні до модифікованого синуса (втрата ККД, не поломка).
 
 # --- Холодильне обладнання ---
+
+# duty_cycle означает разное для двух классов приборов.
+#
+# Термостатные (холодильник, бойлер, морозильник, котёл):
+#   физическая доля времени работы компрессора или ТЭНа в цикле,
+#   значение меньше 1 обязательно. Часы = время присутствия нагрузки.
+#
+# Ручные (микроволновка, чайник, мультиварка, фен): всегда 1.0.
+#   Пользователь вводит время фактической работы прибора, а не время
+#   его стояния на кухне. Значение меньше 1 молча делит его ввод.
+#
+# power_w для инверторных компрессоров — максимум режима догона,
+# а не средняя. Догон длится минутами, для инвертора это непрерывная
+# нагрузка. Средняя учитывается через duty_cycle.
+
 - code: fridge_small
   name_uk: "Холодильник малий (до 200л)"
   category: "Холодильне обладнання"
@@ -22,6 +37,15 @@
   duty_cycle: 0.35
   startup_factor: 5
   power_factor: 0.7
+  requires_pure_sine: true
+
+- code: fridge_medium_inverter
+  name_uk: "Холодильник середній інверторний (200-350л)"
+  category: "Холодильне обладнання"
+  power_w: 90
+  duty_cycle: 0.35
+  startup_factor: 1.5
+  power_factor: 0.8
   requires_pure_sine: true
 
 - code: fridge_large_no_frost
@@ -203,9 +227,9 @@
 - code: desktop_pc_office
   name_uk: "Комп'ютер офісний"
   category: "Комп'ютерна техніка"
-  power_w: 150
-  duty_cycle: 0.6
-  startup_factor: 1.2
+  power_w: 80
+  duty_cycle: 1.0
+  startup_factor: 2.0
   power_factor: 0.7
 
 - code: monitor_24
@@ -243,15 +267,16 @@
   name_uk: "Електрочайник 1.8 кВт"
   category: "Кухонна техніка"
   power_w: 1800
-  duty_cycle: 0.15
+  duty_cycle: 1.0
 
 - code: microwave_800w
-  name_uk: "Мікрохвильова піч 800Вт"
+  name_uk: "Мікрохвильова піч 800Вт (споживає ~1300Вт)"
   category: "Кухонна техніка"
-  power_w: 800
-  duty_cycle: 0.2
-  startup_factor: 1.3
-  power_factor: 0.95
+  power_w: 1300
+  duty_cycle: 1.0
+  startup_factor: 1.9
+  power_factor: 0.65
+  requires_pure_sine: true
 
 - code: induction_cooktop_1burner
   name_uk: "Індукційна плита, 1 конфорка"
@@ -264,7 +289,7 @@
   name_uk: "Мультиварка 700Вт"
   category: "Кухонна техніка"
   power_w: 700
-  duty_cycle: 0.4
+  duty_cycle: 1.0
 
 # --- Побутова техніка ---
 - code: washing_machine

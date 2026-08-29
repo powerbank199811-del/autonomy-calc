@@ -138,7 +138,7 @@ def test_appliances_endpoint_lists_reference() -> None:
     response = client.get("/api/v1/appliances")
     assert response.status_code == 200
     appliances = response.json()["appliances"]
-    assert len(appliances) == 47
+    assert len(appliances) == 48
     assert {"code", "name", "category"} == set(appliances[0])
 
 
