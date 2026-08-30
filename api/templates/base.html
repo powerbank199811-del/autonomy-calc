@@ -1,0 +1,32 @@
+{# Скелет страницы. Canonical — блок, а не константа: /rozrakhunok (S10)
+    переопределит его, не трогая базовый шаблон. #}
+ <!doctype html>
+ <html lang="uk">
+ <head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>{% block title %}autonomy-calc{% endblock %}</title>
+ <meta name="description" content="{% block description %}{% endblock %}">
+ <link rel="canonical" href="https://autonomy.com.ua{% block canonical %}/{% endblock %}">
+ <style>
+ :root { --fg:#14181d; --muted:#5b6672; --line:#e2e6ea; --accent:#0b5fff; --bg:#fff; }
+ *,*::before,*::after { box-sizing:border-box; }
+ body {
+   margin:0; background:var(--bg); color:var(--fg);
+   font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+ }
+ .wrap { max-width:720px; margin:0 auto; padding:16px 14px 48px; }
+ h1 { font-size:22px; line-height:1.25; margin:0 0 4px; }
+ h2 { font-size:17px; margin:28px 0 10px; }
+ .sub { color:var(--muted); font-size:14px; margin:0 0 18px; }
+ a { color:var(--accent); }
+ @media (min-width:600px) { h1 { font-size:28px; } .wrap { padding:28px 20px 64px; } }
+ </style>
+ {% block head %}{% endblock %}
+ </head>
+ <body>
+ <div class="wrap">
+ {% block content %}{% endblock %}
+ </div>
+ </body>
+ </html>

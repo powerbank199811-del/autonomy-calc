@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% from "card.html" import card, card_styles %}
+
+{# card.html подключается импортом макросов, а не склейкой строк из
+   render_card(): render_card остаётся для scripts/preview_card.py.
+   Шаблон видит только RecommendationOut — граница S4 не нарушена. #}
+
+{% block title %}
+{% if query.items %}Скільки протримає обладнання без світла — розрахунок
+{% else %}Скільки протримає холодильник без світла — розрахунок{% endif %}
+{% endblock %}
+
+{% block description %}Виберіть прилади й час — покажемо, що їх витримає, скільки коштує і чи окупиться проти мережі.{% endblock %}
+
+{% block head %}
+{{ card_styles() }}
+<style>
+.form { border:1px solid var(--line); border-radius:12px; padding:14px; }
+.grid { display:grid; gap:2px; }
+.opt { display:flex; align-items:center; gap:10px; padding:9px 4px; cursor:pointer; }
+.opt input { width:20px; height:20px; flex:none; accent-color:var(--accent); }
+.opt span { font-size:15px; }
+.opt small { color:var(--muted); }
+.hours { display:flex; align-items:center; gap:10px; margin:14px 0 12px; flex-wrap:wrap; }
+.hours select { font-size:16px; padding:9px 10px; border:1px solid var(--line); border-radius:8px; }
+.go { width:100%; padding:14px; font-size:17px; font-weight:600; color:#fff;
+      background:var(--accent); border:0; border-radius:10px; cursor:pointer; }
+.cat-group { margin:0; border-top:1px solid var(--line); }
+.cat-group summary {
+  cursor:pointer; padding:12px 4px; font-size:15px; font-weight:500;
+  list-style:none; display:flex; justify-content:space-between; align-items:center;
+}
+.cat-group summary::-webkit-details-marker { display:none; }
+.cat-group summary::after { content:"▾"; color:var(--muted); font-size:13px; }
+.cat-group[open] summary::after { content:"▴"; }
+.cat-group .grid { padding-bottom:8px; }
+.badge { display:inline-block; min-width:20px; padding:1px 6px; margin-left:6px; background:var(--accent); color:#fff; border-radius:10px; font-size:12px; font-weight:600; text-align:center; }
+.badge[hidden] { display:none; }
+.chosen {
+  margin:14px 0 0; padding:10px 12px; background:#f6f8fa; border-radius:8px;
+  font-size:14px; color:var(--muted);
+}
+.profile { background:#f6f8fa; border-radius:10px; padding:12px 14px; margin:20px 0 6px; }
+.profile p { margin:0; font-size:15px; }
+.note { color:var(--muted); font-size:13px; margin:8px 0 0; }
+.empty { border:1px solid var(--line); border-left:3px solid #b8500a;
+         border-radius:10px; padding:14px; }
+.empty ul { margin:8px 0 0; padding-left:20px; }
+.presets { margin:14px 0 0; font-size:14px; }
+.presets a { display:inline-block; margin:0 12px 8px 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h1>Скільки протримає техніка без світла</h1>
+<p class="sub">Виберіть прилади й час — покажемо, що їх витримає та скільки це коштує.</p>
+
+<form class="form" method="get" action="/">
+  <div class="grid">
+    {% for item in top_appliances %}
+    <label class="opt">
+      <input type="checkbox" name="p" value="{{ item.code }}"
+             {% if item.code in selected_codes %}checked{% endif %}>
+             <span>{{ item.name_uk }} <small>{{ item.spec.power_w }} Вт</small></span>
+    </label>
+    {% endfor %}
+  </div>
+
+  {% for group in categories %}
+  <details class="cat-group" data-group="{{ loop.index }}" {% if group.has_selected %}open{% endif %}>
+    <summary>
+      <span>{{ group.title }}<b class="badge" data-count-for="{{ loop.index }}"
+        {% if not group.selected_count %}hidden{% endif %}>{{ group.selected_count }}</b></span>
+    </summary>
+    <div class="grid">
+      {% for item in group.appliances %}
+      <label class="opt">
+        <input type="checkbox" name="p" value="{{ item.code }}"
+               {% if item.code in selected_codes %}checked{% endif %}>
+        <span>{{ item.name_uk }} <small>{{ item.spec.power_w }} Вт</small></span>
+      </label>
+      {% endfor %}
+    </div>
+  </details>
+  {% endfor %}
+
+  {% if selected_names %}
+  <p class="chosen">Обрано: {{ selected_names|join(", ") }}</p>
+  {% endif %}
+
+  <div class="hours">
+    <label for="h">Скільки годин без світла</label>
+    <select id="h" name="h">
+      {% for value in hour_options %}
+      <option value="{{ value }}" {% if value == query.hours %}selected{% endif %}>{{ value|int }} год</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  {% if not query.tariff_is_default %}
+  <input type="hidden" name="t" value="{{ query.tariff_uah_per_kwh }}">
+  {% endif %}
+  {% if query.fuel_price_uah_per_l is not none %}
+  <input type="hidden" name="f" value="{{ query.fuel_price_uah_per_l }}">
+  {% endif %}
+
+  <button class="go" type="submit">Порахувати</button>
+</form>
+
+{% if query.is_empty %}
+<p class="presets">
+  Або одразу:
+  {% for preset in presets %}<a href="{{ preset.url }}">{{ preset.title }}</a>{% endfor %}
+</p>
+{% endif %}
+
+{% if query.unknown_codes %}
+<p class="note">Не розпізнано у посиланні: {{ query.unknown_codes|join(", ") }}</p>
+{% endif %}
+
+{% if not query.is_empty %}
+
+<div class="profile">
+  <p><strong>{{ profile_text }}</strong></p>
+  <p class="note">
+    Потрібно {{ requirement.total_energy_wh|wh_as_kwh }} за {{ query.hours|hours }},
+    постійна потужність {{ requirement.continuous_power_ac_w|round|int }} Вт,
+    пусковий пік {{ requirement.startup_power_w|round|int }} Вт.
+  </p>
+</div>
+
+{% if recommendations %}
+<h2>Що це витримає</h2>
+{% for rec in recommendations %}
+{{ card(rec) }}
+{% endfor %}
+
+<p class="note">
+  Розрахунок за тарифом {{ query.tariff_uah_per_kwh|uah_per_kwh }}.
+  {% if query.fuel_price_uah_per_l is none %}
+  Для генераторів вартість кВт·год не порахована — потрібна ціна пального.
+  {% endif %}
+</p>
+
+{% else %}
+<div class="empty">
+  <h2 style="margin-top:0">Під цей набір нічого не підходить</h2>
+  <p class="note" style="margin:0">
+    Перевірено {{ rejections.total }} варіантів
+    {%- if rejections.out_of_stock %}, з них {{ rejections.out_of_stock }} зараз немає в наявності{% endif %}.
+  </p>
+  {% if rejections.reasons %}
+  <ul>
+    {% for reason in rejections.reasons %}<li>Решта {{ reason }}.</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <p class="note">
+    Найчастіша причина — прилади з нагрівом: бойлер, чайник, індукційна плита.
+    Приберіть їх і подивіться, що буде з рештою.
+  </p>
+</div>
+{% endif %}
+
+<p class="note">
+  Рахуєте живлення ноутбука чи смартфона? <a href="/rozrakhunok">Підбір павербанка за моделлю</a>.
+</p>
+
+{% endif %}
+<script>
+  // Живой счётчик у свёрнутых категорий. Progressive enhancement:
+  // без JS цифры приходят с сервера и верны для входа по ссылке —
+  // скрипт лишь поддерживает их актуальными между сабмитами.
+  (function () {
+    document.querySelectorAll('.cat-group[data-group]').forEach(function (group) {
+      var badge = group.querySelector('[data-count-for="' + group.dataset.group + '"]');
+      if (!badge) return;
+      var boxes = group.querySelectorAll('input[type=checkbox]');
+      function refresh() {
+        var n = 0;
+        boxes.forEach(function (box) { if (box.checked) n++; });
+        badge.textContent = n;
+        badge.hidden = n === 0;
+      }
+      boxes.forEach(function (box) { box.addEventListener('change', refresh); });
+      refresh();
+    });
+  })();
+  </script>
+{% endblock %}

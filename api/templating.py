@@ -92,6 +92,14 @@ def format_kwh(value: float) -> str:
         return f"{round(value)}{NBSP}кВт·год"
     return f"{value:.1f}".replace(".", ",") + f"{NBSP}кВт·год"
 
+def format_wh_as_kwh(value: float) -> str:
+    """Ватт-години -> кіловат-години. Домен рахує у Вт·год (ADR-008).
+
+    Окремий фільтр, а не ділення в шаблоні: одиниці вимірювання —
+    робота форматування, а не вёрстки. format_kwh лишається для тих,
+    хто вже має кіловат-години (картка, економіка).
+    """
+    return format_kwh(value / 1000)
 
 def capacity_source_label(source: CapacitySource | None) -> str | None:
     """None = ёмкости нет вообще (генератор) — подписи тоже нет."""
@@ -150,6 +158,7 @@ def get_environment() -> Environment:
     env.filters["flag_label"] = flag_label
     env.filters["initials"] = brand_initials
     env.filters["pays_back"] = pays_back_within_life
+    env.filters["wh_as_kwh"] = format_wh_as_kwh
     return env
 
 
