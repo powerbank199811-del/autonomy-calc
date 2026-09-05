@@ -242,13 +242,13 @@
   power_w: 30
 
 - code: laptop_charger_65w_ac
-  name_uk: "Ноутбук (блок живлення 65Вт, через розетку)"
+  name_uk: "Ноутбук (стандартний блок живлення з вилкою)"
   category: "Комп'ютерна техніка"
   power_w: 65
   duty_cycle: 0.4
 
 - code: laptop_usb_c_pd_65w
-  name_uk: "Ноутбук (USB-C PD 65Вт, від павербанка)"
+  name_uk: "Ноутбук (заряджається кабелем USB-C, як телефон)"
   category: "Комп'ютерна техніка"
   power_w: 65
   duty_cycle: 0.4
