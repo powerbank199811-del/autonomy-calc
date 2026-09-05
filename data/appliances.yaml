@@ -89,8 +89,8 @@
 - code: led_strip_5m
   name_uk: "LED-стрічка 5м"
   category: "Освітлення"
-  power_w: 24
-
+  power_w: 24 
+  bus: dc_usb
 - code: incandescent_bulb_60w
   name_uk: "Лампа розжарювання 60 Вт"
   category: "Освітлення"
@@ -157,22 +157,22 @@
   name_uk: "Wi-Fi роутер (5V, бюджетний)"
   category: "Зв'язок та охорона"
   power_w: 5
-
+  bus: dc_usb
 - code: wifi_router_9v
   name_uk: "Wi-Fi роутер (9V, стандартний)"
   category: "Зв'язок та охорона"
   power_w: 9
-
+  bus: dc_usb
 - code: wifi_router_12v
   name_uk: "Wi-Fi роутер (12V, потужний)"
   category: "Зв'язок та охорона"
   power_w: 12
-
+  bus: dc_usb 
 - code: gpon_ont
   name_uk: "Оптичний термінал (GPON/ONT)"
   category: "Зв'язок та охорона"
   power_w: 5
-
+  bus: dc_usb
 - code: wifi_repeater
   name_uk: "Wi-Fi репітер"
   category: "Зв'язок та охорона"
@@ -202,21 +202,23 @@
   name_uk: "IP-камера"
   category: "Зв'язок та охорона"
   power_w: 5
-
+  bus: dc_usb
 - code: cctv_nvr_4ch
   name_uk: "Відеореєстратор, 4 канали"
   category: "Зв'язок та охорона"
   power_w: 15
-
+  bus: dc_usb
 - code: cctv_nvr_8ch
   name_uk: "Відеореєстратор, 8 каналів"
   category: "Зв'язок та охорона"
   power_w: 25
+  bus: dc_usb
 
 - code: alarm_panel
   name_uk: "Панель сигналізації"
   category: "Зв'язок та охорона"
   power_w: 5
+  bus: dc_usb
 
 - code: gate_motor
   name_uk: "Привід воріт / шлагбаума"

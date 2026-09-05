@@ -39,6 +39,8 @@ products:
   peak_power_w: 1600.0
   waveform: pure_sine
   cycle_life: 3000.0
+  dc_output_power_w: 126.0
+  switchover_ms: 30
 - product_id: station_bluetti_ac180
   name: Bluetti AC180
   brand: Bluetti
@@ -48,9 +50,11 @@ products:
   chemistry: lifepo4
   capacity_wh: 1152.0
   continuous_power_w: 1800.0
-  peak_power_w: 2700.0
+  peak_power_w: 1800.0       # Power Lifting 2700 Вт — лише резистивне навантаження
   waveform: pure_sine
   cycle_life: 3500.0
+  dc_output_power_w: 120.0
+  switchover_ms: 20
 - product_id: station_anker_a1761311
   name: Anker SOLIX C1000X
   brand: Anker
@@ -63,6 +67,8 @@ products:
   peak_power_w: 2400.0
   waveform: pure_sine
   cycle_life: 3000.0
+  dc_output_power_w: 120.0   # прикурювач
+  switchover_ms: 20
 - product_id: generator_hyundai_hhy_1050si
   name: Hyundai HHY 1050Si
   brand: Hyundai
@@ -98,6 +104,8 @@ products:
   continuous_power_w: 300.0
   waveform: pure_sine
   cycle_life: 3000.0
+  peak_power_w: 320.0        # erc.ua: номінал 300 Вт / пік 320 Вт — запасу на пуск немає
+  dc_output_power_w: 120.0   # DC12V 12,5В/10А
 - product_id: station_bluetti_ac180p
   name: Bluetti AC180P
   brand: Bluetti
@@ -107,9 +115,10 @@ products:
   chemistry: lifepo4
   capacity_wh: 1440.0
   continuous_power_w: 1800.0
-  peak_power_w: 2700.0
+  peak_power_w: 1800.0  
   waveform: pure_sine
   cycle_life: 3500.0
+  dc_output_power_w: 120.0
 - product_id: station_ecoflow_efdelta2max_eu
   name: EcoFlow DELTA 2 Max
   brand: EcoFlow
@@ -119,9 +128,11 @@ products:
   chemistry: lifepo4
   capacity_wh: 2048.0
   continuous_power_w: 2400.0
-  peak_power_w: 3100.0
+  peak_power_w: 4800.0       # surge, мануал EFD350 (120 В); EU-ревізія не підтверджена
   waveform: pure_sine
   cycle_life: 3000.0
+  dc_output_power_w: 126.0   # спільний ліміт прикурювача і DC5521, пряме застереження в мануалі
+  switchover_ms: 30
 - product_id: generator_konner_sohnen_ks_4000ie_s_ats
   name: Konner&Sohnen KS 4000iE S ATS
   brand: Konner&Sohnen
@@ -208,7 +219,7 @@ products:
   kind: station
   chemistry: lifepo4
   capacity_wh: 192.0
-  continuous_power_w: 220.0
+  dc_output_power_w: 220.0   # розетки 220 В немає, станція DC-only
 - product_id: station_bluetti_elite_100_v2
   name: Bluetti Elite 100 V2
   brand: Bluetti
@@ -219,6 +230,9 @@ products:
   capacity_wh: 1024.0
   continuous_power_w: 1800.0
   waveform: pure_sine
+  peak_power_w: 1800.0
+  cycle_life: 4000.0
+  switchover_ms: 10
 - product_id: station_allpowers_r600
   name: AllPowers R600
   brand: AllPowers
@@ -228,6 +242,11 @@ products:
   chemistry: lifepo4
   capacity_wh: 299.0
   continuous_power_w: 600.0
+  peak_power_w: 1200.0
+  waveform: pure_sine
+  cycle_life: 3500.0
+  dc_output_power_w: 120.0   # прикурювач 12V/10A; сумарна виробником не заявлена
+  switchover_ms: 10
 offers:
 - offer_id: powerbank_ugreen_pb720_25188_shop
   product_id: powerbank_ugreen_pb720_25188
