@@ -1,0 +1,2548 @@
+tariff=4.32  fuel=58.0
+
+коды профилей проверены по справочнику: 48 приборов
+
+======================================================================
+1. холодильник, 4 год   limit=5
+======================================================================
+{
+  "recommendations": [
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_choetech_cj2600q_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 16.8,
+        "can_cover_window": true,
+        "energy_margin": 3.197,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 7.667,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_choetech_cj2600q_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.219,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 4228.0
+      },
+      "price_uah": 18265.0,
+      "purchases": [
+        {
+          "brand": "Choetech",
+          "image_url": null,
+          "name": "Choetech CJ2600Q-V2",
+          "offer_id": "inv_choetech_cj2600q_shop",
+          "price_uah": 4969.0,
+          "role": "inverter",
+          "seller_label": "Rozetka"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 1,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_energenie_eg_pwc_ps1000_01_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 16.8,
+        "can_cover_window": true,
+        "energy_margin": 3.197,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 5.667,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_energenie_eg_pwc_ps1000_01_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.57,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 4466.4
+      },
+      "price_uah": 19295.0,
+      "purchases": [
+        {
+          "brand": "EnerGenie",
+          "image_url": null,
+          "name": "EnerGenie EG-PWC-PS1000-01",
+          "offer_id": "inv_energenie_eg_pwc_ps1000_01_shop",
+          "price_uah": 5999.0,
+          "role": "inverter",
+          "seller_label": "Vencon"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 2,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_solarverse_sv6048_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 67.1,
+        "can_cover_window": true,
+        "energy_margin": 15.786,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 39.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_solarverse_sv6048_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.765,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 18402.3
+      },
+      "price_uah": 79498.0,
+      "purchases": [
+        {
+          "brand": "Solis",
+          "image_url": null,
+          "name": "Solis S6-EH1P6K-L-PLUS",
+          "offer_id": "inv_solarverse_sv6048_shop",
+          "price_uah": 37499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 3,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun6k_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 67.1,
+        "can_cover_window": true,
+        "energy_margin": 15.786,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 39.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_deye_sun6k_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 7.259,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 19744.2
+      },
+      "price_uah": 85295.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-6K-SG05LP1-EU",
+          "offer_id": "inv_deye_sun6k_shop",
+          "price_uah": 43296.0,
+          "role": "inverter",
+          "seller_label": "ProSun"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 4,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_solarverse_sv6048_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 56.0,
+        "can_cover_window": true,
+        "energy_margin": 12.989,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 39.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_solarverse_sv6048_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 7.71,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 17476.4
+      },
+      "price_uah": 75498.0,
+      "purchases": [
+        {
+          "brand": "Solis",
+          "image_url": null,
+          "name": "Solis S6-EH1P6K-L-PLUS",
+          "offer_id": "inv_solarverse_sv6048_shop",
+          "price_uah": 37499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 5,
+      "solar_optional": false
+    }
+  ],
+  "rejected": null,
+  "requirement": {
+    "continuous_power_ac_w": 150.0,
+    "energy_ac_wh": 210.0,
+    "energy_dc_wh": 0.0,
+    "startup_power_w": 750.0,
+    "total_energy_wh": 210.0,
+    "window_hours": 4.0
+  }
+}
+
+======================================================================
+2. котел + свiтло + iнтернет, 8 год   limit=5
+======================================================================
+{
+  "recommendations": [
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 7.4,
+        "can_cover_window": false,
+        "energy_margin": -0.077,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 11.245,
+        "usable_energy_wh": 783.0
+      },
+      "offer_id": "station_bluetti_elite_100_v2_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 23.626,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 1566.0,
+        "payback_energy_kwh": 8564.6
+      },
+      "price_uah": 36999.0,
+      "purchases": [
+        {
+          "brand": "Bluetti",
+          "image_url": null,
+          "name": "Bluetti Elite 100 V2",
+          "offer_id": "station_bluetti_elite_100_v2_shop",
+          "price_uah": 36999.0,
+          "role": "primary",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 1,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 2.2,
+        "can_cover_window": false,
+        "energy_margin": -0.731,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 3.082,
+        "usable_energy_wh": 229.0
+      },
+      "offer_id": "station_allpowers_r600_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 38.675,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 400.75,
+        "payback_energy_kwh": 3587.7
+      },
+      "price_uah": 15499.0,
+      "purchases": [
+        {
+          "brand": "AllPowers",
+          "image_url": null,
+          "name": "AllPowers R600",
+          "offer_id": "station_allpowers_r600_shop",
+          "price_uah": 15499.0,
+          "role": "primary",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 2,
+      "solar_optional": null
+    }
+  ],
+  "rejected": null,
+  "requirement": {
+    "continuous_power_ac_w": 147.0,
+    "energy_ac_wh": 696.0,
+    "energy_dc_wh": 72.0,
+    "startup_power_w": 387.0,
+    "total_energy_wh": 768.0,
+    "window_hours": 8.0
+  }
+}
+
+======================================================================
+3. роутер + ноутбук DC, 4 год   limit=5
+======================================================================
+{
+  "recommendations": [
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_volt_sinus600_12v_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 26.6,
+        "can_cover_window": true,
+        "energy_margin": 5.645,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_volt_sinus600_12v_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 5.465,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 3715.7
+      },
+      "price_uah": 16052.0,
+      "purchases": [
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska Sinus 600 (12V, SKU 3SIP060012)",
+          "offer_id": "inv_volt_sinus600_12v_shop",
+          "price_uah": 2756.0,
+          "role": "inverter",
+          "seller_label": "Мотоблок.biz"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 1,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_choetech_cj2600q_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 26.6,
+        "can_cover_window": true,
+        "energy_margin": 5.645,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_choetech_cj2600q_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.219,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 4228.0
+      },
+      "price_uah": 18265.0,
+      "purchases": [
+        {
+          "brand": "Choetech",
+          "image_url": null,
+          "name": "Choetech CJ2600Q-V2",
+          "offer_id": "inv_choetech_cj2600q_shop",
+          "price_uah": 4969.0,
+          "role": "inverter",
+          "seller_label": "Rozetka"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 2,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_energenie_eg_pwc_ps1000_01_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 26.6,
+        "can_cover_window": true,
+        "energy_margin": 5.645,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_energenie_eg_pwc_ps1000_01_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.57,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 4466.4
+      },
+      "price_uah": 19295.0,
+      "purchases": [
+        {
+          "brand": "EnerGenie",
+          "image_url": null,
+          "name": "EnerGenie EG-PWC-PS1000-01",
+          "offer_id": "inv_energenie_eg_pwc_ps1000_01_shop",
+          "price_uah": 5999.0,
+          "role": "inverter",
+          "seller_label": "Vencon"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 3,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_solarverse_sv6048_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 106.3,
+        "can_cover_window": true,
+        "energy_margin": 25.578,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_solarverse_sv6048_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.765,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 18402.3
+      },
+      "price_uah": 79498.0,
+      "purchases": [
+        {
+          "brand": "Solis",
+          "image_url": null,
+          "name": "Solis S6-EH1P6K-L-PLUS",
+          "offer_id": "inv_solarverse_sv6048_shop",
+          "price_uah": 37499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 4,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun6k_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 106.3,
+        "can_cover_window": true,
+        "energy_margin": 25.578,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_deye_sun6k_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 7.259,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 19744.2
+      },
+      "price_uah": 85295.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-6K-SG05LP1-EU",
+          "offer_id": "inv_deye_sun6k_shop",
+          "price_uah": 43296.0,
+          "role": "inverter",
+          "seller_label": "ProSun"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 5,
+      "solar_optional": false
+    }
+  ],
+  "rejected": null,
+  "requirement": {
+    "continuous_power_ac_w": 0.0,
+    "energy_ac_wh": 0.0,
+    "energy_dc_wh": 140.0,
+    "startup_power_w": 0.0,
+    "total_energy_wh": 140.0,
+    "window_hours": 4.0
+  }
+}
+
+======================================================================
+1. холодильник, 4 год   limit=20
+======================================================================
+{
+  "recommendations": [
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_choetech_cj2600q_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 16.8,
+        "can_cover_window": true,
+        "energy_margin": 3.197,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 7.667,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_choetech_cj2600q_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.219,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 4228.0
+      },
+      "price_uah": 18265.0,
+      "purchases": [
+        {
+          "brand": "Choetech",
+          "image_url": null,
+          "name": "Choetech CJ2600Q-V2",
+          "offer_id": "inv_choetech_cj2600q_shop",
+          "price_uah": 4969.0,
+          "role": "inverter",
+          "seller_label": "Rozetka"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 1,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_energenie_eg_pwc_ps1000_01_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 16.8,
+        "can_cover_window": true,
+        "energy_margin": 3.197,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 5.667,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_energenie_eg_pwc_ps1000_01_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.57,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 4466.4
+      },
+      "price_uah": 19295.0,
+      "purchases": [
+        {
+          "brand": "EnerGenie",
+          "image_url": null,
+          "name": "EnerGenie EG-PWC-PS1000-01",
+          "offer_id": "inv_energenie_eg_pwc_ps1000_01_shop",
+          "price_uah": 5999.0,
+          "role": "inverter",
+          "seller_label": "Vencon"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 2,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_solarverse_sv6048_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 67.1,
+        "can_cover_window": true,
+        "energy_margin": 15.786,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 39.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_solarverse_sv6048_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.765,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 18402.3
+      },
+      "price_uah": 79498.0,
+      "purchases": [
+        {
+          "brand": "Solis",
+          "image_url": null,
+          "name": "Solis S6-EH1P6K-L-PLUS",
+          "offer_id": "inv_solarverse_sv6048_shop",
+          "price_uah": 37499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 3,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun6k_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 67.1,
+        "can_cover_window": true,
+        "energy_margin": 15.786,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 39.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_deye_sun6k_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 7.259,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 19744.2
+      },
+      "price_uah": 85295.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-6K-SG05LP1-EU",
+          "offer_id": "inv_deye_sun6k_shop",
+          "price_uah": 43296.0,
+          "role": "inverter",
+          "seller_label": "ProSun"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 4,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_solarverse_sv6048_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 56.0,
+        "can_cover_window": true,
+        "energy_margin": 12.989,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 39.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_solarverse_sv6048_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 7.71,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 17476.4
+      },
+      "price_uah": 75498.0,
+      "purchases": [
+        {
+          "brand": "Solis",
+          "image_url": null,
+          "name": "Solis S6-EH1P6K-L-PLUS",
+          "offer_id": "inv_solarverse_sv6048_shop",
+          "price_uah": 37499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 5,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun6k_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 56.0,
+        "can_cover_window": true,
+        "energy_margin": 12.989,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 39.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_deye_sun6k_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 8.302,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 18818.3
+      },
+      "price_uah": 81295.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-6K-SG05LP1-EU",
+          "offer_id": "inv_deye_sun6k_shop",
+          "price_uah": 43296.0,
+          "role": "inverter",
+          "seller_label": "ProSun"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 6,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_luxpower_sna12000_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 67.1,
+        "can_cover_window": true,
+        "energy_margin": 15.786,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 79.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_luxpower_sna12000_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 8.382,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 22800.5
+      },
+      "price_uah": 98498.0,
+      "purchases": [
+        {
+          "brand": "LuxPower",
+          "image_url": null,
+          "name": "LuxPower SNA-EU 12000 48V",
+          "offer_id": "inv_luxpower_sna12000_shop",
+          "price_uah": 56499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 7,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun5k_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 67.1,
+        "can_cover_window": true,
+        "energy_margin": 15.786,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 32.333,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_deye_sun5k_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 8.62,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 23447.9
+      },
+      "price_uah": 101295.05,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-5K-SG03LP1-EU",
+          "offer_id": "inv_deye_sun5k_shop",
+          "price_uah": 59296.05,
+          "role": "inverter",
+          "seller_label": "Епіцентр К"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 8,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_choetech_cj2600q_shop",
+        "bat_must_lp15_12100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 14.9,
+        "can_cover_window": true,
+        "energy_margin": 2.73,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 7.667,
+        "usable_energy_wh": 870.0
+      },
+      "offer_id": "kit__inv_choetech_cj2600q_shop__bat_must_lp15_12100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 9.207,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2610.0,
+        "payback_energy_kwh": 5562.3
+      },
+      "price_uah": 24029.0,
+      "purchases": [
+        {
+          "brand": "Choetech",
+          "image_url": null,
+          "name": "Choetech CJ2600Q-V2",
+          "offer_id": "inv_choetech_cj2600q_shop",
+          "price_uah": 4969.0,
+          "role": "inverter",
+          "seller_label": "Rozetka"
+        },
+        {
+          "brand": "Must",
+          "image_url": null,
+          "name": "Must LP15-12100 BT",
+          "offer_id": "bat_must_lp15_12100_shop",
+          "price_uah": 19060.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 9,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_energenie_eg_pwc_ps1000_01_shop",
+        "bat_must_lp15_12100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 14.9,
+        "can_cover_window": true,
+        "energy_margin": 2.73,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 5.667,
+        "usable_energy_wh": 870.0
+      },
+      "offer_id": "kit__inv_energenie_eg_pwc_ps1000_01_shop__bat_must_lp15_12100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 9.601,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2610.0,
+        "payback_energy_kwh": 5800.7
+      },
+      "price_uah": 25059.0,
+      "purchases": [
+        {
+          "brand": "EnerGenie",
+          "image_url": null,
+          "name": "EnerGenie EG-PWC-PS1000-01",
+          "offer_id": "inv_energenie_eg_pwc_ps1000_01_shop",
+          "price_uah": 5999.0,
+          "role": "inverter",
+          "seller_label": "Vencon"
+        },
+        {
+          "brand": "Must",
+          "image_url": null,
+          "name": "Must LP15-12100 BT",
+          "offer_id": "bat_must_lp15_12100_shop",
+          "price_uah": 19060.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 10,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_luxpower_sna12000_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 56.0,
+        "can_cover_window": true,
+        "energy_margin": 12.989,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 79.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_luxpower_sna12000_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 9.651,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 21874.5
+      },
+      "price_uah": 94498.0,
+      "purchases": [
+        {
+          "brand": "LuxPower",
+          "image_url": null,
+          "name": "LuxPower SNA-EU 12000 48V",
+          "offer_id": "inv_luxpower_sna12000_shop",
+          "price_uah": 56499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 11,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun5k_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 56.0,
+        "can_cover_window": true,
+        "energy_margin": 12.989,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 32.333,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_deye_sun5k_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 9.936,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 22522.0
+      },
+      "price_uah": 97295.05,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-5K-SG03LP1-EU",
+          "offer_id": "inv_deye_sun5k_shop",
+          "price_uah": 59296.05,
+          "role": "inverter",
+          "seller_label": "Епіцентр К"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 12,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun12k_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 67.1,
+        "can_cover_window": true,
+        "energy_margin": 15.786,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 79.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_deye_sun12k_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 14.297,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 38888.7
+      },
+      "price_uah": 167999.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-12K-SG04LP3-EU",
+          "offer_id": "inv_deye_sun12k_shop",
+          "price_uah": 126000.0,
+          "role": "inverter",
+          "seller_label": "OpticStore"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 13,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun12k_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 56.0,
+        "can_cover_window": true,
+        "energy_margin": 12.989,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": 79.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_deye_sun12k_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 16.748,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 37962.7
+      },
+      "price_uah": 163999.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-12K-SG04LP3-EU",
+          "offer_id": "inv_deye_sun12k_shop",
+          "price_uah": 126000.0,
+          "role": "inverter",
+          "seller_label": "OpticStore"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 14,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 18.9,
+        "can_cover_window": true,
+        "energy_margin": 3.721,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 11.0,
+        "usable_energy_wh": 1102.0
+      },
+      "offer_id": "station_bluetti_ac180p_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 22.81,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 1928.5,
+        "payback_energy_kwh": 10182.9
+      },
+      "price_uah": 43990.0,
+      "purchases": [
+        {
+          "brand": "Bluetti",
+          "image_url": null,
+          "name": "Bluetti AC180P",
+          "offer_id": "station_bluetti_ac180p_shop",
+          "price_uah": 43990.0,
+          "role": "primary",
+          "seller_label": "Bluetti Power"
+        }
+      ],
+      "rank_position": 15,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 13.4,
+        "can_cover_window": true,
+        "energy_margin": 2.357,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 11.0,
+        "usable_energy_wh": 783.0
+      },
+      "offer_id": "station_bluetti_elite_100_v2_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 23.626,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 1566.0,
+        "payback_energy_kwh": 8564.6
+      },
+      "price_uah": 36999.0,
+      "purchases": [
+        {
+          "brand": "Bluetti",
+          "image_url": null,
+          "name": "Bluetti Elite 100 V2",
+          "offer_id": "station_bluetti_elite_100_v2_shop",
+          "price_uah": 36999.0,
+          "role": "primary",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 16,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 396.0,
+        "can_cover_window": true,
+        "energy_margin": 121.449,
+        "flags": [
+          "fuel_limited"
+        ],
+        "power_margin": 23.0,
+        "usable_energy_wh": 28571.0
+      },
+      "offer_id": "generator_konner_sohnen_ks_4000ie_s_ats_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 36.76,
+        "fuel_opex_per_kwh_uah": 24.36,
+        "lifetime_energy_kwh": 4500.0,
+        "payback_energy_kwh": null
+      },
+      "price_uah": 55799.0,
+      "purchases": [
+        {
+          "brand": "Konner&Sohnen",
+          "image_url": null,
+          "name": "Konner&Sohnen KS 4000iE S ATS",
+          "offer_id": "generator_konner_sohnen_ks_4000ie_s_ats_shop",
+          "price_uah": 55799.0,
+          "role": "primary",
+          "seller_label": "БудМир"
+        }
+      ],
+      "rank_position": 17,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 195.9,
+        "can_cover_window": true,
+        "energy_margin": 47.98,
+        "flags": [
+          "fuel_limited"
+        ],
+        "power_margin": 19.0,
+        "usable_energy_wh": 11429.0
+      },
+      "offer_id": "generator_maxpeedingrods_mxr3500_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 38.421,
+        "fuel_opex_per_kwh_uah": 20.3,
+        "lifetime_energy_kwh": 1650.0,
+        "payback_energy_kwh": null
+      },
+      "price_uah": 29899.0,
+      "purchases": [
+        {
+          "brand": "MaXpeedingRods",
+          "image_url": null,
+          "name": "MaXpeedingRods MXR3500",
+          "offer_id": "generator_maxpeedingrods_mxr3500_shop",
+          "price_uah": 29899.0,
+          "role": "primary",
+          "seller_label": "Мотоблок.biz"
+        }
+      ],
+      "rank_position": 18,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 100.4,
+        "can_cover_window": true,
+        "energy_margin": 24.102,
+        "flags": [
+          "fuel_limited"
+        ],
+        "power_margin": 12.333,
+        "usable_energy_wh": 5857.0
+      },
+      "offer_id": "generator_dnipro_m_gx_20i_shop",
+      "ownership": null,
+      "price_uah": 24195.0,
+      "purchases": [
+        {
+          "brand": "Dnipro-M",
+          "image_url": null,
+          "name": "Dnipro-M GX-20I",
+          "offer_id": "generator_dnipro_m_gx_20i_shop",
+          "price_uah": 24195.0,
+          "role": "primary",
+          "seller_label": "Дніпро-М"
+        }
+      ],
+      "rank_position": 19,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 309.1,
+        "can_cover_window": true,
+        "energy_margin": 76.283,
+        "flags": [
+          "fuel_limited"
+        ],
+        "power_margin": 25.667,
+        "usable_energy_wh": 18033.0
+      },
+      "offer_id": "generator_kraftdele_kd698_shop",
+      "ownership": null,
+      "price_uah": 29142.0,
+      "purchases": [
+        {
+          "brand": "Kraft&Dele",
+          "image_url": null,
+          "name": "Kraft&Dele KD698",
+          "offer_id": "generator_kraftdele_kd698_shop",
+          "price_uah": 29142.0,
+          "role": "primary",
+          "seller_label": "Мотоблок.biz"
+        }
+      ],
+      "rank_position": 20,
+      "solar_optional": null
+    }
+  ],
+  "rejected": null,
+  "requirement": {
+    "continuous_power_ac_w": 150.0,
+    "energy_ac_wh": 210.0,
+    "energy_dc_wh": 0.0,
+    "startup_power_w": 750.0,
+    "total_energy_wh": 210.0,
+    "window_hours": 4.0
+  }
+}
+
+======================================================================
+2. котел + свiтло + iнтернет, 8 год   limit=20
+======================================================================
+{
+  "recommendations": [
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 7.4,
+        "can_cover_window": false,
+        "energy_margin": -0.077,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 11.245,
+        "usable_energy_wh": 783.0
+      },
+      "offer_id": "station_bluetti_elite_100_v2_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 23.626,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 1566.0,
+        "payback_energy_kwh": 8564.6
+      },
+      "price_uah": 36999.0,
+      "purchases": [
+        {
+          "brand": "Bluetti",
+          "image_url": null,
+          "name": "Bluetti Elite 100 V2",
+          "offer_id": "station_bluetti_elite_100_v2_shop",
+          "price_uah": 36999.0,
+          "role": "primary",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 1,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 2.2,
+        "can_cover_window": false,
+        "energy_margin": -0.731,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 3.082,
+        "usable_energy_wh": 229.0
+      },
+      "offer_id": "station_allpowers_r600_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 38.675,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 400.75,
+        "payback_energy_kwh": 3587.7
+      },
+      "price_uah": 15499.0,
+      "purchases": [
+        {
+          "brand": "AllPowers",
+          "image_url": null,
+          "name": "AllPowers R600",
+          "offer_id": "station_allpowers_r600_shop",
+          "price_uah": 15499.0,
+          "role": "primary",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 2,
+      "solar_optional": null
+    }
+  ],
+  "rejected": null,
+  "requirement": {
+    "continuous_power_ac_w": 147.0,
+    "energy_ac_wh": 696.0,
+    "energy_dc_wh": 72.0,
+    "startup_power_w": 387.0,
+    "total_energy_wh": 768.0,
+    "window_hours": 8.0
+  }
+}
+
+======================================================================
+3. роутер + ноутбук DC, 4 год   limit=20
+======================================================================
+{
+  "recommendations": [
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_volt_sinus600_12v_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 26.6,
+        "can_cover_window": true,
+        "energy_margin": 5.645,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_volt_sinus600_12v_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 5.465,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 3715.7
+      },
+      "price_uah": 16052.0,
+      "purchases": [
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska Sinus 600 (12V, SKU 3SIP060012)",
+          "offer_id": "inv_volt_sinus600_12v_shop",
+          "price_uah": 2756.0,
+          "role": "inverter",
+          "seller_label": "Мотоблок.biz"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 1,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_choetech_cj2600q_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 26.6,
+        "can_cover_window": true,
+        "energy_margin": 5.645,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_choetech_cj2600q_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.219,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 4228.0
+      },
+      "price_uah": 18265.0,
+      "purchases": [
+        {
+          "brand": "Choetech",
+          "image_url": null,
+          "name": "Choetech CJ2600Q-V2",
+          "offer_id": "inv_choetech_cj2600q_shop",
+          "price_uah": 4969.0,
+          "role": "inverter",
+          "seller_label": "Rozetka"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 2,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_energenie_eg_pwc_ps1000_01_shop",
+        "bat_volt_6akli10012_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 26.6,
+        "can_cover_window": true,
+        "energy_margin": 5.645,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 979.0
+      },
+      "offer_id": "kit__inv_energenie_eg_pwc_ps1000_01_shop__bat_volt_6akli10012_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.57,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2937.0,
+        "payback_energy_kwh": 4466.4
+      },
+      "price_uah": 19295.0,
+      "purchases": [
+        {
+          "brand": "EnerGenie",
+          "image_url": null,
+          "name": "EnerGenie EG-PWC-PS1000-01",
+          "offer_id": "inv_energenie_eg_pwc_ps1000_01_shop",
+          "price_uah": 5999.0,
+          "role": "inverter",
+          "seller_label": "Vencon"
+        },
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska LiFePO4 12.8V 100Ah",
+          "offer_id": "bat_volt_6akli10012_shop",
+          "price_uah": 13296.0,
+          "role": "battery",
+          "seller_label": "SmartMag"
+        }
+      ],
+      "rank_position": 3,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_solarverse_sv6048_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 106.3,
+        "can_cover_window": true,
+        "energy_margin": 25.578,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_solarverse_sv6048_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 6.765,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 18402.3
+      },
+      "price_uah": 79498.0,
+      "purchases": [
+        {
+          "brand": "Solis",
+          "image_url": null,
+          "name": "Solis S6-EH1P6K-L-PLUS",
+          "offer_id": "inv_solarverse_sv6048_shop",
+          "price_uah": 37499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 4,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun6k_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 106.3,
+        "can_cover_window": true,
+        "energy_margin": 25.578,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_deye_sun6k_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 7.259,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 19744.2
+      },
+      "price_uah": 85295.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-6K-SG05LP1-EU",
+          "offer_id": "inv_deye_sun6k_shop",
+          "price_uah": 43296.0,
+          "role": "inverter",
+          "seller_label": "ProSun"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 5,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_solarverse_sv6048_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 88.6,
+        "can_cover_window": true,
+        "energy_margin": 21.149,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_solarverse_sv6048_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 7.71,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 17476.4
+      },
+      "price_uah": 75498.0,
+      "purchases": [
+        {
+          "brand": "Solis",
+          "image_url": null,
+          "name": "Solis S6-EH1P6K-L-PLUS",
+          "offer_id": "inv_solarverse_sv6048_shop",
+          "price_uah": 37499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 6,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun6k_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 88.6,
+        "can_cover_window": true,
+        "energy_margin": 21.149,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_deye_sun6k_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 8.302,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 18818.3
+      },
+      "price_uah": 81295.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-6K-SG05LP1-EU",
+          "offer_id": "inv_deye_sun6k_shop",
+          "price_uah": 43296.0,
+          "role": "inverter",
+          "seller_label": "ProSun"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 7,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_volt_sinus600_12v_shop",
+        "bat_must_lp15_12100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 23.6,
+        "can_cover_window": true,
+        "energy_margin": 4.906,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 870.0
+      },
+      "offer_id": "kit__inv_volt_sinus600_12v_shop__bat_must_lp15_12100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 8.359,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2610.0,
+        "payback_energy_kwh": 5050.0
+      },
+      "price_uah": 21816.0,
+      "purchases": [
+        {
+          "brand": "Volt Polska",
+          "image_url": null,
+          "name": "Volt Polska Sinus 600 (12V, SKU 3SIP060012)",
+          "offer_id": "inv_volt_sinus600_12v_shop",
+          "price_uah": 2756.0,
+          "role": "inverter",
+          "seller_label": "Мотоблок.biz"
+        },
+        {
+          "brand": "Must",
+          "image_url": null,
+          "name": "Must LP15-12100 BT",
+          "offer_id": "bat_must_lp15_12100_shop",
+          "price_uah": 19060.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 8,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_luxpower_sna12000_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 106.3,
+        "can_cover_window": true,
+        "energy_margin": 25.578,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_luxpower_sna12000_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 8.382,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 22800.5
+      },
+      "price_uah": 98498.0,
+      "purchases": [
+        {
+          "brand": "LuxPower",
+          "image_url": null,
+          "name": "LuxPower SNA-EU 12000 48V",
+          "offer_id": "inv_luxpower_sna12000_shop",
+          "price_uah": 56499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 9,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun5k_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 106.3,
+        "can_cover_window": true,
+        "energy_margin": 25.578,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_deye_sun5k_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 8.62,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 23447.9
+      },
+      "price_uah": 101295.05,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-5K-SG03LP1-EU",
+          "offer_id": "inv_deye_sun5k_shop",
+          "price_uah": 59296.05,
+          "role": "inverter",
+          "seller_label": "Епіцентр К"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 10,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_choetech_cj2600q_shop",
+        "bat_must_lp15_12100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 23.6,
+        "can_cover_window": true,
+        "energy_margin": 4.906,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 870.0
+      },
+      "offer_id": "kit__inv_choetech_cj2600q_shop__bat_must_lp15_12100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 9.207,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2610.0,
+        "payback_energy_kwh": 5562.3
+      },
+      "price_uah": 24029.0,
+      "purchases": [
+        {
+          "brand": "Choetech",
+          "image_url": null,
+          "name": "Choetech CJ2600Q-V2",
+          "offer_id": "inv_choetech_cj2600q_shop",
+          "price_uah": 4969.0,
+          "role": "inverter",
+          "seller_label": "Rozetka"
+        },
+        {
+          "brand": "Must",
+          "image_url": null,
+          "name": "Must LP15-12100 BT",
+          "offer_id": "bat_must_lp15_12100_shop",
+          "price_uah": 19060.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 11,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_energenie_eg_pwc_ps1000_01_shop",
+        "bat_must_lp15_12100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 23.6,
+        "can_cover_window": true,
+        "energy_margin": 4.906,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 870.0
+      },
+      "offer_id": "kit__inv_energenie_eg_pwc_ps1000_01_shop__bat_must_lp15_12100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 9.601,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 2610.0,
+        "payback_energy_kwh": 5800.7
+      },
+      "price_uah": 25059.0,
+      "purchases": [
+        {
+          "brand": "EnerGenie",
+          "image_url": null,
+          "name": "EnerGenie EG-PWC-PS1000-01",
+          "offer_id": "inv_energenie_eg_pwc_ps1000_01_shop",
+          "price_uah": 5999.0,
+          "role": "inverter",
+          "seller_label": "Vencon"
+        },
+        {
+          "brand": "Must",
+          "image_url": null,
+          "name": "Must LP15-12100 BT",
+          "offer_id": "bat_must_lp15_12100_shop",
+          "price_uah": 19060.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 12,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_luxpower_sna12000_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 88.6,
+        "can_cover_window": true,
+        "energy_margin": 21.149,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_luxpower_sna12000_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 9.651,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 21874.5
+      },
+      "price_uah": 94498.0,
+      "purchases": [
+        {
+          "brand": "LuxPower",
+          "image_url": null,
+          "name": "LuxPower SNA-EU 12000 48V",
+          "offer_id": "inv_luxpower_sna12000_shop",
+          "price_uah": 56499.0,
+          "role": "inverter",
+          "seller_label": "Touch"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 13,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun5k_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 88.6,
+        "can_cover_window": true,
+        "energy_margin": 21.149,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_deye_sun5k_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 9.936,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 22522.0
+      },
+      "price_uah": 97295.05,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-5K-SG03LP1-EU",
+          "offer_id": "inv_deye_sun5k_shop",
+          "price_uah": 59296.05,
+          "role": "inverter",
+          "seller_label": "Епіцентр К"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 14,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun12k_shop",
+        "bat_deye_sef5proc_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 106.3,
+        "can_cover_window": true,
+        "energy_margin": 25.578,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3917.0
+      },
+      "offer_id": "kit__inv_deye_sun12k_shop__bat_deye_sef5proc_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 14.297,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 11751.0,
+        "payback_energy_kwh": 38888.7
+      },
+      "price_uah": 167999.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-12K-SG04LP3-EU",
+          "offer_id": "inv_deye_sun12k_shop",
+          "price_uah": 126000.0,
+          "role": "inverter",
+          "seller_label": "OpticStore"
+        },
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SE-F5 Pro-C",
+          "offer_id": "bat_deye_sef5proc_shop",
+          "price_uah": 41999.0,
+          "role": "battery",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 15,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": [
+        "inv_deye_sun12k_shop",
+        "bat_2e_lfp48100_shop"
+      ],
+      "fit": {
+        "autonomy_hours": 88.6,
+        "can_cover_window": true,
+        "energy_margin": 21.149,
+        "flags": [
+          "used_declared_derating",
+          "used_product_dod_override"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 3264.0
+      },
+      "offer_id": "kit__inv_deye_sun12k_shop__bat_2e_lfp48100_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 16.748,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 9792.0,
+        "payback_energy_kwh": 37962.7
+      },
+      "price_uah": 163999.0,
+      "purchases": [
+        {
+          "brand": "Deye",
+          "image_url": null,
+          "name": "Deye SUN-12K-SG04LP3-EU",
+          "offer_id": "inv_deye_sun12k_shop",
+          "price_uah": 126000.0,
+          "role": "inverter",
+          "seller_label": "OpticStore"
+        },
+        {
+          "brand": "2E",
+          "image_url": null,
+          "name": "2E LFP48100",
+          "offer_id": "bat_2e_lfp48100_shop",
+          "price_uah": 37999.0,
+          "role": "battery",
+          "seller_label": "MOYO"
+        }
+      ],
+      "rank_position": 16,
+      "solar_optional": false
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 29.9,
+        "can_cover_window": true,
+        "energy_margin": 6.475,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": 0.622,
+        "usable_energy_wh": 1102.0
+      },
+      "offer_id": "station_bluetti_ac180p_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 22.81,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 1928.5,
+        "payback_energy_kwh": 10182.9
+      },
+      "price_uah": 43990.0,
+      "purchases": [
+        {
+          "brand": "Bluetti",
+          "image_url": null,
+          "name": "Bluetti AC180P",
+          "offer_id": "station_bluetti_ac180p_shop",
+          "price_uah": 43990.0,
+          "role": "primary",
+          "seller_label": "Bluetti Power"
+        }
+      ],
+      "rank_position": 17,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 21.3,
+        "can_cover_window": true,
+        "energy_margin": 4.316,
+        "flags": [
+          "used_declared_derating"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 783.0
+      },
+      "offer_id": "station_bluetti_elite_100_v2_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 23.626,
+        "fuel_opex_per_kwh_uah": 0.0,
+        "lifetime_energy_kwh": 1566.0,
+        "payback_energy_kwh": 8564.6
+      },
+      "price_uah": 36999.0,
+      "purchases": [
+        {
+          "brand": "Bluetti",
+          "image_url": null,
+          "name": "Bluetti Elite 100 V2",
+          "offer_id": "station_bluetti_elite_100_v2_shop",
+          "price_uah": 36999.0,
+          "role": "primary",
+          "seller_label": "Rozetka"
+        }
+      ],
+      "rank_position": 18,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 396.0,
+        "can_cover_window": true,
+        "energy_margin": 192.878,
+        "flags": [
+          "fuel_limited"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 28571.0
+      },
+      "offer_id": "generator_konner_sohnen_ks_4000ie_s_ats_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 36.76,
+        "fuel_opex_per_kwh_uah": 24.36,
+        "lifetime_energy_kwh": 4500.0,
+        "payback_energy_kwh": null
+      },
+      "price_uah": 55799.0,
+      "purchases": [
+        {
+          "brand": "Konner&Sohnen",
+          "image_url": null,
+          "name": "Konner&Sohnen KS 4000iE S ATS",
+          "offer_id": "generator_konner_sohnen_ks_4000ie_s_ats_shop",
+          "price_uah": 55799.0,
+          "role": "primary",
+          "seller_label": "БудМир"
+        }
+      ],
+      "rank_position": 19,
+      "solar_optional": null
+    },
+    {
+      "capacity_source": null,
+      "component_offer_ids": null,
+      "fit": {
+        "autonomy_hours": 310.2,
+        "can_cover_window": true,
+        "energy_margin": 76.551,
+        "flags": [
+          "fuel_limited"
+        ],
+        "power_margin": -1.0,
+        "usable_energy_wh": 11429.0
+      },
+      "offer_id": "generator_maxpeedingrods_mxr3500_shop",
+      "ownership": {
+        "cheaper_than_grid": false,
+        "cost_per_kwh_uah": 38.421,
+        "fuel_opex_per_kwh_uah": 20.3,
+        "lifetime_energy_kwh": 1650.0,
+        "payback_energy_kwh": null
+      },
+      "price_uah": 29899.0,
+      "purchases": [
+        {
+          "brand": "MaXpeedingRods",
+          "image_url": null,
+          "name": "MaXpeedingRods MXR3500",
+          "offer_id": "generator_maxpeedingrods_mxr3500_shop",
+          "price_uah": 29899.0,
+          "role": "primary",
+          "seller_label": "Мотоблок.biz"
+        }
+      ],
+      "rank_position": 20,
+      "solar_optional": null
+    }
+  ],
+  "rejected": null,
+  "requirement": {
+    "continuous_power_ac_w": 0.0,
+    "energy_ac_wh": 0.0,
+    "energy_dc_wh": 140.0,
+    "startup_power_w": 0.0,
+    "total_energy_wh": 140.0,
+    "window_hours": 4.0
+  }
+}
+
