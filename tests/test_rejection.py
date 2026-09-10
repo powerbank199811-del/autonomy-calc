@@ -60,11 +60,14 @@ def test_out_of_stock_and_unfit_both_reported_independently(fridge: ApplianceSpe
     assert FitBlocker.INSUFFICIENT_CONTINUOUS_POWER in result[0].blockers
 
 
-def test_partial_coverage_is_not_a_rejection(fridge: ApplianceSpec) -> None:
-    """can_run=True, can_cover_window=False — это выдача, а не отказ."""
+def test_partial_coverage_reported_with_empty_blockers(fridge: ApplianceSpec) -> None:
+    """ADR-040: непокрывающий кандидат теперь отказ, но blockers пуст — второй блокер S7."""
     partial = _station("partial", capacity_wh=100)
     result = explain_rejections(_req(fridge, hours=8), [partial])
-    assert result == ()
+    assert len(result) == 1
+    assert result[0].offer_id == "partial"
+    assert result[0].out_of_stock is False
+    assert result[0].blockers == ()
 
 
 def test_fitting_in_stock_candidate_not_reported(fridge: ApplianceSpec) -> None:

@@ -49,15 +49,21 @@ def test_out_of_stock_excluded(fridge: ApplianceSpec) -> None:
     assert [r.offer_id for r in result] == ["available"]
 
 
-def test_full_coverage_beats_partial_even_if_pricier(fridge: ApplianceSpec) -> None:
+def test_partial_coverage_excluded_entirely(fridge: ApplianceSpec) -> None:
+    """ADR-040: can_run=True, can_cover_window=False больше не попадает в выдачу."""
     partial = _station("partial", price=8000, commission=0.15, capacity_wh=300)
     full = _station("full", price=25000, commission=0.05, capacity_wh=2000)
     result = select_recommendations(_req(fridge, hours=8), [partial, full])
-    assert result[0].offer_id == "full"
+    offer_ids = [r.offer_id for r in result]
+    assert offer_ids == ["full"]
     assert result[0].fit.can_cover_window is True
-    assert result[1].offer_id == "partial"
-    assert result[1].fit.can_run is True
-    assert result[1].fit.can_cover_window is False
+
+
+def test_partial_coverage_excluded_even_as_sole_candidate(fridge: ApplianceSpec) -> None:
+    """Инвариант из плана сессии: отсутствует при любом limit, даже единственным кандидатом."""
+    partial = _station("partial", price=8000, commission=0.15, capacity_wh=300)
+    result = select_recommendations(_req(fridge, hours=8), [partial], limit=20)
+    assert result == ()
 
 
 def test_commission_never_overrides_primary_ranking(fridge: ApplianceSpec) -> None:

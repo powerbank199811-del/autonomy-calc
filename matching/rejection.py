@@ -37,16 +37,21 @@ def explain_rejections(
     """Возвращает причину отказа для каждого кандидата, не прошедшего фильтр.
 
     Кандидат считается отказанным, если select_recommendations не включил бы
-    его в выдачу: нет на складе ИЛИ не прошёл evaluate_fit.can_run. Частичное
-    покрытие окна (can_run=True, can_cover_window=False) — не отказ, такой
-    кандидат в основной выдаче, просто ниже по рангу; сюда он не попадает.
+    его в выдачу: нет на складе, ИЛИ не прошёл evaluate_fit.can_run, ИЛИ
+    не покрывает запрошенное окно (can_cover_window=False) — с ADR-040
+    частичное покрытие больше не попадает в выдачу.
+
+    Для кандидата can_run=True, can_cover_window=False blockers будет
+    пустым кортежем: причины отказа в терминах core/fit.py у него нет,
+    он просто не набрал нужных часов. Известное ограничение, второй
+    блокер S7 наравне с FitBlocker — см. STATUS.md.
 
     Порядок совпадает с порядком входного candidates — функция не ранжирует.
     """
     reasons: list[RejectionReason] = []
     for candidate in candidates:
         fit = evaluate_fit(requirement, candidate.solution, policy)
-        if candidate.in_stock and fit.can_run:
+        if candidate.in_stock and fit.can_run and fit.can_cover_window:
             continue
         reasons.append(
             RejectionReason(

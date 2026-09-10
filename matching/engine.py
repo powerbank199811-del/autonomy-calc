@@ -11,8 +11,8 @@ from core.solution import SolutionKind
 from matching.candidate import Candidate
 from matching.recommendation import Recommendation
 
-#: (покрытие, размерность метрики, значение метрики, -комиссия). См. ADR-029.
-_SortKey = tuple[int, int, float, float]
+#: (размерность метрики, значение метрики, -комиссия). См. ADR-029.
+_SortKey = tuple[int, float, float]
 
 
 def _cost_key(candidate: Candidate, ownership: OwnershipCost | None) -> tuple[int, float]:
@@ -53,6 +53,8 @@ def select_recommendations(
         fit = evaluate_fit(requirement, candidate.solution, policy)
         if not fit.can_run:
             continue
+        if not fit.can_cover_window:
+            continue
 
         ownership: OwnershipCost | None = None
         if grid_tariff_uah_per_kwh is not None:
@@ -64,7 +66,6 @@ def select_recommendations(
 
         cost_dimension, cost_value = _cost_key(candidate, ownership)
         key: _SortKey = (
-            0 if fit.can_cover_window else 1,
             cost_dimension,
             cost_value,
             -candidate.commission_rate,
