@@ -46,17 +46,22 @@ def test_simple_product_has_single_primary_purchase() -> None:
 
 
 def test_kit_exposes_inverter_then_battery_in_order() -> None:
-    """Роль в ките — по ПОЗИЦИИ в component_offer_ids, не парсингом строки."""
+    """Роль в ките — по ПОЗИЦИИ в component_offer_ids, не парсингом строки.
+
+    Окно=1, limit=20 — см. обоснование в test_kit_recommendation_exposes_two_go_targets
+    (тот же профиль, та же причина).
+    """
     response = client.post(
         URL,
         json={
             "appliances": [{"code": "electric_boiler_80l_full_heat"}],
-            "autonomy_hours": 6,
+            "autonomy_hours": 1,
+            "limit": 20,
         },
     )
     body = response.json()
     kits = [r for r in body["recommendations"] if r["component_offer_ids"] is not None]
-    assert kits, "ожидался хотя бы один кит для мощной нагрузки"
+    assert kits, "ожидался хотя бы один кит для мощной нагрузки по мощности"
     kit = kits[0]
 
     assert len(kit["purchases"]) == 2

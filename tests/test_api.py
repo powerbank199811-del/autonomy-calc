@@ -67,11 +67,16 @@ def test_rejected_is_filled_when_nothing_fits() -> None:
     assert all(item["blockers"] or item["out_of_stock"] for item in body["rejected"])
 
 
-def test_partial_coverage_is_still_an_answer() -> None:
+def test_partial_coverage_is_rejected_not_shown() -> None:
     """Нагрузка, которую тянут по мощности, но не покрывают по энергии.
 
-    Такой кандидат остаётся в выдаче с can_cover_window=False, и диагностика
-    не запускается — граница между «не подходит» и «подходит хуже».
+    ADR-040: can_cover_window стал жёстким фильтром, не элементом сортировки.
+    Такой кандидат больше не остаётся в выдаче — исчезает как и can_run=False
+    (ADR-019 расширен). Диагностика (ADR-031) запускается, потому что выдача
+    пуста. Не ассертим на body["rejected"][i]["blockers"]: для этого класса
+    кандидатов blockers пуст и out_of_stock=False — explain_rejections пока
+    не различает «не хватило часов» как отдельную причину (блокер S7 №1,
+    STATUS.md). Ассерт на blockers закрепил бы этот дефект тестом.
     """
     response = client.post(
         URL,
@@ -81,9 +86,8 @@ def test_partial_coverage_is_still_an_answer() -> None:
         },
     )
     body = response.json()
-    assert body["recommendations"]
-    assert body["rejected"] is None
-    assert all(not r["fit"]["can_cover_window"] for r in body["recommendations"])
+    assert body["recommendations"] == []
+    assert body["rejected"]
 
 
 def test_commission_never_appears_in_response() -> None:
@@ -143,17 +147,27 @@ def test_appliances_endpoint_lists_reference() -> None:
 
 
 def test_kit_recommendation_exposes_two_go_targets() -> None:
-    """У кита component_offer_ids — две рабочие цели /go, не одна (ADR-035, ADR-037)."""
+    """У кита component_offer_ids — две рабочие цели /go, не одна (ADR-035, ADR-037).
+
+    Профиль намеренно тяжёлый по мощности (2000 Вт, требование чистого синуса) —
+    проверяет, что слабые инверторы отсеются по can_run, а не просто отсутствуют
+    в каталоге. Окно — 1 час, не 6: кит физически ограничен одной АКБ, потолок
+    автономности на этой нагрузке ~1.5-1.8ч (см. STATUS.md); 6 часов не пройдёт
+    ни один кит в каталоге в принципе. limit=20, не дефолт: на 1 часе выдачу
+    также заполняют генераторы дешевле кита, и без явного лимита кит рискует
+    выпасть за позицию (тот же приём — в test_simple_product_has_no_component_offer_ids).
+    """
     response = client.post(
         URL,
         json={
             "appliances": [{"code": "electric_boiler_80l_full_heat"}],
-            "autonomy_hours": 6,
+            "autonomy_hours": 1,
+            "limit": 20,
         },
     )
     body = response.json()
     kits = [r for r in body["recommendations"] if r["offer_id"].startswith("kit__")]
-    assert kits, "ожидался хотя бы один кит для мощной нагрузки"
+    assert kits, "ожидался хотя бы один кит для мощной нагрузки по мощности"
     kit = kits[0]
     assert kit["component_offer_ids"] is not None
     assert len(kit["component_offer_ids"]) == 2
