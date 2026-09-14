@@ -2,7 +2,7 @@
 
 Повний файл: `data/appliances.yaml` — YAML з полями
 `code`, `name_uk`, `category`, `power_w`, `duty_cycle`, `startup_factor`,
-`power_factor`, `requires_pure_sine`, `bus`, `max_switchover_ms`.
+`power_factor`, `requires_pure_sine`, `bus`.
 
 Тут — лише code, назва, потужність та ознаки `pure_sine` / `dc_usb`,
 щоб бачити, які прилади вже заведені, не читаючи повний YAML щосесії.
@@ -12,7 +12,7 @@
 
 **Актуальність списку не гарантована.** Якщо для сесії важливе точне
 число приладів або повні параметри (duty_cycle, startup_factor,
-power_factor, max_switchover_ms) — запросити `python scripts/status.py`
+power_factor) — запросити `python scripts/status.py`
 або прочитати файл.
 
 ---
@@ -59,7 +59,6 @@ trigger-кабель USB-C→9V/12V. У картці — текстове поп
 
 ## Опалення та вода
 - gas_boiler: Газовий котел (автоматика + насос), 120W, pure_sine
-  (max_switchover_ms: 10 — єдиний прилад із цією вимогою в довіднику)
 - electric_boiler_80l_maintain: Бойлер 80л (підтримка температури), 2000W
 - electric_boiler_80l_full_heat: Бойлер 80л (повний нагрів з холодної), 2000W
 - warm_floor_mat: Мат теплої підлоги (невеликий), 150W

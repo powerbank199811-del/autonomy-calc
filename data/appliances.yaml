@@ -105,7 +105,6 @@
   startup_factor: 3
   power_factor: 0.6
   requires_pure_sine: true
-  max_switchover_ms: 10
 
 - code: electric_boiler_80l_maintain
   name_uk: "Бойлер 80л (підтримка температури)"

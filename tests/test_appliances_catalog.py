@@ -42,11 +42,20 @@ def test_fridge_medium_matches_golden_scenario() -> None:
     assert fridge.spec.requires_pure_sine is True
 
 
-def test_gas_boiler_has_switchover_requirement() -> None:
-    """Газовый котёл требует быстрого времени переключения — критично для UPS."""
+def test_no_appliance_declares_switchover_requirement() -> None:
+    """Рамка ADR-042: справочник не требует времени переключения ни у одного прибора.
+
+    Продукт отвечает на плановое отключение по графику, а не на бесперебойность.
+    Заполненное max_switchover_ms снова включит ветку core/fit.py:139-142,
+    которая отбрасывает каждое решение с незаполненным switchover_ms —
+    это все 10 инверторов и 15 продуктов из 21.
+    """
     catalog = load_appliances_catalog(DATA_PATH)
-    boiler = next(e for e in catalog if e.code == "gas_boiler")
-    assert boiler.spec.max_switchover_ms == 10
+    offenders = [e.code for e in catalog if e.spec.max_switchover_ms is not None]
+    assert not offenders, (
+        f"ADR-042: max_switchover_ms не заполняется в справочнике, "
+        f"найдено у {sorted(offenders)}"
+    )   
 
 
 def test_dc_bus_items_are_marked() -> None:
