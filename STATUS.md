@@ -92,3 +92,56 @@ vs отдельное решение для механизма 1 перед на
 
 git: origin/main = 62698a5 (подтверждено git fetch, три коммита
 раздельные, дерево чистое).
+
+## БЛОКЕРЫ РЕЛИЗА 30.09
+1. ЗАКРЫТО (ADR-042) — рамка автономности: по графику отключений,
+   не бесперебойность. max_switchover_ms убран из appliances.yaml,
+   справочник не требует времени переключения ни у одного прибора
+   (тест test_no_appliance_declares_switchover_requirement).
+   core/fit.py не менялся — требование теперь всегда None, ветка
+   SWITCHOVER_TOO_SLOW недостижима, но остаётся в коде и под тестом.
+2. Реализация ADR-039/040/041 (партиционирование + Парето)  — не начата
+3. Дыры каталога: станция 400-800Wh, PD 65W                 — ждёт данных владельца
+4. Текст при пустой выдаче                                  — внутри блокера 2
+5. S7 деплой                                                — зависит от 2-4
+
+ЗА РЕЛИЗ (не блокеры): механизм 1 LCOE, FitBlocker в core/,
+breakdown (номер ADR — 040 в SESSIONS.md устарел, занят
+can_cover_window; реальный номер под breakdown ещё не зарезервирован,
+проверить grep -c перед следующей сессией ADR), S9/S10 гаджеты,
+дизайн, 6 старых красных тестов.
+
+## Тесты (baseline на конец сессии)
+5 failed, 192 passed. Состав:
+- test_catalog_covers_every_solvable_kind[router_laptop_dc_4h] —
+  нехватка PD-повербанка 65 Вт, не эта сессия
+- test_cheapest_covering_solution_is_shown[pc_monitor_router_lamp_8h__ranking] —
+  matching/engine.py:_cost_key, ADR-039/041
+- test_real_components_load_and_validate — assert 10 == 9, хардкод
+  размера каталога (ошибка №5), не эта сессия
+- test_real_kits_produce_compatible_pairs — assert 27 == 24, тот же хардкод
+- test_lifan_generator_flagged_as_estimated — StopIteration,
+  generator_lifan_lf2800i_2 не находится по product_id в products.yaml,
+  не разбиралось в этой сессии, причина не установлена
+
+## Сессия switchover (эта сессия)
+ADR-042 принят и записан в README.md. Удалено единственное вхождение
+max_switchover_ms в data/appliances.yaml (gas_boiler) и три упоминания
+в data/APPLIANCES_COMPACT.md. Тест на требование заменён на тест
+свойства (ни один прибор не заполняет поле).
+
+Коммиты (git fetch подтверждён, origin/main = 35d7abe):
+- 43dc1c5 data: убрано требование max_switchover_ms у gas_boiler (ADR-042)
+- f8b7f50 adr: ADR-042 рамка продукта — автономность по графику отключений
+- 35d7abe fix: ADR-042 — формат заголовка и пробелы, потерянные при вставке
+
+Отклонение от плана сессии: порядок коммитов вышел не «сначала ADR,
+потом данные», как планировалось, а «данные → ADR → фикс ADR» —
+первый коммит ADR не прошёл (README не был изменён на момент commit,
+git ничего не закоммитил, ошибка обнаружилась только на grep -c
+после второго коммита). Не переписывалось в историю, зависимость
+между коммитами была организационная, не техническая.
+
+Первое, что проверить в следующей сессии: python scripts/status.py
+заново — appliances.yaml менялся, offers count не затронут, но
+проверить явно, а не по памяти.
