@@ -50,7 +50,7 @@ def main() -> None:
         autonomy_hours=HOURS,
         grid_tariff_uah_per_kwh=TARIFF,
         fuel_price_uah_per_l=FUEL_PRICE,
-        limit=LIMIT,
+        limit_per_kind=LIMIT,
     )
     profile = _build_profile(request)
     requirement = calculate_requirement(
@@ -102,7 +102,7 @@ def main() -> None:
         candidates,
         grid_tariff_uah_per_kwh=TARIFF,
         fuel_price_uah_per_l=FUEL_PRICE,
-        limit=LIMIT,
+        limit_per_kind=LIMIT,
     )
     positions = {rec.offer_id: rec.rank_position for rec in ranked}
 

@@ -34,11 +34,11 @@ def select_recommendations(
     grid_tariff_uah_per_kwh: float | None = None,
     fuel_price_uah_per_l: float | None = None,
     policy: CalculationPolicy = DEFAULT_POLICY,
-    limit: int = 5,
+    limit_per_kind: int = 5,
 ) -> tuple[Recommendation, ...]:
     """Фильтрует и ранжирует кандидатов под конкретную потребность."""
-    if limit < 1:
-        raise ValueError("limit должен быть >= 1")
+    if limit_per_kind < 1:
+        raise ValueError("limit_per_kind должен быть >= 1")
     if grid_tariff_uah_per_kwh is not None and grid_tariff_uah_per_kwh <= 0:
         raise ValueError("grid_tariff_uah_per_kwh должен быть > 0 или None")
     if fuel_price_uah_per_l is not None and fuel_price_uah_per_l <= 0:
@@ -83,7 +83,7 @@ def select_recommendations(
             rank_position=position,
             component_offer_ids=candidate.component_offer_ids,
         )
-        for position, (_, candidate, fit, ownership) in enumerate(scored[:limit], start=1)
+        for position, (_, candidate, fit, ownership) in enumerate(scored[:limit_per_kind], start=1)
     )
 
 

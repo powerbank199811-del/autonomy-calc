@@ -214,7 +214,7 @@ def _calculate(request: RecommendationRequest) -> RecommendationResponse:
             candidates,
             grid_tariff_uah_per_kwh=request.grid_tariff_uah_per_kwh,
             fuel_price_uah_per_l=request.fuel_price_uah_per_l,
-            limit=request.limit,
+            limit_per_kind=request.limit_per_kind,
         )
     except DomainError as error:
         raise HTTPException(status_code=422, detail=str(error)) from error

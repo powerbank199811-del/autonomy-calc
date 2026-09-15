@@ -127,7 +127,7 @@ def _cheapest_covering(
     не дефект ранжирования).
     """
     request = RecommendationRequest.model_validate(
-        {"appliances": appliances, "autonomy_hours": hours, "limit": LIMIT}
+        {"appliances": appliances, "autonomy_hours": hours, "limit_per_kind": LIMIT}
     )
     profile = _build_profile(request)
     requirement = calculate_requirement(
@@ -161,7 +161,7 @@ def _print_profile(
     payload: dict[str, object] = {
         "appliances": appliances,
         "autonomy_hours": hours,
-        "limit": LIMIT,
+        "limit_per_kind": LIMIT,
     }
     if tariff is not None:
         payload["grid_tariff_uah_per_kwh"] = tariff

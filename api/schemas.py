@@ -33,7 +33,7 @@ class RecommendationRequest(BaseModel):
     autonomy_hours: float = Field(gt=0, le=72)
     grid_tariff_uah_per_kwh: float | None = Field(default=None, gt=0)
     fuel_price_uah_per_l: float | None = Field(default=None, gt=0)
-    limit: int = Field(default=5, ge=1, le=20)
+    limit_per_kind: int = Field(default=5, ge=1, le=20)
 
 
 class RequirementOut(BaseModel):

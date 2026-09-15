@@ -218,7 +218,7 @@ def test_real_recommendations_render_without_undefined_errors() -> None:
             "appliances": [{"code": "fridge_medium", "hours": 4}],
             "autonomy_hours": 4,
             "grid_tariff_uah_per_kwh": 4.32,
-            "limit": 5,
+            "limit_per_kind": 5,
         },
     )
     assert response.status_code == 200

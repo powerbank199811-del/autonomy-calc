@@ -90,7 +90,7 @@ def main() -> int:
         requirement,
         load_all_candidates(),
         grid_tariff_uah_per_kwh=args.tariff,
-        limit=args.limit,
+        limit_per_kind=args.limit,
     )
     index = load_display_index()
     cards = "\n".join(

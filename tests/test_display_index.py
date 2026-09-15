@@ -30,7 +30,7 @@ def test_simple_product_has_single_primary_purchase() -> None:
         json={
             "appliances": [{"code": "wifi_router_9v"}],
             "autonomy_hours": 4,
-            "limit": 20,
+            "limit_per_kind": 20,
         },
     )
     body = response.json()
@@ -56,7 +56,7 @@ def test_kit_exposes_inverter_then_battery_in_order() -> None:
         json={
             "appliances": [{"code": "electric_boiler_80l_full_heat"}],
             "autonomy_hours": 1,
-            "limit": 20,
+            "limit_per_kind": 20,
         },
     )
     body = response.json()
@@ -129,7 +129,7 @@ def test_seller_label_is_human_readable_not_raw_domain() -> None:
         json={
             "appliances": [{"code": "fridge_medium"}, {"code": "wifi_router_9v"}],
             "autonomy_hours": 6,
-            "limit": 20,
+            "limit_per_kind": 20,
         },
     )
     body = response.json()

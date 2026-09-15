@@ -58,7 +58,7 @@ def run_profile(title: str, items: list[tuple[str, int]], hours: float, limit: i
         autonomy_hours=hours,
         grid_tariff_uah_per_kwh=GRID_TARIFF_UAH_PER_KWH,
         fuel_price_uah_per_l=FUEL_PRICE_UAH_PER_L,
-        limit=limit,
+        limit_per_kind=limit,
     )
     response = _calculate(request)
     payload: dict[str, Any] = response.model_dump(mode="json")

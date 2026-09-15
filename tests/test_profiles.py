@@ -126,7 +126,7 @@ def test_catalog_covers_every_solvable_kind(
 ) -> None:
     response = client.post(
         URL,
-        json={"appliances": appliances, "autonomy_hours": hours, "limit": LIMIT},
+        json={"appliances": appliances, "autonomy_hours": hours, "limit_per_kind": LIMIT},
     )
     body = response.json()
     present = _kinds_present(body["recommendations"])
@@ -153,7 +153,7 @@ def _cheapest_covering_offer_id(
     payload: dict[str, object] = {
         "appliances": appliances,
         "autonomy_hours": hours,
-        "limit": LIMIT,
+        "limit_per_kind": LIMIT,
     }
     if tariff is not None:
         payload["grid_tariff_uah_per_kwh"] = tariff

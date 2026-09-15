@@ -62,7 +62,7 @@ def test_partial_coverage_excluded_entirely(fridge: ApplianceSpec) -> None:
 def test_partial_coverage_excluded_even_as_sole_candidate(fridge: ApplianceSpec) -> None:
     """Инвариант из плана сессии: отсутствует при любом limit, даже единственным кандидатом."""
     partial = _station("partial", price=8000, commission=0.15, capacity_wh=300)
-    result = select_recommendations(_req(fridge, hours=8), [partial], limit=20)
+    result = select_recommendations(_req(fridge, hours=8), [partial], limit_per_kind=20)
     assert result == ()
 
 
@@ -104,7 +104,7 @@ def test_recommendation_never_exposes_commission(fridge: ApplianceSpec) -> None:
 
 def test_limit_truncates(fridge: ApplianceSpec) -> None:
     candidates = [_station(f"c{i}", price=10000 + i * 100, commission=0.1) for i in range(10)]
-    result = select_recommendations(_req(fridge), candidates, limit=3)
+    result = select_recommendations(_req(fridge), candidates, limit_per_kind=3)
     assert len(result) == 3
 
 
