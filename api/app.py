@@ -346,7 +346,9 @@ def index(
         )
         context["recommendations"] = response.recommendations
         context["requirement"] = response.requirement
-        context["rejections"] = summarize_rejections(response.rejected or [])
+        context["rejections"] = summarize_rejections(
+            response.rejected or [], response.requirement.window_hours
+        )
         context["profile_text"] = _profile_text(query, by_code)
 
     html = get_environment().get_template("index.html").render(**context)
