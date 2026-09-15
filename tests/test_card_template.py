@@ -12,6 +12,7 @@ in_stock тут не фигурирует и фигурировать не мо�
 """
 
 import pytest
+from core.solution import SolutionKind
 from fastapi.testclient import TestClient
 
 from api.app import app
@@ -64,6 +65,7 @@ def _purchase(
 def _simple(**kwargs: object) -> RecommendationOut:
     defaults: dict[str, object] = {
         "offer_id": "offer_a",
+        "kind": SolutionKind.STATION,
         "rank_position": 1,
         "price_uah": 12499.0,
         "fit": _fit(),
@@ -77,6 +79,7 @@ def _simple(**kwargs: object) -> RecommendationOut:
 def _kit() -> RecommendationOut:
     return RecommendationOut(
         offer_id="kit__inv_1__bat_1",
+        kind=SolutionKind.INVERTER_BATTERY,
         rank_position=2,
         price_uah=31000.0,
         fit=_fit(),

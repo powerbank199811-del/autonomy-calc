@@ -103,7 +103,11 @@ def test_recommendation_never_exposes_commission(fridge: ApplianceSpec) -> None:
 
 
 def test_limit_truncates(fridge: ApplianceSpec) -> None:
-    candidates = [_station(f"c{i}", price=10000 + i * 100, commission=0.1) for i in range(10)]
+    """limit_per_kind режет партицию даже на честном трейд-оффе, без доминирования."""
+    candidates = [
+        _station(f"c{i}", price=10000 + i * 5000, capacity_wh=1000 + i * 1000, commission=0.1)
+        for i in range(4)
+    ]
     result = select_recommendations(_req(fridge), candidates, limit_per_kind=3)
     assert len(result) == 3
 
@@ -115,9 +119,12 @@ def test_empty_when_nothing_fits(fridge: ApplianceSpec) -> None:
 
 
 def test_rank_position_is_sequential_from_one(fridge: ApplianceSpec) -> None:
-    candidates = [_station(f"c{i}", price=10000 + i * 1000, commission=0.1) for i in range(4)]
+    candidates = [
+        _station(f"c{i}", price=10000 + i * 5000, capacity_wh=1000 + i * 1000, commission=0.1)
+        for i in range(4)
+    ]
     result = select_recommendations(_req(fridge), candidates)
-    assert [r.rank_position for r in result] == [1, 2, 3, 4]
+    assert [r.rank_position for r in result] == list(range(1, len(result) + 1))
 
 
 def test_generator_needs_expected_lifetime_for_ownership(fridge: ApplianceSpec) -> None:
@@ -206,9 +213,14 @@ def test_candidate_without_economics_ranks_below_one_with_it(fridge: ApplianceSp
 
 
 def test_without_tariff_all_candidates_share_one_dimension(fridge: ApplianceSpec) -> None:
-    """Без тарифа экономики нет ни у кого — сравнение снова однородное, по цене."""
-    cheap = _station_without_cycle_life("cheap", price=9000, capacity_wh=2000)
-    pricey = _station("pricey", price=30000, commission=0.0, capacity_wh=2000)
+    """Без тарифа экономики нет ни у кого — сравнение по одной размерности.
+
+    capacity_wh разная намеренно: при равной ёмкости (равных часах)
+    дешёвый кандидат доминировал бы дорогого по Парето (ADR-041), и
+    тест перестал бы проверять то, что заявлено в названии.
+    """
+    cheap = _station_without_cycle_life("cheap", price=9000, capacity_wh=1000)
+    pricey = _station("pricey", price=30000, commission=0.0, capacity_wh=3000)
 
     result = select_recommendations(_req(fridge), [cheap, pricey])
 

@@ -1,4 +1,4 @@
-"""Движок подбора: жёсткие фильтры + ранжирование."""
+"""Движок подбора: жёсткие фильтры + партиционирование по типу + ранжирование."""
 
 from collections.abc import Sequence
 
@@ -9,10 +9,12 @@ from core.policy import DEFAULT_POLICY, CalculationPolicy
 from core.requirement import EnergyRequirement
 from core.solution import SolutionKind
 from matching.candidate import Candidate
+from matching.pareto import compress_frontier, pareto_frontier
 from matching.recommendation import Recommendation
 
 #: (размерность метрики, значение метрики, -комиссия). См. ADR-029.
 _SortKey = tuple[int, float, float]
+_Row = tuple[_SortKey, Candidate, SolutionFit, OwnershipCost | None]
 
 
 def _cost_key(candidate: Candidate, ownership: OwnershipCost | None) -> tuple[int, float]:
@@ -34,9 +36,16 @@ def select_recommendations(
     grid_tariff_uah_per_kwh: float | None = None,
     fuel_price_uah_per_l: float | None = None,
     policy: CalculationPolicy = DEFAULT_POLICY,
-    limit_per_kind: int = 5,
+    limit_per_kind: int = 3,
 ) -> tuple[Recommendation, ...]:
-    """Фильтрует и ранжирует кандидатов под конкретную потребность."""
+    """Фильтрует, партиционирует по типу (ADR-039) и ранжирует кандидатов.
+
+    Конвейер: фильтры -> группировка по kind -> внутри kind лицо по
+    _cost_key (ADR-018/029/040, без изменений) -> граница Парето среди
+    остальных, лицо участвует как доминатор (ADR-041) -> сжатие >4 -> 3
+    -> срез limit_per_kind -> слияние всех kind -> финальная сортировка
+    по _cost_key (общий порядок для rank_position).
+    """
     if limit_per_kind < 1:
         raise ValueError("limit_per_kind должен быть >= 1")
     if grid_tariff_uah_per_kwh is not None and grid_tariff_uah_per_kwh <= 0:
@@ -44,7 +53,7 @@ def select_recommendations(
     if fuel_price_uah_per_l is not None and fuel_price_uah_per_l <= 0:
         raise ValueError("fuel_price_uah_per_l должен быть > 0 или None")
 
-    scored: list[tuple[_SortKey, Candidate, SolutionFit, OwnershipCost | None]] = []
+    scored: list[_Row] = []
 
     for candidate in candidates:
         if not candidate.in_stock:
@@ -72,7 +81,21 @@ def select_recommendations(
         )
         scored.append((key, candidate, fit, ownership))
 
-    scored.sort(key=lambda row: row[0])
+    by_kind: dict[SolutionKind, list[_Row]] = {}
+    for row in scored:
+        by_kind.setdefault(row[1].solution.kind, []).append(row)
+
+    survivors: list[_Row] = []
+    for kind_rows in by_kind.values():
+        kind_rows.sort(key=lambda row: row[0])
+        face, *others = kind_rows
+        frontier = pareto_frontier(others, face)
+        compressed = compress_frontier(frontier)
+        group = [face, *compressed]
+        group.sort(key=lambda row: row[0])
+        survivors.extend(group[:limit_per_kind])
+
+    survivors.sort(key=lambda row: row[0])
 
     return tuple(
         Recommendation(
@@ -81,9 +104,10 @@ def select_recommendations(
             ownership=ownership,
             price_uah=candidate.price_uah,
             rank_position=position,
+            kind=candidate.solution.kind,
             component_offer_ids=candidate.component_offer_ids,
         )
-        for position, (_, candidate, fit, ownership) in enumerate(scored[:limit_per_kind], start=1)
+        for position, (_, candidate, fit, ownership) in enumerate(survivors, start=1)
     )
 
 

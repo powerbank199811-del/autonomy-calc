@@ -158,6 +158,7 @@ def _recommendation_out(
     purchases, capacity_source, solar_optional = _purchases(recommendation, index)
     return RecommendationOut(
         offer_id=recommendation.offer_id,
+        kind=recommendation.kind,
         rank_position=recommendation.rank_position,
         price_uah=recommendation.price_uah,
         component_offer_ids=(

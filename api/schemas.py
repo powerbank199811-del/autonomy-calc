@@ -16,6 +16,7 @@ from pydantic import BaseModel, Field
 
 from catalog.products import CapacitySource
 from core.fit import FitBlocker, FitFlag
+from core.solution import SolutionKind
 
 
 class ApplianceSelection(BaseModel):
@@ -33,7 +34,7 @@ class RecommendationRequest(BaseModel):
     autonomy_hours: float = Field(gt=0, le=72)
     grid_tariff_uah_per_kwh: float | None = Field(default=None, gt=0)
     fuel_price_uah_per_l: float | None = Field(default=None, gt=0)
-    limit_per_kind: int = Field(default=5, ge=1, le=20)
+    limit_per_kind: int = Field(default=3, ge=1, le=20)
 
 
 class RequirementOut(BaseModel):
@@ -107,6 +108,7 @@ class RecommendationOut(BaseModel):
     """
 
     offer_id: str
+    kind: SolutionKind
     rank_position: int
     price_uah: float
     fit: FitOut
